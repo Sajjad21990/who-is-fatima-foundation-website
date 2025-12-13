@@ -16,7 +16,7 @@ export function About() {
 
             {/* Vision & Mission */}
             <section className="py-20 bg-[#F1FAEE]">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid md:grid-cols-2 gap-12">
                         <div className="bg-white p-8 rounded-2xl shadow-sm">
                             <div className="w-12 h-12 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-6">
@@ -53,7 +53,7 @@ export function About() {
 
             {/* Our Team */}
             <section className="py-20 bg-white">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center mb-16">
                         <span className="text-[#E63946] font-medium">Dedicated People</span>
                         <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Meet Our Team</h2>

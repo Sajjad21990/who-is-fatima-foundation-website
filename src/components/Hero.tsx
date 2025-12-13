@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export function Hero() {
   return (
     <section id="home" className="relative bg-[#F1FAEE] overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-20 py-20 lg:py-32">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8">

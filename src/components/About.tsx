@@ -28,7 +28,7 @@ export function About() {
 
   return (
     <section id="about" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-[1440px] mx-auto px-20">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-6">

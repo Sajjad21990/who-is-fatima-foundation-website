@@ -14,7 +14,7 @@ export function Contact() {
             />
             {/* Hero */}
             <section className="py-20 bg-[#1D3557] text-white text-center">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <h1 className="text-4xl lg:text-5xl font-bold mb-6">Contact Us</h1>
                     <p className="text-xl text-white/80 max-w-2xl mx-auto">
                         We'd love to hear from you. Reach out to us for any queries, support, or feedback.
@@ -23,7 +23,7 @@ export function Contact() {
             </section>
 
             <section className="py-20">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid lg:grid-cols-2 gap-16">
                         {/* Contact Info */}
                         <div className="space-y-8">

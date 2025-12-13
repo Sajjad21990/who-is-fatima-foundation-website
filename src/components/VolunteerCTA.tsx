@@ -11,7 +11,7 @@ export function VolunteerCTA() {
         <div className="absolute top-1/2 left-1/3 w-24 h-24 border-4 border-white rounded-full"></div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-20 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-6 text-white">
@@ -25,19 +25,19 @@ export function VolunteerCTA() {
             </h2>
 
             <p className="text-lg text-white/90">
-              Join our global community of passionate volunteers. Whether you can spare 
-              a few hours a week or want to commit to a long-term project, your contribution 
+              Join our global community of passionate volunteers. Whether you can spare
+              a few hours a week or want to commit to a long-term project, your contribution
               matters. Together, we can create lasting change.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button 
+              <Button
                 size="lg"
                 className="bg-white text-[#E63946] hover:bg-white/90 px-8"
               >
                 Join as Volunteer
               </Button>
-              <Button 
+              <Button
                 size="lg"
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white hover:text-[#E63946] px-8"

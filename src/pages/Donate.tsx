@@ -39,7 +39,7 @@ export function Donate() {
             />
             {/* Hero Section */}
             <section className="py-20 bg-[#1D3557] text-white text-center">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <Heart className="w-16 h-16 text-[#E63946] mx-auto mb-6 fill-[#E63946]" />
                     <h1 className="text-4xl lg:text-5xl font-bold mb-6">Support Our Cause</h1>
                     <p className="text-xl text-white/80 max-w-2xl mx-auto mb-8">
@@ -50,7 +50,7 @@ export function Donate() {
 
             {/* Donation Options */}
             <section className="py-20">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {donationOptions.map((option, index) => (
                             <div key={index} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
@@ -70,7 +70,7 @@ export function Donate() {
 
             {/* Ways to Donate */}
             <section className="py-20 bg-[#F1FAEE]">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid lg:grid-cols-2 gap-12">
                         {/* Online Payment */}
                         <div className="bg-white p-8 rounded-2xl shadow-sm">

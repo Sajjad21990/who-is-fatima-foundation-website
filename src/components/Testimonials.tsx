@@ -39,7 +39,7 @@ export function Testimonials() {
 
   return (
     <section className="py-20 lg:py-28 bg-[#F1FAEE]">
-      <div className="max-w-[1440px] mx-auto px-20">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-block px-4 py-2 bg-white rounded-full mb-4">
@@ -49,7 +49,7 @@ export function Testimonials() {
             What People Say About <span className="text-[#E63946]">Us</span>
           </h2>
           <p className="text-[#457B9D]">
-            Hear from our donors, volunteers, and community partners about their 
+            Hear from our donors, volunteers, and community partners about their
             experiences with HopeGive.
           </p>
         </div>

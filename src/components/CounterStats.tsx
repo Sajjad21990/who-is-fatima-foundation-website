@@ -38,7 +38,7 @@ export function CounterStats() {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-20 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, index) => (
             <div

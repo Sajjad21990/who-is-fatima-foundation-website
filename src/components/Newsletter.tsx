@@ -15,7 +15,7 @@ export function Newsletter() {
 
   return (
     <section className="py-20 lg:py-28 bg-[#F1FAEE]">
-      <div className="max-w-[1440px] mx-auto px-20">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-3xl p-12 lg:p-16 relative overflow-hidden">
             {/* Background Pattern */}
@@ -35,7 +35,7 @@ export function Newsletter() {
               </h2>
 
               <p className="text-lg text-white/90 max-w-2xl mx-auto">
-                Get the latest updates on our projects, success stories, and ways 
+                Get the latest updates on our projects, success stories, and ways
                 you can make a difference. Join our community today!
               </p>
 
@@ -50,7 +50,7 @@ export function Newsletter() {
                     required
                     className="flex-1 bg-white border-none h-14 px-6 text-[#1D3557] placeholder:text-[#457B9D]"
                   />
-                  <Button 
+                  <Button
                     type="submit"
                     className="bg-[#1D3557] text-white hover:bg-[#1D3557]/90 h-14 px-8 whitespace-nowrap"
                   >

@@ -12,7 +12,7 @@ export function GalleryPreview() {
 
     return (
         <section className="py-20 bg-white">
-            <div className="max-w-[1440px] mx-auto px-20">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                 <div className="flex justify-between items-end mb-12">
                     <div>
                         <div className="inline-block px-4 py-2 bg-[#F1FAEE] rounded-full mb-4">

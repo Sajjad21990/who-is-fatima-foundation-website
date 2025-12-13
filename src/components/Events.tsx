@@ -32,7 +32,7 @@ export function Events() {
 
   return (
     <section id="events" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-[1440px] mx-auto px-20">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-block px-4 py-2 bg-[#F1FAEE] rounded-full mb-4">
@@ -42,7 +42,7 @@ export function Events() {
             Join Our Next <span className="text-[#E63946]">Event</span>
           </h2>
           <p className="text-[#457B9D]">
-            Connect with like-minded individuals and be part of something bigger. 
+            Connect with like-minded individuals and be part of something bigger.
             Our events bring communities together for a common cause.
           </p>
         </div>
@@ -89,7 +89,7 @@ export function Events() {
                   </div>
                 </div>
 
-                <Button 
+                <Button
                   variant="outline"
                   className="w-full border-[#E63946] text-[#E63946] hover:bg-[#E63946] hover:text-white gap-2"
                 >
@@ -103,7 +103,7 @@ export function Events() {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Button 
+          <Button
             className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] text-white hover:opacity-90 px-8"
           >
             View All Events

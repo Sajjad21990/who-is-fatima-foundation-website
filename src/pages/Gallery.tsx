@@ -19,7 +19,7 @@ export function Gallery() {
                 canonical="https://whoisfatima.org/gallery"
             />
             <section className="py-20 bg-[#1D3557] text-white text-center">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <h1 className="text-4xl lg:text-5xl font-bold mb-6">Our Gallery</h1>
                     <p className="text-xl text-white/80 max-w-2xl mx-auto">
                         Glimpses of our activities, events, and the smiles we strive to protect.
@@ -28,7 +28,7 @@ export function Gallery() {
             </section>
 
             <section className="py-20">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {images.map((src, index) => (
                             <div key={index} className="aspect-square rounded-2xl overflow-hidden hover:opacity-90 transition-opacity cursor-pointer">

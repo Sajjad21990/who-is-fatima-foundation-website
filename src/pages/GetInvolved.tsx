@@ -18,7 +18,7 @@ export function GetInvolved() {
                     <div className="absolute top-10 left-10 w-32 h-32 border-4 border-white rounded-full"></div>
                     <div className="absolute bottom-10 right-10 w-40 h-40 border-4 border-white rounded-full"></div>
                 </div>
-                <div className="max-w-[1440px] mx-auto px-20 relative z-10 text-center">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20 relative z-10 text-center">
                     <h1 className="text-4xl lg:text-5xl font-bold mb-6">Get Involved</h1>
                     <p className="text-xl text-white/90 max-w-3xl mx-auto">
                         Join us in our mission to uplift the community through education. Whether you volunteer, partner, or work with us, your contribution matters.
@@ -28,7 +28,7 @@ export function GetInvolved() {
 
             {/* Volunteer Section */}
             <section id="volunteer" className="py-20">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid lg:grid-cols-2 gap-12 items-start">
                         <div>
                             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F1FAEE] rounded-full text-[#E63946] mb-6">
@@ -92,7 +92,7 @@ export function GetInvolved() {
 
             {/* Partner Section */}
             <section id="partner" className="py-20 bg-[#F1FAEE]">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-[#1D3557] mb-6">
                             <Users className="w-5 h-5" />
@@ -133,7 +133,7 @@ export function GetInvolved() {
 
             {/* Careers Section */}
             <section id="careers" className="py-20">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div className="order-2 lg:order-1">
                             <div className="bg-[#1D3557] text-white p-8 rounded-2xl">

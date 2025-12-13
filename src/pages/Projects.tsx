@@ -45,7 +45,7 @@ export function Projects() {
             />
             {/* Hero Section */}
             <section className="py-20 bg-[#1D3557] text-white">
-                <div className="max-w-[1440px] mx-auto px-20 text-center">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center">
                     <h1 className="text-4xl lg:text-5xl font-bold mb-6">Our Work & Projects</h1>
                     <p className="text-xl text-white/80 max-w-3xl mx-auto">
                         Empowering the community through accessible education and skill development centers.
@@ -55,7 +55,7 @@ export function Projects() {
 
             {/* Current Projects */}
             <section className="py-20 bg-[#F1FAEE]">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center mb-16">
                         <span className="text-[#E63946] font-medium">Current Initiatives</span>
                         <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Making a Difference Today</h2>
@@ -99,7 +99,7 @@ export function Projects() {
 
             {/* Future Plans */}
             <section className="py-20">
-                <div className="max-w-[1440px] mx-auto px-20">
+                <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center mb-16">
                         <span className="text-[#E63946] font-medium">Our Vision</span>
                         <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Future Plans</h2>
