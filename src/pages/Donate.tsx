@@ -1,5 +1,5 @@
 import { Button } from "../components/ui/button";
-import { Heart, CreditCard, Landmark, Gift, Calendar, User } from "lucide-react";
+import { Heart, CreditCard, Landmark, FileCheck, Scroll, Calendar, User } from "lucide-react";
 import { SEO } from "../components/SEO";
 
 export function Donate() {
@@ -126,6 +126,57 @@ export function Donate() {
                                 <div className="flex justify-between">
                                     <span className="text-gray-500">UPI ID</span>
                                     <span className="font-medium text-[#1D3557]">foundation@upi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Additional Info */}
+                    <div className="mt-12 bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-[#E63946]/10 rounded-lg flex items-center justify-center">
+                                        <FileCheck className="w-5 h-5 text-[#E63946]" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-[#1D3557]">Tax Benefits</h3>
+                                </div>
+                                <p className="text-[#457B9D] leading-relaxed">
+                                    Maximize your impact with tax benefits. We are registered under sections <span className="font-semibold text-[#1D3557]">12A & 80G</span>. get benefit on every donation.
+                                </p>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-[#1D3557]/10 rounded-lg flex items-center justify-center">
+                                        <Scroll className="w-5 h-5 text-[#1D3557]" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-[#1D3557]">Religious Dues</h3>
+                                </div>
+                                <ul className="space-y-2 text-[#457B9D]">
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E63946] flex-shrink-0" />
+                                        <span>We have <a href="/images/common/ijaza.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1D3557] hover:text-[#E63946] underline decoration-dotted underline-offset-4">Ejaza</a> to collect Sahme Imam</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E63946] flex-shrink-0" />
+                                        <span>We accept <span className="font-semibold text-[#1D3557]">Sahme Sadat</span> for Sadat students</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E63946] flex-shrink-0" />
+                                        <span>We accept <span className="font-semibold text-[#1D3557]">Sadqa</span> of Imame Zamana (atfs)</span>
+                                    </li>
+                                </ul>
+                                <div className="pt-2">
+                                    <a
+                                        href="/images/common/ijaza.jpg"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center text-sm text-[#E63946] font-medium hover:underline gap-1"
+                                    >
+                                        Check Ijaza from Grand Ayatullah Sayyid Ali Husaini Sistani
+                                        <Scroll className="w-3 h-3" />
+                                    </a>
                                 </div>
                             </div>
                         </div>

@@ -7,19 +7,43 @@ export function Projects() {
     const projects = [
         {
             title: "Sakina Education & Research Center",
-            location: "Mumbai (Malad & Mira Road)",
+            location: "Baqariya Shia Jama Masjid, Malwani, Mumbai",
             description: "Providing modern education and skill development within the Shia community. Located inside Shia Jama Masjids, making education accessible and safe.",
             features: ["Computer Classes", "Educational Workshops", "Digital Literacy"],
             image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1080&auto=format&fit=crop",
             category: "Skill Development"
         },
         {
+            title: "Sakina Education & Research Center",
+            location: "Haidery Shia Jama Masjid, Mira Road",
+            description: "Empowering youth with technical skills and career guidance. A hub for learning and growth.",
+            features: ["Technical Training", "Career Counseling", "Library"],
+            image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1080&auto=format&fit=crop",
+            category: "Skill Development"
+        },
+        {
+            title: "Sakina Education & Research Center",
+            location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+            description: "Bringing quality education to rural areas. Focusing on holistic development of children.",
+            features: ["Holistic Education", "Extra-curricular Activities", "Sports"],
+            image: "https://images.unsplash.com/photo-1427504743205-8400b1dc8ddf?q=80&w=1080&auto=format&fit=crop",
+            category: "Skill Development"
+        },
+        {
             title: "Edulight Global School",
-            location: "Jogipura, Madhya Pradesh",
+            location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
             description: "Giving children in rural areas access to structured education. Affiliated with Delhi Board, focusing on quality teaching and community values.",
             features: ["Nursery to 5th Standard", "Recognized Curriculum", "Community Values"],
             image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1080&auto=format&fit=crop",
             category: "Formal Education"
+        },
+        {
+            title: "Sakina Sewing Classes",
+            location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+            description: "Empowering women with vocational skills to achieve financial independence.",
+            features: ["Sewing Training", "Design Workshops", "Self-Employment Support"],
+            image: "https://images.unsplash.com/photo-1528697203043-733d7c149faf?q=80&w=1080&auto=format&fit=crop",
+            category: "Vocational Training"
         }
     ];
 
@@ -31,8 +55,13 @@ export function Projects() {
         },
         {
             title: "Expand Edulight Global School",
-            description: "Add higher classes (6th onwards), introduce computer education, and provide scholarships.",
+            description: "Expand to primary, secondary and junior college levels (currently pre-primary).",
             icon: School
+        },
+        {
+            title: "Hazrat Fatima Womens University",
+            description: "Planned for Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP. A dedicated university for women's higher education.",
+            icon: BookOpen
         }
     ];
 

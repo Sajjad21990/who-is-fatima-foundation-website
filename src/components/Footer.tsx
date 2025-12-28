@@ -55,15 +55,15 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm text-white/70">
                 <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <span>Malad & Mira Road (Mumbai)<br />Jogipura (MP)</span>
+                <span>Malwani & Mira Road (Mumbai)<br />Jogipura, Bijnore (UP)</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-white/70">
                 <Phone className="w-5 h-5 flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <span>9920111072</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-white/70">
                 <Mail className="w-5 h-5 flex-shrink-0" />
-                <span>info@whoisfatima.org</span>
+                <span>admin@whoisfatima.org</span>
               </div>
             </div>
           </div>

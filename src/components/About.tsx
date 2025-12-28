@@ -41,7 +41,7 @@ export function About() {
             </h2>
 
             <p className="text-[#457B9D] leading-relaxed">
-              Founded with the vision of uplifting our community, Who is Fatima Foundation is currently running Sakina Education & Research Centers in Mumbai, and Edulight Global School in Jogipura, MP.
+              Founded with the vision of uplifting our community, Who is Fatima Foundation is currently running Sakina Education & Research Centers in Malad (Baqariya Shia Jama Masjid), Mira Road (Haidery Shia Jama Masjid), and Jogipura, UP (Dargah-e-Alia). We are also running Edulight Global School in Jogipura.
             </p>
 
             <p className="text-[#457B9D] leading-relaxed">

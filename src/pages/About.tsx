@@ -59,30 +59,91 @@ export function About() {
                         <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Meet Our Team</h2>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="text-center group">
-                            <div className="w-32 h-32 mx-auto bg-gray-100 rounded-full mb-6 overflow-hidden">
-                                <Users className="w-full h-full p-8 text-gray-400" />
+                    <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                        {/* Anwar Merchant */}
+                        <div className="bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300">
+                            <div className="p-8 flex justify-center bg-white border-b border-gray-100">
+                                <img
+                                    src="/images/team/anwar-merchant.png"
+                                    alt="Mr. Anwar Merchant"
+                                    className="rounded-full object-cover object-top shadow-lg border-4 border-white"
+                                    style={{ width: '192px', height: '192px' }}
+                                />
                             </div>
-                            <h3 className="text-xl font-bold text-[#1D3557]">Founder & Director</h3>
-                            <p className="text-[#E63946] text-sm mb-3">Visionary Leadership</p>
-                            <p className="text-[#457B9D] text-sm">Working to establish education centers across Mumbai and beyond.</p>
+                            <div className="p-8">
+                                <h3 className="text-2xl font-bold text-[#1D3557] mb-1">Mr. Anwar Merchant</h3>
+                                <p className="text-[#E63946] font-medium mb-6">Chairman & Founder</p>
+
+                                <div className="space-y-6 text-sm text-[#457B9D]">
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Education</h4>
+                                        <p>B.Com – Mumbai University</p>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Social Involvement</h4>
+                                        <ul className="space-y-1 list-disc pl-4 marker:text-[#E63946]">
+                                            <li>Trustee – Twelve Lamp Charitable Trust</li>
+                                            <li>Trustee – Saqqaye Sakina Trust</li>
+                                            <li>Coordinator – Construction of Haidery & Baqariya Jama Masjid</li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Contributions</h4>
+                                        <p>Active in community welfare for 10+ years: paying school fees, ration distribution, and medical assistance.</p>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Business</h4>
+                                        <p>Proprietor: Central Impax, Covera Agro | Partner: Fortune Reclaim</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="text-center group">
-                            <div className="w-32 h-32 mx-auto bg-gray-100 rounded-full mb-6 overflow-hidden">
-                                <BookOpen className="w-full h-full p-8 text-gray-400" />
+
+                        {/* Abrar Husain Syed */}
+                        <div className="bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300">
+                            <div className="p-8 flex justify-center bg-white border-b border-gray-100">
+                                <img
+                                    src="/images/team/abrar.jpg"
+                                    alt="Mr. Abrar Husain Syed"
+                                    className="rounded-full object-cover object-top shadow-lg border-4 border-white"
+                                    style={{ width: '192px', height: '192px' }}
+                                />
                             </div>
-                            <h3 className="text-xl font-bold text-[#1D3557]">SERC Team</h3>
-                            <p className="text-[#E63946] text-sm mb-3">Mumbai</p>
-                            <p className="text-[#457B9D] text-sm">Teachers and trainers running computer classes in Malad and Mira Road.</p>
-                        </div>
-                        <div className="text-center group">
-                            <div className="w-32 h-32 mx-auto bg-gray-100 rounded-full mb-6 overflow-hidden">
-                                <Users className="w-full h-full p-8 text-gray-400" />
+                            <div className="p-8">
+                                <h3 className="text-2xl font-bold text-[#1D3557] mb-1">Mr. Abrar Husain Syed</h3>
+                                <p className="text-[#E63946] font-medium mb-6">Founder</p>
+
+                                <div className="space-y-6 text-sm text-[#457B9D]">
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Education</h4>
+                                        <p>B.A. (Hons) – Mumbai University</p>
+                                        <p>Diploma Sanitary Instructor & L.S.G.D.</p>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Key Roles</h4>
+                                        <ul className="space-y-1 list-disc pl-4 marker:text-[#E63946]">
+                                            <li>Gen. Secretary – Mumbai Suburban Social Welfare Committee</li>
+                                            <li>Founder & CEO – Prof Sompson’s Teacher Training Institute</li>
+                                            <li>Founder – Who is Fatima S.A. Foundation</li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Visionary Projects</h4>
+                                        <p className="mb-2">Founder of "Super-20" Mission (Competitive exam prep) at Baqariya & Haidery Jama Masjid.</p>
+                                        <p>Aiming to establish Hazrat Fatima Women's University.</p>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-semibold text-[#1D3557] mb-2 uppercase tracking-wide text-xs">Business</h4>
+                                        <p>MD – Yawar Property Developers | Director – Next Unified Infotech</p>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-[#1D3557]">Edulight Team</h3>
-                            <p className="text-[#E63946] text-sm mb-3">Jogipura, MP</p>
-                            <p className="text-[#457B9D] text-sm">Qualified teachers managing classes till 5th standard.</p>
                         </div>
                     </div>
                 </div>

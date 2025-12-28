@@ -40,9 +40,21 @@ export function Contact() {
                                         <MapPin className="w-6 h-6 text-[#E63946]" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-[#1D3557] mb-1">Our Centers</h3>
-                                        <p className="text-[#457B9D]">Malad & Mira Road (Mumbai)</p>
-                                        <p className="text-[#457B9D]">Jogipura (Madhya Pradesh)</p>
+                                        <h3 className="font-bold text-[#1D3557] mb-3">Our Centers</h3>
+                                        <div className="flex flex-col gap-4 text-[#457B9D] text-sm">
+                                            <div>
+                                                <p className="font-medium text-[#1D3557] mb-0.5">Baqariya Shia Jama Masjid</p>
+                                                <p>Malwani, Mumbai</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-medium text-[#1D3557] mb-0.5">Haidery Shia Jama Masjid</p>
+                                                <p>Mira Road</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-medium text-[#1D3557] mb-0.5">Dargah E Najaf E Hind</p>
+                                                <p>Jogipura, Bijnore UP</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -52,7 +64,7 @@ export function Contact() {
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-[#1D3557] mb-1">Phone / WhatsApp</h3>
-                                        <p className="text-[#457B9D]">+1 (555) 123-4567</p>
+                                        <p className="text-[#457B9D]">9920111072</p>
                                     </div>
                                 </div>
 
@@ -62,7 +74,7 @@ export function Contact() {
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-[#1D3557] mb-1">Email Us</h3>
-                                        <p className="text-[#457B9D]">info@whoisfatima.org</p>
+                                        <p className="text-[#457B9D]">admin@whoisfatima.org</p>
                                     </div>
                                 </div>
                             </div>
