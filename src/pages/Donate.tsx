@@ -128,6 +128,17 @@ export function Donate() {
                                     <span className="font-medium text-[#1D3557]">foundation@upi</span>
                                 </div>
                             </div>
+
+                            <div className="mt-6 flex flex-col items-center">
+                                <span className="text-sm font-medium text-[#1D3557] mb-3">Scan to Pay via UPI</span>
+                                <div className="p-2 bg-white border border-gray-200 rounded-xl shadow-sm">
+                                    <img
+                                        src="/images/common/qr.jpg"
+                                        alt="UPI QR Code"
+                                        className="w-48 h-auto"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
