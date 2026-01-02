@@ -1,4 +1,4 @@
-import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Heart, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -29,10 +29,9 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" }
+    { icon: Youtube, href: "https://youtube.com/@whoisfatima_org?si=ou2yq1VMVpkgkhA8", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/share/1AFBAeJawu/", label: "Facebook" },
+    { icon: Instagram, href: "https://www.instagram.com/whoisfatima_org?igsh=YW03d2Y1dDM5anZu", label: "Instagram" }
   ];
 
   return (
@@ -132,7 +131,7 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-[1440px] mx-auto px-20 py-6">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <p className="text-sm text-white/70">
@@ -145,7 +144,8 @@ export function Footer() {
                 <a
                   key={index}
                   href={social.href}
-                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-white/10 hover:bg-[#E63946] rounded-full flex items-center justify-center transition-colors"
                 >
                   <social.icon className="w-5 h-5" />

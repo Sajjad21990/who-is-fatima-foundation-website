@@ -1,15 +1,17 @@
+import { useState } from "react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { SEO } from "../components/SEO";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 export function Gallery() {
-    const images = [
-        "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1080&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1080&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1080&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1427504746696-ea5abd7dfe5d?q=80&w=1080&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1080&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1080&auto=format&fit=crop"
-    ];
+    const [open, setOpen] = useState(false);
+    const [index, setIndex] = useState(0);
+
+    // Generate array of images from 1.jpg to 27.jpg
+    const images = Array.from({ length: 27 }, (_, i) => `/images/gallery/${i + 1}.jpg`);
+
+    const slides = images.map((src) => ({ src }));
 
     return (
         <div className="min-h-screen bg-white">
@@ -30,18 +32,32 @@ export function Gallery() {
             <section className="py-20">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {images.map((src, index) => (
-                            <div key={index} className="aspect-square rounded-2xl overflow-hidden hover:opacity-90 transition-opacity cursor-pointer">
+                        {images.map((src, idx) => (
+                            <div
+                                key={idx}
+                                className="aspect-square rounded-2xl overflow-hidden hover:opacity-90 transition-opacity cursor-pointer group"
+                                onClick={() => {
+                                    setIndex(idx);
+                                    setOpen(true);
+                                }}
+                            >
                                 <ImageWithFallback
                                     src={src}
-                                    alt={`Gallery Image ${index + 1}`}
-                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                    alt={`Gallery Image ${idx + 1}`}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
+
+            <Lightbox
+                open={open}
+                close={() => setOpen(false)}
+                index={index}
+                slides={slides}
+            />
         </div>
     );
 }

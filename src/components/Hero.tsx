@@ -63,12 +63,12 @@ export function Hero() {
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1593113702251-272b1bc414a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGFyaXR5JTIwdm9sdW50ZWVycyUyMGhlbHBpbmd8ZW58MXx8fHwxNzYxNTY3NzIwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/images/hero/hero-3.jpg"
                 alt="Charity volunteers helping community"
                 className="w-full h-[500px] object-cover"
               />
               {/* Floating Card */}
-              <div className="absolute bottom-8 left-8 bg-white rounded-2xl p-6 shadow-xl max-w-[280px]">
+              {/* <div className="absolute bottom-8 left-8 bg-white rounded-2xl p-6 shadow-xl max-w-[280px]">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-full flex items-center justify-center text-white">
                     ❤️
@@ -78,7 +78,7 @@ export function Hero() {
                     <div className="text-sm text-[#457B9D]">Raised This Year</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
