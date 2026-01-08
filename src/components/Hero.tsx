@@ -63,7 +63,7 @@ export function Hero() {
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <ImageWithFallback
-                src="/images/hero/hero-3.jpg"
+                src="/images/hero/hero-2.jpg"
                 alt="Charity volunteers helping community"
                 className="w-full h-[500px] object-cover"
               />

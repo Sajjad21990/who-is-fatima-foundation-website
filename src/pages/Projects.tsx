@@ -10,7 +10,7 @@ export function Projects() {
             location: "Baqariya Shia Jama Masjid, Malwani, Mumbai",
             description: "Providing modern education and skill development within the Shia community. Located inside Shia Jama Masjids, making education accessible and safe.",
             features: ["Computer Classes", "Educational Workshops", "Digital Literacy"],
-            image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1080&auto=format&fit=crop",
+            image: "/images/hero/hero-3.jpg",
             category: "Skill Development"
         },
         {
@@ -18,7 +18,7 @@ export function Projects() {
             location: "Haidery Shia Jama Masjid, Mira Road",
             description: "Empowering youth with technical skills and career guidance. A hub for learning and growth.",
             features: ["Technical Training", "Career Counseling", "Library"],
-            image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1080&auto=format&fit=crop",
+            image: "/images/hero/hero-3.jpg",
             category: "Skill Development"
         },
         {
@@ -26,7 +26,7 @@ export function Projects() {
             location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
             description: "Bringing quality education to rural areas. Focusing on holistic development of children.",
             features: ["Holistic Education", "Extra-curricular Activities", "Sports"],
-            image: "https://images.unsplash.com/photo-1427504743205-8400b1dc8ddf?q=80&w=1080&auto=format&fit=crop",
+            image: "/images/hero/hero-3.jpg",
             category: "Skill Development"
         },
         {
@@ -51,17 +51,23 @@ export function Projects() {
         {
             title: "Expand SERC in Mumbai",
             description: "Establish an SERC at every Shia Jama Masjid in Mumbai to ensure every child has access to computer education.",
-            icon: Target
+            icon: Target,
+            location: "Haidery Shia Jama Masjid, Mira Road",
+            image: "/images/hero/hero-3.jpg",
         },
         {
             title: "Expand Edulight Global School",
             description: "Expand to primary, secondary and junior college levels (currently pre-primary).",
-            icon: School
+            icon: School,
+            location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+            image: "/images/hero/hero-2.jpg",
         },
         {
             title: "Hazrat Fatima Womens University",
-            description: "Planned for Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP. A dedicated university for women's higher education.",
-            icon: BookOpen
+            description: "A dedicated university for women's higher education.",
+            icon: BookOpen,
+            location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+            image: "/images/hero/hero-1.jpg",
         }
     ];
 
@@ -116,9 +122,9 @@ export function Projects() {
                                             </span>
                                         ))}
                                     </div>
-                                    <Button className="w-full bg-[#1D3557] text-white hover:bg-[#1D3557]/90">
+                                    {/* <Button className="w-full bg-[#1D3557] text-white hover:bg-[#1D3557]/90">
                                         Learn More <ArrowRight className="w-4 h-4 ml-2" />
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </div>
                         ))}
@@ -134,7 +140,7 @@ export function Projects() {
                         <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Future Plans</h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
+                    {/* <div className="grid md:grid-cols-2 gap-8">
                         {futurePlans.map((plan, index) => (
                             <div key={index} className="border border-gray-100 rounded-2xl p-8 hover:border-[#E63946] transition-colors">
                                 <div className="w-12 h-12 bg-[#F1FAEE] rounded-xl flex items-center justify-center mb-6">
@@ -142,6 +148,26 @@ export function Projects() {
                                 </div>
                                 <h3 className="text-xl font-bold text-[#1D3557] mb-4">{plan.title}</h3>
                                 <p className="text-[#457B9D]">{plan.description}</p>
+                            </div>
+                        ))}
+                    </div> */}
+                    <div className="grid lg:grid-cols-2 gap-8">
+                        {futurePlans.map((project, index) => (
+                            <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group">
+                                <div className="relative h-64 overflow-hidden">
+                                    <ImageWithFallback
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    />
+
+                                </div>
+                                <div className="p-8">
+                                    <h3 className="text-2xl font-bold text-[#1D3557] mb-2">{project.title}</h3>
+                                    <p className="text-[#E63946] font-medium mb-4">{project.location}</p>
+                                    <p className="text-[#457B9D] mb-6">{project.description}</p>
+
+                                </div>
                             </div>
                         ))}
                     </div>
