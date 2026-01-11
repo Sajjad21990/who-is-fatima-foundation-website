@@ -1,0 +1,161 @@
+import { Button } from "@/components/ui/button";
+import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { ArrowRight, School, BookOpen, Target } from "lucide-react";
+
+export const metadata = {
+  title: "Our Projects",
+  description: "Explore our initiatives including Sakina Education & Research Center and Edulight Global School.",
+};
+
+export default function ProjectsPage() {
+  const projects = [
+    {
+      title: "Sakina Education & Research Center",
+      location: "Baqariya Shia Jama Masjid, Malwani, Mumbai",
+      description: "Providing modern education and skill development within the Shia community. Located inside Shia Jama Masjids, making education accessible and safe.",
+      features: ["Computer Classes", "Educational Workshops", "Digital Literacy"],
+      image: "/images/hero/hero-3.jpg",
+      category: "Skill Development"
+    },
+    {
+      title: "Sakina Education & Research Center",
+      location: "Haidery Shia Jama Masjid, Mira Road",
+      description: "Empowering youth with technical skills and career guidance. A hub for learning and growth.",
+      features: ["Technical Training", "Career Counseling", "Library"],
+      image: "/images/hero/hero-3.jpg",
+      category: "Skill Development"
+    },
+    {
+      title: "Sakina Education & Research Center",
+      location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+      description: "Bringing quality education to rural areas. Focusing on holistic development of children.",
+      features: ["Holistic Education", "Extra-curricular Activities", "Sports"],
+      image: "/images/hero/hero-3.jpg",
+      category: "Skill Development"
+    },
+    {
+      title: "Edulight Global School",
+      location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+      description: "Giving children in rural areas access to structured education. Affiliated with Delhi Board, focusing on quality teaching and community values.",
+      features: ["Nursery to 5th Standard", "Recognized Curriculum", "Community Values"],
+      image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1080&auto=format&fit=crop",
+      category: "Formal Education"
+    },
+    {
+      title: "Sakina Sewing Classes",
+      location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+      description: "Empowering women with vocational skills to achieve financial independence.",
+      features: ["Sewing Training", "Design Workshops", "Self-Employment Support"],
+      image: "https://images.unsplash.com/photo-1528697203043-733d7c149faf?q=80&w=1080&auto=format&fit=crop",
+      category: "Vocational Training"
+    }
+  ];
+
+  const futurePlans = [
+    {
+      title: "Expand SERC in Mumbai",
+      description: "Establish an SERC at every Shia Jama Masjid in Mumbai to ensure every child has access to computer education.",
+      icon: Target,
+      location: "Haidery Shia Jama Masjid, Mira Road",
+      image: "/images/hero/hero-3.jpg",
+    },
+    {
+      title: "Expand Edulight Global School",
+      description: "Expand to primary, secondary and junior college levels (currently pre-primary).",
+      icon: School,
+      location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+      image: "/images/hero/hero-2.jpg",
+    },
+    {
+      title: "Hazrat Fatima Womens University",
+      description: "A dedicated university for women's higher education.",
+      icon: BookOpen,
+      location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
+      image: "/images/hero/hero-1.jpg",
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="py-20 bg-[#1D3557] text-white">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6">Our Work & Projects</h1>
+          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+            Empowering the community through accessible education and skill development centers.
+          </p>
+        </div>
+      </section>
+
+      {/* Current Projects */}
+      <section className="py-20 bg-[#F1FAEE]">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
+          <div className="text-center mb-16">
+            <span className="text-[#E63946] font-medium">Current Initiatives</span>
+            <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Making a Difference Today</h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group">
+                <div className="relative h-64 overflow-hidden">
+                  <ImageWithFallback
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-white text-[#E63946] px-3 py-1 rounded-full text-sm font-medium">
+                      {project.category}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-[#1D3557] mb-2">{project.title}</h3>
+                  <p className="text-[#E63946] font-medium mb-4">{project.location}</p>
+                  <p className="text-[#457B9D] mb-6">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.features.map((feature, idx) => (
+                      <span key={idx} className="bg-[#F1FAEE] text-[#1D3557] px-3 py-1 rounded-full text-sm">
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Future Plans */}
+      <section className="py-20">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
+          <div className="text-center mb-16">
+            <span className="text-[#E63946] font-medium">Our Vision</span>
+            <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Future Plans</h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {futurePlans.map((project, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group">
+                <div className="relative h-64 overflow-hidden">
+                  <ImageWithFallback
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-[#1D3557] mb-2">{project.title}</h3>
+                  <p className="text-[#E63946] font-medium mb-4">{project.location}</p>
+                  <p className="text-[#457B9D] mb-6">{project.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
