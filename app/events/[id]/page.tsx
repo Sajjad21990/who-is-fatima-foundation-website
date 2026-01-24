@@ -14,9 +14,26 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         };
     }
 
+    const title = `${event.title} | Who is Fatima`;
+    const description = event.description;
+    const imageUrl = event.thumbnailUrl;
+
     return {
-        title: `${event.title} | Who is Fatima`,
-        description: event.description,
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            type: 'website',
+            images: imageUrl ? [{ url: imageUrl }] : [],
+            siteName: 'Who is Fatima Foundation',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: imageUrl ? [imageUrl] : [],
+        },
     };
 }
 
