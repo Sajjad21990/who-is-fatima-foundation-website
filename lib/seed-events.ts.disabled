@@ -1,0 +1,55 @@
+import { db } from './firebase/config'; // Adjust path if needed
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { Event } from './types.ts';
+
+const events: Partial<Event>[] = [
+    {
+        type: 'quiz',
+        title: 'Fatima (SA): The Role Model',
+        description: 'Test your knowledge about the life and legacy of Lady Fatima (SA).',
+        thumbnailUrl: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80',
+        isActive: true,
+        content: {
+            questions: [
+                {
+                    id: 'q1',
+                    text: 'What is one of the famous titles of Lady Fatima (SA)?',
+                    type: 'mcq',
+                    options: ['Az-Zahra', 'Al-Kubra', 'As-Sadiqah', 'All of the above'],
+                    correctAnswer: 'All of the above'
+                },
+                {
+                    id: 'q2',
+                    text: 'Where was Lady Fatima (SA) born?',
+                    type: 'mcq',
+                    options: ['Mecca', 'Medina', 'Kufa', 'Karbala'],
+                    correctAnswer: 'Mecca'
+                },
+                {
+                    id: 'q3',
+                    text: 'Share your thoughts on her legacy.',
+                    type: 'text'
+                }
+            ]
+        },
+        createdAt: new Date().toISOString()
+    },
+    {
+        type: 'webinar',
+        title: 'Empowering Women in the Modern Age',
+        description: 'Join us for an inspiring discussion on women empowerment inspired by Islamic values.',
+        thumbnailUrl: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&q=80',
+        isActive: true,
+        startDate: new Date(Date.now() + 86400000 * 7).toISOString(), // 7 days from now
+        content: {
+            webinarUrl: 'https://zoom.us/j/example',
+            speaker: 'Dr. Sarah Ahmed',
+            duration: '1 Hour'
+        },
+        createdAt: new Date().toISOString()
+    }
+];
+
+// This is a manual script to be run once or via a UI button for dev
+// For now, I'll just write it to a file that can be imported or copied.
+console.log("Use this data to seed Firestore.");

@@ -1,0 +1,335 @@
+{
+    "id": "imam-mahdi-quiz-jan-2026",
+    "slug": "imam-mahdi-quiz-jan-2026",
+    "type": "quiz",
+    "title": "Imam Mahdi (a.t.f.s) Quiz",
+    "description": "Test your knowledge about the Imam of our time, Imam Mahdi (a.t.f.s).",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80",
+    "isActive": true,
+    "createdAt": "2026-01-24T12:00:00Z",
+    "endDate": "2026-01-30T23:59:59Z",
+    "showScore": false,
+    "registrationFields": [
+        {
+            "id": "name",
+            "label": "Full Name",
+            "type": "text",
+            "required": true
+        },
+        {
+            "id": "phone",
+            "label": "Phone Number",
+            "type": "tel",
+            "required": true
+        },
+        {
+            "id": "age",
+            "label": "Age",
+            "type": "number",
+            "required": true,
+            "minAge": 1,
+            "maxAge": 100
+        },
+        {
+            "id": "location",
+            "label": "Location",
+            "type": "text",
+            "required": true
+        }
+    ],
+    "content": {
+        "questions": [
+            {
+                "id": "q1",
+                "text": "Imam Mahdi (atfs) 15th Shaban 255 Hijri mein kaun se shaher mein paida hue?",
+                "type": "mcq",
+                "options": [
+                    "Madinah",
+                    "Makkah",
+                    "Baghdad",
+                    "Samarrah"
+                ],
+                "correctAnswer": [
+                    3
+                ],
+                "points": 1
+            },
+            {
+                "id": "q2",
+                "text": "Imam Mahdi (atfs) ka title ‘al-Muntazar’ is liye hai ki",
+                "type": "mcq",
+                "options": [
+                    "Duniya unka intezar kar rahi hai.",
+                    "Woh apne Zohoor ka intezaar kar rahe hain.",
+                    "Woh jiske log Muntazir hain.",
+                    "Intezar Karne waale."
+                ],
+                "correctAnswer": [
+                    2
+                ],
+                "points": 1
+            },
+            {
+                "id": "q3",
+                "text": "Ghaibat-e-Sughra mein Imam Mahdi (atfs) ke teesre deputy (Nayeb) ka naam",
+                "type": "mcq",
+                "options": [
+                    "Usmaan ibne Saeed",
+                    "Mohammad ibne Usman",
+                    "Husain ibne Rawh",
+                    "Ali ibne Saimuri"
+                ],
+                "correctAnswer": [
+                    2
+                ],
+                "points": 1
+            },
+            {
+                "id": "q4",
+                "text": "Imam Mahdi (atfs) Ghaibat-e-Kubra mein chale gaye jab woh",
+                "type": "mcq",
+                "options": [
+                    "61 years ke the",
+                    "71 years ke the",
+                    "73 years ke the",
+                    "74 years ke the"
+                ],
+                "correctAnswer": [
+                    3
+                ],
+                "points": 1
+            },
+            {
+                "id": "q5",
+                "text": "Neeche 4 Duaon mein se EK dua jo Imam-e-Zamana (a.s.) ke liye nahin hai.",
+                "type": "mcq",
+                "options": [
+                    "Dua-e-Mashlool",
+                    "Dua-e-Ahad",
+                    "Dua-e-Nudba",
+                    "Dua-e-Marefat"
+                ],
+                "correctAnswer": [
+                    0
+                ],
+                "points": 1
+            },
+            {
+                "id": "q6",
+                "text": "Paighambare Islam ki hadeeth hai ki Jo koi apne zamane ke Imam ki marefat ke baghair mar jaye to woh",
+                "type": "mcq",
+                "options": [
+                    "Ek jaahil ki maut marta hai",
+                    "Zamana-e-Jahiliyyat ki maut Marta hai",
+                    "Jahanammi ki maut marta hai",
+                    "Jaanwar ki maut marta hai"
+                ],
+                "correctAnswer": [
+                    1
+                ],
+                "points": 1
+            },
+            {
+                "id": "q7",
+                "text": "Mahdi ka matlab hai",
+                "type": "mcq",
+                "options": [
+                    "Jo hidayat karta hai",
+                    "Jo hadiya deta hai",
+                    "Jo hidayat leta hai",
+                    "Jo hidayat yafta hai"
+                ],
+                "correctAnswer": [
+                    3
+                ],
+                "points": 1
+            },
+            {
+                "id": "q8",
+                "text": "Mahdi-e-Mau-ood ka matlab",
+                "type": "mcq",
+                "options": [
+                    "woh jo wa’da karta hai",
+                    "woh jo wa’da nibhata hai",
+                    "woh jiska wa’da kiya gaya ho",
+                    "Sachcha wa’ada karne wala"
+                ],
+                "correctAnswer": [
+                    2
+                ],
+                "points": 1
+            },
+            {
+                "id": "q9",
+                "text": "Hajj ke dauraan Imam-e-Zamana (a.s.) ka makhsoos waqt yahan maujood rahna yaqeeni hai",
+                "type": "mcq",
+                "options": [
+                    "Mina ki Waadi mein",
+                    "Masjidul Haraam mein",
+                    "Muzdalfa mein",
+                    "Maidaan-e-Arafat mein"
+                ],
+                "correctAnswer": [
+                    3
+                ],
+                "points": 1
+            },
+            {
+                "id": "q10",
+                "text": "“Aye mere Allah agar Tune apni Hujjat ko na pahchanwaya to main apne deen se gumraah ho jaunga”. Yeh kis dua ka tukda hai",
+                "type": "mcq",
+                "options": [
+                    "Dua Simat ka",
+                    "Dua Yastasheer ka",
+                    "Dua Maarefat ka",
+                    "Dua Ahd ka"
+                ],
+                "correctAnswer": [
+                    2
+                ],
+                "points": 1
+            },
+            {
+                "id": "q11",
+                "text": "Imam-e-Zamana (a.s.) Kahan se Zohoor farmayenge?",
+                "type": "mcq",
+                "options": [
+                    "Masjid-e-Kufa",
+                    "Masjidul Haraam",
+                    "Masjid-e-Jamkaran",
+                    "Masjide Sahla"
+                ],
+                "correctAnswer": [
+                    1
+                ],
+                "points": 1
+            },
+            {
+                "id": "q12",
+                "text": "Saahebuz Zamaan ka matlab",
+                "type": "mcq",
+                "options": [
+                    "Zamaane ka maalik",
+                    "Zamaane ka sahaabi",
+                    "Zamaane ka Muntazir",
+                    "Zamaane ko hidayat karne wala"
+                ],
+                "correctAnswer": [
+                    0
+                ],
+                "points": 1
+            },
+            {
+                "id": "q13",
+                "text": "Imam Mahdi (atfs) ki waaleda ka naam?",
+                "type": "mcq",
+                "options": [
+                    "Samaana khatoon",
+                    "Narjis khatoon",
+                    "Sabika khatoon",
+                    "Hakima khatoon"
+                ],
+                "correctAnswer": [
+                    1
+                ],
+                "points": 1
+            },
+            {
+                "id": "q14",
+                "text": "Paighambar-e-Islam ne farmaya ke jis ne Mahdi (a.s.) ke Qiyaam ka inkaar kiya usne",
+                "type": "mcq",
+                "options": [
+                    "Shirk kiya",
+                    "Kufr kiya",
+                    "Nifaaq kiya",
+                    "Intezar nahin kiya"
+                ],
+                "correctAnswer": [
+                    1
+                ],
+                "points": 1
+            },
+            {
+                "id": "q15",
+                "text": "Imam Mahdi (a.s.) ki Aalami hukumat ka capitol hai",
+                "type": "mcq",
+                "options": [
+                    "Madinah",
+                    "Makkah",
+                    "Karbala",
+                    "Kufa"
+                ],
+                "correctAnswer": [
+                    3
+                ],
+                "points": 1
+            },
+            {
+                "id": "q16",
+                "text": "Imam Mahdi (atfs) ke zohoor ka exact waqt batane wala",
+                "type": "mcq",
+                "options": [
+                    "Jaahil Hai",
+                    "Munafiq hai",
+                    "Jhoota hai",
+                    "Dhokebaaz hai"
+                ],
+                "correctAnswer": [
+                    2
+                ],
+                "points": 1
+            },
+            {
+                "id": "q17",
+                "text": "Imam Mahdi (atfs) ke zohoor ke khaas afrad honge",
+                "type": "mcq",
+                "options": [
+                    "212",
+                    "313",
+                    "70",
+                    "40"
+                ],
+                "correctAnswer": [
+                    1
+                ],
+                "points": 1
+            },
+            {
+                "id": "q18",
+                "text": "Imam-e-Zamana (a.s.) per Kitab Najmus Saaqib likhne wale the",
+                "type": "mcq",
+                "options": [
+                    "Muhaddis-e-Noori",
+                    "Allamah Majlisi",
+                    "Shaykh Mufeed",
+                    "Allamah Ameeni"
+                ],
+                "correctAnswer": [
+                    0
+                ],
+                "points": 1
+            },
+            {
+                "id": "q19",
+                "text": "Is Shabaan Imam Mahdi (a.s.) ki Umr (age) hai",
+                "type": "mcq",
+                "options": [
+                    "1200",
+                    "1198",
+                    "1199",
+                    "1194"
+                ],
+                "correctAnswer": [
+                    3
+                ],
+                "points": 1
+            },
+            {
+                "id": "q20",
+                "text": "Jab Imam Mahdi (a.s.) Zahoor Farmayenge to aap kis tarah unki maddad karenge?",
+                "type": "text",
+                "points": 0
+            }
+        ]
+    }
+}

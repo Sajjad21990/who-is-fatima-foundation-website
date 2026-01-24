@@ -27,6 +27,7 @@ export function Header() {
             <Link href="/" className={`transition-colors ${isActive('/') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Home</Link>
             <Link href="/about" className={`transition-colors ${isActive('/about') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>About</Link>
             <Link href="/projects" className={`transition-colors ${isActive('/projects') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Projects</Link>
+            <Link href="/events" className={`transition-colors ${isActive('/events') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Events</Link>
             <Link href="/volunteer" className={`transition-colors ${isActive('/volunteer') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Volunteer</Link>
             <Link href="/gallery" className={`transition-colors ${isActive('/gallery') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Gallery</Link>
             <Link href="/blog" className={`transition-colors ${isActive('/blog') || pathname?.startsWith('/blog/') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Blog</Link>
@@ -60,6 +61,7 @@ export function Header() {
               <Link href="/" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Home</Link>
               <Link href="/about" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
               <Link href="/projects" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Projects</Link>
+              <Link href="/events" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Events</Link>
               <Link href="/volunteer" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Volunteer</Link>
               <Link href="/gallery" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
               <Link href="/blog" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
