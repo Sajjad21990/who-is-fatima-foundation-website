@@ -11,7 +11,9 @@ import {
     Users,
     LogOut,
     Settings,
-    FileText
+    FileText,
+    Mail,
+    User
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -41,7 +43,10 @@ export function AdminSidebar() {
     const navItems = [
         { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
         { label: 'Events', href: '/admin/events', icon: Calendar },
-        { label: 'Users', href: '/admin/users', icon: Users },
+        { label: 'Volunteers', href: '/admin/volunteers', icon: Users },
+        { label: 'Messages', href: '/admin/messages', icon: Mail },
+        { label: 'Users', href: '/admin/users', icon: User },
+        { label: 'Profile', href: '/admin/profile', icon: Settings },
     ];
 
     return (

@@ -27,35 +27,41 @@ export default async function AdminDashboard() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Events</CardTitle>
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Events</CardTitle>
+                        <Calendar className="h-4 w-4 text-[#E63946]" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{stats.totalEvents}</div>
-                        <p className="text-xs text-muted-foreground">Active quizzes and webinars</p>
+                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalEvents}</div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Submissions</CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Submissions</CardTitle>
+                        <ArrowRight className="h-4 w-4 text-[#E63946]" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{stats.totalSubmissions}</div>
-                        <p className="text-xs text-muted-foreground">Across all events</p>
+                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalSubmissions}</div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Engagement</CardTitle>
-                        <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Volunteers</CardTitle>
+                        <Users className="h-4 w-4 text-[#E63946]" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">Active</div>
-                        <p className="text-xs text-muted-foreground">System functioning normally</p>
+                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalVolunteers}</div>
+                    </CardContent>
+                </Card>
+                <Card className="border-none shadow-sm ring-1 ring-gray-100">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Messages</CardTitle>
+                        <BarChart3 className="h-4 w-4 text-[#E63946]" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalMessages}</div>
                     </CardContent>
                 </Card>
             </div>

@@ -27,6 +27,7 @@ export async function submitVolunteerForm(data: VolunteerFormData): Promise<Volu
       phone: validatedData.data.phone.trim(),
       email: validatedData.data.email.trim().toLowerCase(),
       areaOfInterest: validatedData.data.areaOfInterest.trim(),
+      location: validatedData.data.location.trim(),
       createdAt: new Date().toISOString(),
       status: "new",
     };

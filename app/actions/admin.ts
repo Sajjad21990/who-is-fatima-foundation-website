@@ -6,6 +6,8 @@ import { getEvents } from '@/lib/events';
 export interface DashboardStats {
     totalEvents: number;
     totalSubmissions: number;
+    totalVolunteers: number;
+    totalMessages: number;
     recentSubmissions: any[];
 }
 
@@ -13,12 +15,16 @@ export async function getDashboardStats() {
     try {
         const events = await getEvents();
 
-        // Get total submissions count
+        // Get counts
         const submissionsSnapshot = await adminDb.collection('quiz_submissions').count().get();
+        const volunteersSnapshot = await adminDb.collection('volunteer_applications').count().get();
+        const messagesSnapshot = await adminDb.collection('contact_messages').count().get();
+
         const totalSubmissions = submissionsSnapshot.data().count;
+        const totalVolunteers = volunteersSnapshot.data().count;
+        const totalMessages = messagesSnapshot.data().count;
 
         // Get recent submissions (last 5)
-        // Note: This needs an index on timestamp desc, usually auto-created for single field
         const recentSnapshot = await adminDb.collection('quiz_submissions')
             .orderBy('timestamp', 'desc')
             .limit(5)
@@ -32,6 +38,8 @@ export async function getDashboardStats() {
         return {
             totalEvents: events.length,
             totalSubmissions,
+            totalVolunteers,
+            totalMessages,
             recentSubmissions
         };
     } catch (error) {
@@ -39,6 +47,8 @@ export async function getDashboardStats() {
         return {
             totalEvents: 0,
             totalSubmissions: 0,
+            totalVolunteers: 0,
+            totalMessages: 0,
             recentSubmissions: []
         };
     }
@@ -76,33 +86,33 @@ export async function getSubmissionCounts(): Promise<Record<string, number>> {
     }
 }
 
-export async function getEventSubmissions(slug: string) {
+export async function getEventSubmissions(slug: string, limit: number = 20, afterId?: string) {
     try {
-        // Try exact match first
-        let snapshot = await adminDb.collection('quiz_submissions')
+        let query = adminDb.collection('quiz_submissions')
             .where('slug', '==', slug)
-            .get();
+            .orderBy('timestamp', 'desc');
 
-        // If no results, try matching by base slug (legacy)
-        if (snapshot.empty && slug.includes('-')) {
-            const base = slug.split('-').slice(0, 3).join('-');
-            snapshot = await adminDb.collection('quiz_submissions')
-                .where('slug', '==', base)
-                .get();
+        if (afterId) {
+            const startDoc = await adminDb.collection('quiz_submissions').doc(afterId).get();
+            if (startDoc.exists) {
+                query = query.startAfter(startDoc);
+            }
         }
 
-        const submissions = snapshot.docs.map(doc => ({
+        const snapshot = await query.limit(limit + 1).get();
+        const results = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         }));
 
-        // Sort manually to avoid index requirement for composite query
-        return submissions.sort((a: any, b: any) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        );
+        const hasMore = results.length > limit;
+        const items = hasMore ? results.slice(0, limit) : results;
+        const nextId = hasMore ? items[items.length - 1].id : null;
+
+        return { items, nextId, hasMore };
     } catch (error) {
         console.error('Error fetching event submissions:', error);
-        return [];
+        return { items: [], nextId: null, hasMore: false };
     }
 }
 
@@ -209,5 +219,91 @@ export async function createAdminUser(email: string, password: string, displayNa
     } catch (error: any) {
         console.error('Error creating user:', error);
         return { success: false, error: error.message };
+    }
+}
+
+// Volunteer Management
+export async function getVolunteers(limit: number = 20, afterId?: string) {
+    try {
+        let query = adminDb.collection('volunteer_applications')
+            .orderBy('createdAt', 'desc');
+
+        if (afterId) {
+            const startDoc = await adminDb.collection('volunteer_applications').doc(afterId).get();
+            if (startDoc.exists) {
+                query = query.startAfter(startDoc);
+            }
+        }
+
+        const snapshot = await query.limit(limit + 1).get();
+        const results = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        const hasMore = results.length > limit;
+        const items = hasMore ? results.slice(0, limit) : results;
+        const nextId = hasMore ? items[items.length - 1].id : null;
+
+        return { items, nextId, hasMore };
+    } catch (error) {
+        console.error('Error fetching volunteers:', error);
+        return { items: [], nextId: null, hasMore: false };
+    }
+}
+
+export async function updateVolunteerStatus(id: string, status: string) {
+    try {
+        await adminDb.collection('volunteer_applications').doc(id).update({
+            status,
+            updatedAt: new Date().toISOString()
+        });
+        return { success: true };
+    } catch (error) {
+        console.error('Error updating volunteer status:', error);
+        return { success: false, error };
+    }
+}
+
+// Contact Management
+export async function getContactMessages(limit: number = 20, afterId?: string) {
+    try {
+        let query = adminDb.collection('contact_messages')
+            .orderBy('createdAt', 'desc');
+
+        if (afterId) {
+            const startDoc = await adminDb.collection('contact_messages').doc(afterId).get();
+            if (startDoc.exists) {
+                query = query.startAfter(startDoc);
+            }
+        }
+
+        const snapshot = await query.limit(limit + 1).get();
+        const results = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        const hasMore = results.length > limit;
+        const items = hasMore ? results.slice(0, limit) : results;
+        const nextId = hasMore ? items[items.length - 1].id : null;
+
+        return { items, nextId, hasMore };
+    } catch (error) {
+        console.error('Error fetching contact messages:', error);
+        return { items: [], nextId: null, hasMore: false };
+    }
+}
+
+export async function markMessageRead(id: string) {
+    try {
+        await adminDb.collection('contact_messages').doc(id).update({
+            status: 'read',
+            readAt: new Date().toISOString()
+        });
+        return { success: true };
+    } catch (error) {
+        console.error('Error marking message as read:', error);
+        return { success: false, error };
     }
 }

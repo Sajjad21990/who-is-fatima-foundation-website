@@ -22,6 +22,10 @@ export const volunteerFormSchema = z.object({
     .string()
     .min(3, "Please specify your area of interest")
     .max(200, "Area of interest must be less than 200 characters"),
+  location: z
+    .string()
+    .min(2, "Location must be at least 2 characters")
+    .max(100, "Location must be less than 100 characters"),
 });
 
 export type VolunteerFormData = z.infer<typeof volunteerFormSchema>;

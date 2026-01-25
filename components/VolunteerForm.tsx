@@ -5,12 +5,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { Loader2, CheckCircle, AlertCircle, X } from "lucide-react";
 import { volunteerFormSchema, type VolunteerFormData } from "@/lib/validations/volunteer";
 import { submitVolunteerForm, type VolunteerFormState } from "@/app/actions/volunteer";
 
+import { motion } from "framer-motion";
+
 export function VolunteerForm() {
   const [formState, setFormState] = useState<VolunteerFormState | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const {
     register,
@@ -25,6 +28,7 @@ export function VolunteerForm() {
     setFormState(null);
     const result = await submitVolunteerForm(data);
     setFormState(result);
+    setShowPopup(true);
 
     if (result.success) {
       reset();
@@ -35,20 +39,26 @@ export function VolunteerForm() {
     <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
       <h3 className="text-2xl font-bold text-[#1D3557] mb-6">Volunteer Sign Up</h3>
 
-      {formState && (
-        <div
-          className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
-            formState.success
-              ? "bg-green-50 text-green-800 border border-green-200"
-              : "bg-red-50 text-red-800 border border-red-200"
-          }`}
-        >
-          {formState.success ? (
-            <CheckCircle className="w-5 h-5 flex-shrink-0" />
-          ) : (
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          )}
-          <p>{formState.message}</p>
+      {/* Success/Error Popup */}
+      {showPopup && formState && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white max-w-sm w-full rounded-3xl shadow-2xl p-6 text-center"
+          >
+            <div className={`w-16 h-16 ${formState.success ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"} rounded-full flex items-center justify-center mx-auto mb-4`}>
+              {formState.success ? <CheckCircle className="w-8 h-8" /> : <X className="w-8 h-8" />}
+            </div>
+            <h3 className="text-xl font-bold text-[#1D3557] mb-2">{formState.success ? "Success!" : "Error"}</h3>
+            <p className="text-gray-600 mb-6">{formState.message}</p>
+            <Button
+              onClick={() => setShowPopup(false)}
+              className={`w-full ${formState.success ? "bg-[#1D3557] hover:bg-[#1D3557]/90" : "bg-[#E63946] hover:bg-[#E63946]/90"} text-white rounded-xl h-11`}
+            >
+              Okay, got it
+            </Button>
+          </motion.div>
         </div>
       )}
 
@@ -104,6 +114,17 @@ export function VolunteerForm() {
           </div>
         </div>
         <div className="space-y-2">
+          <label className="text-sm font-medium text-[#1D3557]">Location</label>
+          <Input
+            placeholder="Your City, Country"
+            {...register("location")}
+            className={errors.location ? "border-red-500" : ""}
+          />
+          {errors.location && (
+            <p className="text-sm text-red-500">{errors.location.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
           <label className="text-sm font-medium text-[#1D3557]">Area of Interest</label>
           <Input
             placeholder="Teaching, Events, Admin, Fundraising..."
@@ -114,6 +135,7 @@ export function VolunteerForm() {
             <p className="text-sm text-red-500">{errors.areaOfInterest.message}</p>
           )}
         </div>
+
         <Button
           type="submit"
           disabled={isSubmitting}
