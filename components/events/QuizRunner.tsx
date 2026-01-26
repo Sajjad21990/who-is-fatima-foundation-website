@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ChevronRight, Check, Trophy, Loader2, X } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Trophy, Loader2, X } from 'lucide-react';
 import { Question, QuizEvent, RegistrationField } from '@/lib/types';
 import { toast } from 'sonner';
 import { submitQuiz } from '@/app/actions/events';
@@ -64,6 +64,12 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
             setStep(step + 1);
         } else {
             handleSubmit();
+        }
+    };
+
+    const handleBack = () => {
+        if (step > 0) {
+            setStep(step - 1);
         }
     };
 
@@ -283,7 +289,15 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                 )}
                             </div>
 
-                            <div className="mt-16 mb-2 flex justify-end">
+                            <div className="mt-16 mb-2 flex justify-between items-center">
+                                <Button
+                                    onClick={handleBack}
+                                    variant="ghost"
+                                    className="text-gray-500 hover:text-[#1D3557] hover:bg-gray-50 px-6 cursor-pointer rounded-xl flex items-center gap-2"
+                                >
+                                    <ChevronLeft className="w-4 h-4" />
+                                    Previous
+                                </Button>
                                 <Button
                                     onClick={handleNext}
                                     disabled={!answers[currentQuestion?.id]}
