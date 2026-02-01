@@ -28,7 +28,7 @@ export async function getEvents(): Promise<Event[]> {
     });
 }
 
-export async function getEventBySlug(slug: string): Promise<Event | null> {
+export async function getEventBySlug(slug: string, includeAnswers: boolean = false): Promise<Event | null> {
     try {
         const fullPath = path.join(contentDirectory, `${slug}.json`);
         // Security check to prevent directory traversal
@@ -43,8 +43,8 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const eventData = JSON.parse(fileContents) as Event;
 
-        // IMPORTANT: Strip correct answers for Quizzes before sending to client
-        if (eventData.type === 'quiz') {
+        // IMPORTANT: Strip correct answers for Quizzes before sending to client, unless explicitly requested (e.g. for admin)
+        if (eventData.type === 'quiz' && !includeAnswers) {
             const quiz = eventData as QuizEvent;
             const strippedQuestions = quiz.content.questions.map(q => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars

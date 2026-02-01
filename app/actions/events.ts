@@ -46,6 +46,12 @@ export async function submitQuiz(slug: string, answers: Record<string, string>, 
           score += points;
         }
       }
+      else if (question.type === 'text' || (question as any).autoGrade) {
+        // For text questions or autoGrade questions, award full points if answered
+        if (userAnswer && userAnswer.trim().length > 0) {
+          score += points;
+        }
+      }
     });
 
     // 3. Store in Firestore

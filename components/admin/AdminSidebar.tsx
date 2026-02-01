@@ -44,13 +44,14 @@ export function AdminSidebar() {
         { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
         { label: 'Events', href: '/admin/events', icon: Calendar },
         { label: 'Volunteers', href: '/admin/volunteers', icon: Users },
+        { label: 'Posts', href: '/admin/posts', icon: FileText },
         { label: 'Messages', href: '/admin/messages', icon: Mail },
         { label: 'Users', href: '/admin/users', icon: User },
         { label: 'Profile', href: '/admin/profile', icon: Settings },
     ];
 
     return (
-        <div className="w-64 bg-[#1D3557] text-white min-h-screen fixed left-0 top-0 flex flex-col">
+        <div className="w-full bg-[#1D3557] text-white h-full flex flex-col overflow-y-auto">
             <div className="p-8">
                 <h2 className="text-xl font-bold font-mono tracking-tight">Admin<span className="text-[#E63946]">.</span></h2>
                 <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">{userProfile?.role || 'Portal'}</p>

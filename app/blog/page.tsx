@@ -2,16 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Calendar, User, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getAllBlogPosts } from "@/lib/blog";
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { getPosts } from "@/lib/blog";
+import { format } from 'date-fns';
 
 export const metadata = {
   title: "Blog",
   description: "Stories, updates, and insights from our journey of empowering the community.",
 };
 
+// Make it dynamic to show latest posts
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPage() {
-  const posts = await getAllBlogPosts();
+  // Fetch published posts only
+  const posts = await getPosts({ publishedOnly: true });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -39,7 +43,7 @@ export default async function BlogPage() {
               />
             </div>
             <div className="flex gap-3 overflow-x-auto pb-4 md:pb-0 w-full md:w-auto no-scrollbar">
-              {["All", "Education", "Community", "Events", "Success Stories"].map((category, idx) => (
+              {["All", "Blog", "News", "Event"].map((category, idx) => (
                 <Button
                   key={idx}
                   variant={idx === 0 ? "default" : "outline"}
@@ -55,50 +59,62 @@ export default async function BlogPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <article key={post.slug} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group flex flex-col h-full transform hover:-translate-y-1">
-                <div className="relative h-56 overflow-hidden">
-                  <ImageWithFallback
-                    src={post.frontmatter.img}
-                    alt={post.frontmatter.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/95 backdrop-blur-sm text-[#E63946] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-                      {post.frontmatter.tags[0]}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-8 flex flex-col flex-grow">
-                  <div className="flex items-center gap-4 text-xs text-gray-500 mb-4 font-medium">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#E63946]" />
-                      {new Date(post.frontmatter.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </div>
-                    <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                    <div className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-[#E63946]" />
-                      {post.frontmatter.author}
+            {posts.length === 0 ? (
+              <div className="col-span-full text-center py-12 text-gray-500">
+                No posts published yet. Check back soon!
+              </div>
+            ) : (
+              posts.map((post) => (
+                <article key={post.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group flex flex-col h-full transform hover:-translate-y-1">
+                  <div className="relative h-56 overflow-hidden bg-gray-100">
+                    {post.coverImage ? (
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-300">
+                        <span className="text-4xl font-black opacity-20">No Image</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-white/95 backdrop-blur-sm text-[#E63946] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                        {post.type}
+                      </span>
                     </div>
                   </div>
 
-                  <h2 className="text-2xl font-bold text-[#1D3557] mb-3 line-clamp-2 group-hover:text-[#E63946] transition-colors leading-tight">
-                    {post.frontmatter.title}
-                  </h2>
-                  <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">
-                    {post.frontmatter.description}
-                  </p>
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-4 font-medium">
+                      <div className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-[#E63946]" />
+                        {format(new Date(post.createdAt), 'MMM d, yyyy')}
+                      </div>
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      <div className="flex items-center gap-1.5">
+                        <User className="w-3.5 h-3.5 text-[#E63946]" />
+                        {post.author?.name || 'Admin'}
+                      </div>
+                    </div>
 
-                  <Link href={`/blog/${post.slug}`} className="mt-auto">
-                    <Button variant="link" className="p-0 h-auto text-[#E63946] hover:text-[#1D3557] font-bold group/btn text-base">
-                      Read Article <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </div>
-              </article>
-            ))}
+                    <h2 className="text-2xl font-bold text-[#1D3557] mb-3 line-clamp-2 group-hover:text-[#E63946] transition-colors leading-tight">
+                      {post.title}
+                    </h2>
+                    <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">
+                      {post.excerpt || 'Click to read more...'}
+                    </p>
+
+                    <Link href={`/blog/${post.slug}`} className="mt-auto">
+                      <Button variant="link" className="p-0 h-auto text-[#E63946] hover:text-[#1D3557] font-bold group/btn text-base">
+                        Read Article <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
+                </article>
+              ))
+            )}
           </div>
         </div>
       </section>

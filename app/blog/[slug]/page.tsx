@@ -1,129 +1,132 @@
+import { getPostBySlug, getPosts } from "@/lib/blog";
 import { notFound } from "next/navigation";
-import { getBlogPost, getAllBlogPosts } from "@/lib/blog";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { format } from "date-fns";
+import { Calendar, User, Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { Metadata } from "next";
 
-export async function generateStaticParams() {
-  const posts = await getAllBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug);
-  if (!post) return {};
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+    };
+  }
 
   return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.description,
+    title: post.title,
+    description: post.excerpt,
     openGraph: {
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
-      images: [post.frontmatter.img],
+      title: post.title,
+      description: post.excerpt,
+      images: post.coverImage ? [post.coverImage] : [],
+      type: 'article',
+      publishedTime: post.createdAt,
+      authors: [post.author?.name || 'Admin'],
     },
   };
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug);
+// Generate static params if we want partial SSG, but for now we rely on dynamic for ease
+// export async function generateStaticParams() {
+//     const posts = await getPosts({ publishedOnly: true });
+//     return posts.map((post) => ({
+//         slug: post.slug,
+//     }));
+// }
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const { frontmatter, content } = post;
+  // Estimate read time (words / 200)
+  const wordCount = post.content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+  const readTime = Math.ceil(wordCount / 200);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-100 z-50">
-        <div className="h-full bg-[#E63946] w-0 transition-all duration-300" id="progress-bar"></div>
-      </div>
+    <article className="min-h-screen bg-gray-50 pb-20">
+      {/* Draft Warning Banner */}
+      {!post.isPublished && (
+        <div className="bg-yellow-100 border-b border-yellow-200 text-yellow-800 px-4 py-3 text-center font-medium sticky top-0 z-50">
+          🚧 This post is currently a DRAFT and is not visible to the public.
+        </div>
+      )}
 
-      <article className="max-w-4xl mx-auto px-6 py-12 lg:py-20">
-        {/* Navigation */}
-        <Link href="/blog">
-          <Button
-            variant="ghost"
-            className="mb-12 pl-0 hover:pl-2 transition-all text-gray-500 hover:text-[#E63946] group"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Blog
-          </Button>
-        </Link>
+      {/* Header */}
+      <div className="bg-[#1D3557] text-white pt-20 md:pt-32 pb-16 md:pb-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/40 z-0"></div>
+        {post.coverImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-30 blur-sm"
+            style={{ backgroundImage: `url(${post.coverImage})` }}
+          ></div>
+        )}
 
-        {/* Header */}
-        <header className="mb-12 text-center max-w-3xl mx-auto">
-          <div className="flex flex-wrap gap-2 justify-center mb-6">
-            {frontmatter.tags.map((tag, index) => (
-              <span
-                key={index}
-                className="bg-red-50 text-[#E63946] px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide"
-              >
-                {tag}
+        <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10 text-center">
+          <Link href="/blog" className="inline-block mb-6">
+            <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10 gap-2 h-8 text-sm">
+              <ArrowLeft className="w-4 h-4" /> Back to Blog
+            </Button>
+          </Link>
+
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+            <span className="bg-[#E63946] text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider">
+              {post.type}
+            </span>
+            {post.tags?.map(tag => (
+              <span key={tag} className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] md:text-xs font-medium tracking-wide">
+                #{tag}
               </span>
             ))}
           </div>
 
-          <h1 className="text-4xl lg:text-6xl font-bold text-[#1D3557] mb-8 leading-tight">
-            {frontmatter.title}
-          </h1>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-[95%] mx-auto">{post.title}</h1>
 
-          <div className="flex items-center justify-center gap-8 text-gray-500 text-sm font-medium border-y border-gray-100 py-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm md:text-base text-gray-300 font-medium max-w-sm mx-auto md:max-w-none">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-[#E63946]">
-                <User className="w-4 h-4" />
-              </div>
-              {frontmatter.author}
+              <User className="w-4 h-4 text-[#E63946]" />
+              {post.author?.name || 'Admin'}
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-[#E63946]">
-                <Calendar className="w-4 h-4" />
-              </div>
-              {new Date(frontmatter.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              <Calendar className="w-4 h-4 text-[#E63946]" />
+              {format(new Date(post.createdAt), 'MMMM d, yyyy')}
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#E63946]" />
+              {readTime} min read
             </div>
           </div>
-        </header>
-
-        {/* Featured Image */}
-        <div className="rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-video relative group">
-          <ImageWithFallback
-            src={frontmatter.img}
-            alt={frontmatter.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500"></div>
         </div>
+      </div>
 
-        {/* Content */}
-        <div
-          className="prose prose-lg lg:prose-xl max-w-none
-            prose-headings:text-[#1D3557] prose-headings:font-bold prose-headings:tracking-tight
-            prose-p:text-gray-600 prose-p:leading-relaxed
-            prose-a:text-[#E63946] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
-            prose-blockquote:border-l-[#E63946] prose-blockquote:bg-gray-50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
-            prose-img:rounded-2xl prose-img:shadow-lg
-            prose-strong:text-[#1D3557]
-            prose-li:text-gray-600"
-        >
-          <MDXRemote source={content} />
-        </div>
-
-        {/* Footer */}
-        <div className="mt-20 pt-10 border-t border-gray-200">
-          <div className="flex justify-between items-center">
-            <p className="text-gray-500 font-medium">Share this article</p>
-            <div className="flex gap-4">{/* Add social share buttons here if needed */}</div>
+      {/* Content */}
+      <div className="max-w-4xl mx-auto px-4 md:px-6 -mt-10 md:-mt-16 relative z-20">
+        {post.coverImage && (
+          <div className="rounded-2xl overflow-hidden shadow-2xl mb-8 md:mb-12 border-4 border-white aspect-video max-h-[300px] md:max-h-[500px]">
+            <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover" />
           </div>
+        )}
+
+        <div className="bg-white rounded-2xl p-6 md:p-12 shadow-sm prose prose-slate md:prose-lg max-w-none 
+                    prose-img:rounded-xl prose-img:shadow-md
+                    prose-headings:text-[#1D3557] prose-headings:font-bold 
+                    prose-a:text-[#E63946] prose-a:no-underline hover:prose-a:underline">
+
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+
         </div>
-      </article>
-    </div>
+      </div>
+    </article>
   );
 }

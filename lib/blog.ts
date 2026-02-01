@@ -1,61 +1,109 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 
-const contentDirectory = path.join(process.cwd(), 'content/blog')
+import { adminDb } from '@/lib/firebase-admin';
 
 export interface BlogPost {
-  slug: string
-  frontmatter: {
-    title: string
-    description: string
-    date: string
-    author: string
-    img: string
-    tags: string[]
-    published?: boolean
-  }
-  content: string
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string; // HTML
+  coverImage: string;
+  tags: string[];
+  type: 'blog' | 'news' | 'event';
+  isPublished: boolean;
+  author: {
+    uid: string;
+    name: string;
+    photoURL?: string;
+  };
+  createdAt: string; // ISO string
+  updatedAt: string; // ISO string
+  publishedAt?: string; // ISO string
 }
 
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const files = fs.readdirSync(contentDirectory)
+const COLLECTION = 'posts';
 
-  const posts = files
-    .filter(file => file.endsWith('.mdx'))
-    .map(file => {
-      const slug = file.replace('.mdx', '')
-      const fullPath = path.join(contentDirectory, file)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data, content } = matter(fileContents)
-
-      return {
-        slug,
-        frontmatter: data as BlogPost['frontmatter'],
-        content
-      }
-    })
-    .filter(post => post.frontmatter.published !== false)
-    .sort((a, b) =>
-      new Date(b.frontmatter.date).getTime() -
-      new Date(a.frontmatter.date).getTime()
-    )
-
-  return posts
-}
-
-export async function getBlogPost(slug: string): Promise<BlogPost | null> {
+export async function getPosts(options: {
+  limit?: number;
+  tag?: string;
+  type?: string;
+  publishedOnly?: boolean;
+} = {}): Promise<BlogPost[]> {
   try {
-    const fullPath = path.join(contentDirectory, `${slug}.mdx`)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
+    let query = adminDb.collection(COLLECTION).orderBy('createdAt', 'desc');
+
+    if (options.publishedOnly) {
+      query = query.where('isPublished', '==', true);
+    }
+
+    if (options.type) {
+      query = query.where('type', '==', options.type);
+    }
+
+    if (options.tag) {
+      query = query.where('tags', 'array-contains', options.tag);
+    }
+
+    const snapshot = await query.limit(options.limit || 20).get();
+
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as BlogPost));
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    const snapshot = await adminDb.collection(COLLECTION)
+      .where('slug', '==', slug)
+      .limit(1)
+      .get();
+
+    if (snapshot.empty) return null;
+
+    const doc = snapshot.docs[0];
+    return {
+      id: doc.id,
+      ...doc.data()
+    } as BlogPost;
+  } catch (error) {
+    console.error('Error fetching post by slug:', error);
+    return null;
+  }
+}
+
+export async function getPostById(id: string): Promise<BlogPost | null> {
+  try {
+    const doc = await adminDb.collection(COLLECTION).doc(id).get();
+    if (!doc.exists) return null;
 
     return {
-      slug,
-      frontmatter: data as BlogPost['frontmatter'],
-      content
-    }
+      id: doc.id,
+      ...doc.data()
+    } as BlogPost;
   } catch (error) {
-    return null
+    console.error('Error fetching post by id:', error);
+    return null;
+  }
+}
+
+export async function getAllPosts(): Promise<BlogPost[]> {
+  // Helper for admin list view mostly
+  try {
+    const snapshot = await adminDb.collection(COLLECTION)
+      .orderBy('createdAt', 'desc')
+      .get();
+
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as BlogPost));
+  } catch (error) {
+    console.error('Error fetching all posts:', error);
+    return [];
   }
 }

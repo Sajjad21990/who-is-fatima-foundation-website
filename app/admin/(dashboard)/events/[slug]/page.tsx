@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { DownloadCsvButton } from '@/components/admin/DownloadCsvButton';
 import SubmissionsTable from '@/components/admin/SubmissionsTable';
 
 export default async function EventSubmissionsPage({
@@ -43,6 +44,7 @@ export default async function EventSubmissionsPage({
                             </p>
                         </div>
                     </div>
+                    <DownloadCsvButton slug={slug} />
                 </div>
             </div>
 

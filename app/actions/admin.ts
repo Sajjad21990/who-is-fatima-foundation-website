@@ -116,6 +116,23 @@ export async function getEventSubmissions(slug: string, limit: number = 20, afte
     }
 }
 
+export async function getAllEventSubmissions(slug: string) {
+    try {
+        const snapshot = await adminDb.collection('quiz_submissions')
+            .where('slug', '==', slug)
+            .orderBy('timestamp', 'desc')
+            .get();
+
+        return snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+    } catch (error) {
+        console.error('Error fetching all event submissions:', error);
+        return [];
+    }
+}
+
 export async function getSubmission(id: string) {
     try {
         const doc = await adminDb.collection('quiz_submissions').doc(id).get();
@@ -163,13 +180,18 @@ export async function getAuditLogs(submissionId: string) {
     try {
         const snapshot = await adminDb.collection('audit_logs')
             .where('submissionId', '==', submissionId)
-            .orderBy('timestamp', 'desc')
+            // .orderBy('timestamp', 'desc') // Removed to avoid composite index requirement
             .get();
 
-        return snapshot.docs.map(doc => ({
+        const logs = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         }));
+
+        // Sort in memory
+        return logs.sort((a: any, b: any) => {
+            return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+        });
     } catch (error) {
         console.error('Error fetching audit logs:', error);
         return [];

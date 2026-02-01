@@ -7,7 +7,7 @@
     "thumbnailUrl": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80",
     "isActive": true,
     "createdAt": "2026-01-24T12:00:00Z",
-    "endDate": "2026-01-30T23:59:59Z",
+    "endDate": "2026-02-05T23:59:59Z",
     "showScore": false,
     "registrationFields": [
         {
@@ -328,7 +328,8 @@
                 "id": "q20",
                 "text": "Jab Imam Mahdi (a.s.) Zahoor Farmayenge to aap kis tarah unki maddad karenge?",
                 "type": "text",
-                "points": 1
+                "points": 1,
+                "autoGrade": true
             }
         ]
     }

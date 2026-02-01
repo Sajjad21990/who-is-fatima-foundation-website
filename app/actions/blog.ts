@@ -1,0 +1,84 @@
+'use server';
+
+import { adminDb } from '@/lib/firebase-admin';
+import { revalidatePath } from 'next/cache';
+import slugify from 'slugify';
+import { BlogPost, getPostBySlug } from '@/lib/blog';
+
+const COLLECTION = 'posts';
+
+export async function createPost(data: Partial<BlogPost>) {
+    try {
+        // Generate slug if not provided or valid
+        let slug = data.slug;
+        if (!slug && data.title) {
+            slug = slugify(data.title, { lower: true, strict: true });
+        } else if (slug) {
+            slug = slugify(slug, { lower: true, strict: true });
+        } else {
+            throw new Error('Title or Slug is required');
+        }
+
+        // Check for uniqueness
+        const existing = await getPostBySlug(slug);
+        if (existing) {
+            // Append random string to make unique
+            slug = `${slug}-${Math.random().toString(36).substring(2, 7)}`;
+        }
+
+        const newPost: Partial<BlogPost> = {
+            ...data,
+            slug,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+        };
+
+        const docRef = await adminDb.collection(COLLECTION).add(newPost);
+
+        revalidatePath('/blog');
+        revalidatePath('/admin/posts');
+
+        return { success: true, id: docRef.id };
+    } catch (error: any) {
+        console.error('Error creating post:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+export async function updatePost(id: string, data: Partial<BlogPost>) {
+    try {
+        // If slug is changing, check uniqueness (simpler to just update for now, maybe warn?)
+        // For now let's assume slug handling is careful.
+        if (data.slug) {
+            data.slug = slugify(data.slug, { lower: true, strict: true });
+        }
+
+        const updateData = {
+            ...data,
+            updatedAt: new Date().toISOString()
+        };
+
+        await adminDb.collection(COLLECTION).doc(id).update(updateData);
+
+        revalidatePath('/blog');
+        revalidatePath(`/blog/${data.slug}`); // If we knew the old slug, we should revalidate that too.
+        revalidatePath('/admin/posts');
+
+        return { success: true };
+    } catch (error: any) {
+        console.error('Error updating post:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+export async function deletePost(id: string) {
+    try {
+        await adminDb.collection(COLLECTION).doc(id).delete();
+        revalidatePath('/blog');
+        revalidatePath('/admin/posts');
+        return { success: true };
+    } catch (error: any) {
+        console.error('Error deleting post:', error);
+        return { success: false, error: error.message };
+    }
+}

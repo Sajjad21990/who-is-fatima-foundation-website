@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import {
     Table,
     TableBody,
@@ -26,6 +27,7 @@ export default function SubmissionsTable({
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>(null);
 
     const handleNextPage = () => {
         const params = new URLSearchParams(searchParams.toString());
@@ -41,21 +43,66 @@ export default function SubmissionsTable({
         router.push(`${pathname}?${params.toString()}`);
     };
 
+    const handleSort = (key: string) => {
+        let direction: 'asc' | 'desc' = 'asc';
+        if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const sortedSubmissions = [...submissions].sort((a, b) => {
+        if (!sortConfig) return 0;
+
+        let aValue = a[sortConfig.key];
+        let bValue = b[sortConfig.key];
+
+        // Handle nested specific keys if needed
+        if (sortConfig.key === 'name') {
+            aValue = a.userDetails?.name || '';
+            bValue = b.userDetails?.name || '';
+        } else if (sortConfig.key === 'email') {
+            aValue = a.userDetails?.email || '';
+            bValue = b.userDetails?.email || '';
+        }
+
+        if (aValue < bValue) {
+            return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+            return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+    });
+
+    const SortIcon = ({ columnKey }: { columnKey: string }) => {
+        if (sortConfig?.key !== columnKey) return <span className="ml-2 text-gray-300">↕</span>;
+        return sortConfig.direction === 'asc' ? <span className="ml-2 text-[#E63946]">↑</span> : <span className="ml-2 text-[#E63946]">↓</span>;
+    };
+
     return (
         <div className="space-y-4">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <Table>
                     <TableHeader className="bg-gray-50/50">
                         <TableRow>
-                            <TableHead className="font-bold text-[#1D3557]">User Name</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Contact</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Score</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Submitted</TableHead>
+                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('name')}>
+                                User Name <SortIcon columnKey="name" />
+                            </TableHead>
+                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('email')}>
+                                Contact <SortIcon columnKey="email" />
+                            </TableHead>
+                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('score')}>
+                                Score <SortIcon columnKey="score" />
+                            </TableHead>
+                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('timestamp')}>
+                                Submitted <SortIcon columnKey="timestamp" />
+                            </TableHead>
                             <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {submissions.map((sub: any) => (
+                        {sortedSubmissions.map((sub: any) => (
                             <TableRow key={sub.id} className="hover:bg-gray-50/50 transition-colors">
                                 <TableCell className="font-medium">
                                     {sub.userDetails?.name || 'Anonymous'}
