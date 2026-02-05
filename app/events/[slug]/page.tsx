@@ -4,8 +4,8 @@ import { WebinarRegister } from '@/components/events/WebinarRegister';
 import { getEventBySlug } from '@/lib/events';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-    const { id: slug } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const event = await getEventBySlug(slug);
 
     if (!event) {
@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
 }
 
-export default async function EventPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id: slug } = await params;
+export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const event = await getEventBySlug(slug);
 
     if (!event) {

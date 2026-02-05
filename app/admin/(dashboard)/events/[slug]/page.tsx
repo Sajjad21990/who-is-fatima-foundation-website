@@ -1,23 +1,33 @@
 import { getEventBySlug } from '@/lib/events';
-import { getEventSubmissions } from '@/app/actions/admin';
+import { getEventSubmissions, searchEventSubmissions } from '@/app/actions/admin';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Trophy } from 'lucide-react';
 import { DownloadCsvButton } from '@/components/admin/DownloadCsvButton';
 import SubmissionsTable from '@/components/admin/SubmissionsTable';
+import SearchInput from '@/components/ui/search-input-client'; // We'll create a wrapper or use the existing one but we need to handle URL updates.
 
 export default async function EventSubmissionsPage({
     params,
     searchParams
 }: {
     params: Promise<{ slug: string }>,
-    searchParams: Promise<{ after?: string }>
+    searchParams: Promise<{ after?: string, q?: string }>
 }) {
     const { slug } = await params;
-    const { after } = await searchParams;
+    const { after, q: searchQuery } = await searchParams;
     const event = await getEventBySlug(slug);
-    const { items: submissions, nextId, hasMore } = await getEventSubmissions(slug, 20, after);
+
+    let submissionsData;
+
+    if (searchQuery) {
+        submissionsData = await searchEventSubmissions(slug, searchQuery);
+    } else {
+        submissionsData = await getEventSubmissions(slug, 20, after);
+    }
+
+    const { items: submissions, nextId, hasMore } = submissionsData;
 
     if (!event) {
         notFound();
@@ -32,7 +42,8 @@ export default async function EventSubmissionsPage({
                         <ArrowLeft className="w-4 h-4" /> Back to Dashboard
                     </Link>
                 </div>
-                <div className="flex items-center justify-between">
+
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                         <img src={event.thumbnailUrl} alt={event.title} className="w-16 h-16 rounded-xl object-cover shadow-sm ring-1 ring-black/5" />
                         <div>
@@ -44,7 +55,19 @@ export default async function EventSubmissionsPage({
                             </p>
                         </div>
                     </div>
-                    <DownloadCsvButton slug={slug} />
+                </div>
+
+                <div className="flex items-center justify-between mt-6">
+                    <SearchInput placeholder="Search by name..." />
+                    <div className="flex items-center gap-3">
+                        <Link href={`/admin/events/${slug}/winners`}>
+                            <Button variant="outline" className="border-[#1D3557] text-[#1D3557] hover:bg-[#1D3557] hover:text-white">
+                                <Trophy className="w-4 h-4 mr-2" />
+                                Select Winners
+                            </Button>
+                        </Link>
+                        <DownloadCsvButton slug={slug} />
+                    </div>
                 </div>
             </div>
 

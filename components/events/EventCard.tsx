@@ -58,12 +58,30 @@ export function EventCard({ event }: EventCardProps) {
                     )}
                 </div>
 
-                <Link href={`/events/${event.slug}`}>
-                    <Button className="w-full gap-2 group-hover:bg-[#E63946] group-hover:text-white transition-colors">
-                        {event.type === 'quiz' ? 'Start Quiz' : 'Register Now'}
-                        <ArrowRight className="w-4 h-4" />
-                    </Button>
-                </Link>
+
+                {/* determine if we should show Start Quiz or View Results */}
+                {/* Note: In client component we might not know if winners exist without fetching. 
+                    Simple logic: If date passed, show "Ended" or "Results".
+                    Ideally we should pass a prop 'hasResults' or similar. 
+                    For now, let's assume if it's past endDate, we show Results link.
+                    Or better, just check dates. */}
+
+                {/* determine if we should show Start Quiz or View Results */}
+                {(event.type === 'quiz' && event.endDate && new Date() > new Date(event.endDate)) ? (
+                    <Link href={`/events/${event.slug}/results`} className="block w-full">
+                        <Button className="w-full bg-[#1D3557] hover:bg-[#162a47] text-white">
+                            View Results
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </Link>
+                ) : (
+                    <Link href={`/events/${event.slug}`} className="block w-full">
+                        <Button className="w-full bg-[#1D3557] hover:bg-[#162a47] text-white">
+                            {event.type === 'quiz' ? 'Start Quiz' : 'Register Now'}
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </Link>
+                )}
             </div>
         </div>
     );
