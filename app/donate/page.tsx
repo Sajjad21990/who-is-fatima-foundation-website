@@ -9,26 +9,26 @@ export const metadata = {
 export default function DonatePage() {
   const donationOptions = [
     {
-      title: "One-Time Donation",
-      description: "A single contribution to support our ongoing projects and immediate needs.",
-      icon: Heart,
-      action: "Donate Now"
-    },
-    {
-      title: "Monthly Support",
-      description: "Become a monthly supporter to help us run schools and centers smoothly.",
-      icon: Calendar,
-      action: "Subscribe"
-    },
-    {
-      title: "Sponsor a Child",
-      description: "Cover the education cost of one child including books, fees, and basic needs.",
+      title: "Sponsor a Child (Tuition)",
+      description: "Edulight Global Academy - 750 x 12 (9,000) + 1,500 term fees. Total ₹10,500/-",
       icon: User,
       action: "Sponsor"
     },
     {
-      title: "Sponsor a Center",
-      description: "Support an entire SERC center covering rent, salaries, and materials.",
+      title: "Full Child Sponsorship",
+      description: "Edulight Global Academy - Term fees (11,500) + Books, Bag, Uniform & Stationary (2,500). Total ₹14,000/- yearly.",
+      icon: Heart,
+      action: "Sponsor Yearly"
+    },
+    {
+      title: "Donate a Classroom",
+      description: "Edulight Global Academy is under construction. Donate ₹5 Lacs and become a one-time donor of a classroom.",
+      icon: Landmark,
+      action: "Become a Donor"
+    },
+    {
+      title: "Sponsor a SERC Centre",
+      description: "Support an entire Special Education Research Center for ₹48,000/- per month.",
       icon: Landmark,
       action: "Partner"
     }
@@ -108,19 +108,23 @@ export default function DonatePage() {
               <div className="space-y-3 bg-gray-50 p-6 rounded-xl text-sm">
                 <div className="flex justify-between border-b border-gray-200 pb-2">
                   <span className="text-gray-500">Account Name</span>
-                  <span className="font-medium text-[#1D3557]">Who is Fatima Foundation</span>
+                  <span className="font-medium text-[#1D3557]">WHO IS FATIMA FOUNDATION</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-200 pb-2">
                   <span className="text-gray-500">Account Number</span>
-                  <span className="font-medium text-[#1D3557]">XXXXXXXXXXXX</span>
+                  <span className="font-medium text-[#1D3557]">923010056415480</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-200 pb-2">
                   <span className="text-gray-500">Bank Name</span>
-                  <span className="font-medium text-[#1D3557]">Your Bank Name</span>
+                  <span className="font-medium text-[#1D3557]">Axis Bank</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-200 pb-2">
                   <span className="text-gray-500">IFSC Code</span>
-                  <span className="font-medium text-[#1D3557]">XXXX0000000</span>
+                  <span className="font-medium text-[#1D3557]">UTIB0003024</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-200 pb-2">
+                  <span className="text-gray-500">Branch</span>
+                  <span className="font-medium text-[#1D3557]">Orlem, Malad West</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">UPI ID</span>

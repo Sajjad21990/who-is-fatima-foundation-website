@@ -1,10 +1,11 @@
 import { getPostBySlug, getPosts } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
-import { Calendar, User, Clock, ArrowLeft } from "lucide-react";
+import { Calendar, User, Clock, ArrowLeft, FileText } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
+import { PdfPostContent } from "@/components/blog/PdfPostContent";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -50,9 +51,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // Estimate read time (words / 200)
-  const wordCount = post.content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+  // Estimate read time (words / 200) - only for articles
+  const wordCount = (post.content || '').replace(/<[^>]*>/g, '').split(/\s+/).length;
   const readTime = Math.ceil(wordCount / 200);
+  const isPdf = post.postFormat === 'pdf';
 
   return (
     <article className="min-h-screen bg-gray-50 pb-20">
@@ -82,7 +84,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
             <span className="bg-[#E63946] text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider">
-              {post.type}
+              {isPdf ? 'Announcement' : post.type}
             </span>
             {post.tags?.map(tag => (
               <span key={tag} className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] md:text-xs font-medium tracking-wide">
@@ -102,10 +104,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <Calendar className="w-4 h-4 text-[#E63946]" />
               {format(new Date(post.createdAt), 'MMMM d, yyyy')}
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#E63946]" />
-              {readTime} min read
-            </div>
+            {!isPdf && (
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-[#E63946]" />
+                {readTime} min read
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -118,12 +122,37 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         )}
 
-        <div className="bg-white rounded-2xl p-6 md:p-12 shadow-sm prose prose-slate md:prose-lg max-w-none 
+        <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 shadow-sm prose prose-slate md:prose-lg max-w-none 
                     prose-img:rounded-xl prose-img:shadow-md
                     prose-headings:text-[#1D3557] prose-headings:font-bold 
                     prose-a:text-[#E63946] prose-a:no-underline hover:prose-a:underline">
 
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          {isPdf && post.pdfUrl ? (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center bg-gray-50 p-4 rounded-xl border">
+                <div className="flex items-center gap-3">
+                  <FileText className="w-8 h-8 text-red-600" />
+                  <div>
+                    <p className="font-bold text-gray-900 leading-tight">Document Attached</p>
+                    <p className="text-xs text-gray-500 uppercase font-semibold">PDF Format</p>
+                  </div>
+                </div>
+                <Button asChild variant="outline" size="sm">
+                  <a href={post.pdfUrl} target="_blank" rel="noopener noreferrer">Download PDF</a>
+                </Button>
+              </div>
+
+              <div className="w-full">
+                <PdfPostContent url={post.pdfUrl} title={post.title} />
+              </div>
+
+              <p className="text-center text-sm text-gray-500 italic">
+                Cannot see the document? <a href={post.pdfUrl} className="text-[#E63946] font-bold">Click here to open it directly.</a>
+              </p>
+            </div>
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+          )}
 
         </div>
       </div>

@@ -18,27 +18,42 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { BlogPost } from '@/lib/blog';
 import { TipTapEditor } from './TipTapEditor';
-import { CldUploadWidget } from 'next-cloudinary';
-import { ImagePlus, X, Loader2, ArrowLeft, Eye } from 'lucide-react';
+import { FirebaseImageUpload } from '@/components/admin/FirebaseImageUpload';
+import { FirebaseFileUpload } from '@/components/admin/FirebaseFileUpload';
+import { ImagePlus, X, Loader2, ArrowLeft, Eye, FileText, FileCheck } from 'lucide-react';
 import * as React from 'react';
 import { useState, KeyboardEvent } from 'react';
 import { createPost, updatePost } from '@/app/actions/blog';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth/AuthProvider';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const formSchema = z.object({
     title: z.string().min(2, 'Title must be at least 2 characters'),
     slug: z.string().min(2, 'Slug must be at least 2 characters').optional().or(z.literal('')),
     excerpt: z.string().max(300, 'Excerpt must be less than 300 characters').optional(),
-    content: z.string().min(10, 'Content must be at least 10 characters'),
+    content: z.string().optional(),
     coverImage: z.string().url('Cover image is required'),
-    tags: z.string().optional(), // Stored as comma separated string for form compatibility, handled via separate state in UI
+    tags: z.string().optional(),
     type: z.enum(['blog', 'news', 'event']),
+    postFormat: z.enum(['rich-text', 'pdf']),
+    pdfUrl: z.string().url('PDF file is required').optional().or(z.literal('')),
     isPublished: z.boolean(),
+}).refine((data) => {
+    if (data.postFormat === 'rich-text') {
+        return !!data.content && data.content.length >= 10;
+    }
+    if (data.postFormat === 'pdf') {
+        return !!data.pdfUrl;
+    }
+    return true;
+}, {
+    message: "Content is required for Rich Text, or PDF for PDF post",
+    path: ["content"]
 });
 
 interface PostFormProps {
-    post?: BlogPost; // If provided, we are in Edit mode
+    post?: BlogPost;
 }
 
 export function PostForm({ post }: PostFormProps) {
@@ -58,43 +73,41 @@ export function PostForm({ post }: PostFormProps) {
             title: post?.title || '',
             slug: post?.slug || '',
             excerpt: post?.excerpt || '',
-            content: post?.content || '<p>Start writing...</p>',
+            content: post?.content || (post?.postFormat === 'pdf' ? '' : '<p>Start writing...</p>'),
             coverImage: post?.coverImage || '',
             tags: post?.tags?.join(', ') || '',
             type: post?.type || 'blog',
+            postFormat: post?.postFormat || 'rich-text',
+            pdfUrl: post?.pdfUrl || '',
             isPublished: post?.isPublished || false,
         },
     });
+
+    const postFormat = form.watch('postFormat');
 
     const slugify = (text: string) => {
         return text
             .toString()
             .toLowerCase()
             .trim()
-            .replace(/\s+/g, '-')     // Replace spaces with -
-            .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-            .replace(/\-\-+/g, '-');  // Replace multiple - with single -
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-');
     };
 
-    // Watch title for auto-slug generation
     const titleValue = form.watch('title');
 
-    // Simple debounce implementation using useEffect
     React.useEffect(() => {
         const timer = setTimeout(() => {
-            // Only auto-generate if we are creating a new post (no ID) or if the slug is empty
-            // checking !post means we are in 'create' mode. 
-            // checking !form.getValues('slug') allows it to popuplate if empty in edit mode too.
             if ((!post || !form.getValues('slug')) && titleValue) {
                 const newSlug = slugify(titleValue);
                 form.setValue('slug', newSlug, { shouldValidate: true });
             }
-        }, 500); // 500ms debounce
+        }, 500);
 
         return () => clearTimeout(timer);
     }, [titleValue, form, post]);
 
-    // Update form value when tags change
     const updateTagsFormValue = (newTags: string[]) => {
         form.setValue('tags', newTags.join(','));
     };
@@ -134,11 +147,13 @@ export function PostForm({ post }: PostFormProps) {
 
             const postData = {
                 ...values,
-                tags: tags, // Use our local state array
+                tags: tags,
                 author: post?.author || {
                     uid: user?.uid || 'admin',
                     name: userProfile?.displayName || user?.displayName || 'Admin',
-                }
+                },
+                // Ensure field compatibility for old schemas if necessary
+                content: values.postFormat === 'pdf' ? '' : (values.content || '')
             };
 
             let result;
@@ -225,19 +240,135 @@ export function PostForm({ post }: PostFormProps) {
                                 )}
                             />
 
-                            <FormField
-                                control={form.control}
-                                name="content"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Content</FormLabel>
-                                        <FormControl>
-                                            <TipTapEditor value={field.value} onChange={field.onChange} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                            {/* Post Format Selector */}
+                            <div className="bg-white p-6 rounded-lg border shadow-sm space-y-4">
+                                <FormField
+                                    control={form.control}
+                                    name="postFormat"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-3">
+                                            <FormLabel>Post Format</FormLabel>
+                                            <FormControl>
+                                                <RadioGroup
+                                                    onValueChange={field.onChange}
+                                                    defaultValue={field.value}
+                                                    className="flex flex-col space-y-1 lg:flex-row lg:space-y-0 lg:gap-6"
+                                                >
+                                                    <FormItem className="flex items-center space-x-3 space-y-0 cursor-pointer">
+                                                        <FormControl>
+                                                            <RadioGroupItem value="rich-text" />
+                                                        </FormControl>
+                                                        <FormLabel className="font-normal cursor-pointer flex items-center gap-2">
+                                                            <FileText className="w-4 h-4 text-blue-500" />
+                                                            Rich Text Article
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                    <FormItem className="flex items-center space-x-3 space-y-0 cursor-pointer">
+                                                        <FormControl>
+                                                            <RadioGroupItem value="pdf" />
+                                                        </FormControl>
+                                                        <FormLabel className="font-normal cursor-pointer flex items-center gap-2">
+                                                            <FileCheck className="w-4 h-4 text-red-500" />
+                                                            PDF Announcement
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                </RadioGroup>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            {postFormat === 'rich-text' ? (
+                                <FormField
+                                    control={form.control}
+                                    name="content"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Content</FormLabel>
+                                            <FormControl>
+                                                <TipTapEditor value={field.value || ''} onChange={field.onChange} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            ) : (
+                                <FormField
+                                    control={form.control}
+                                    name="pdfUrl"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Upload PDF Document</FormLabel>
+                                            <FormControl>
+                                                <div className="space-y-4">
+                                                    {field.value ? (
+                                                        <div className="bg-gray-50 border rounded-lg p-6 flex flex-col items-center justify-center text-center space-y-4">
+                                                            <div className="bg-red-100 p-4 rounded-full">
+                                                                <FileText className="w-8 h-8 text-red-600" />
+                                                            </div>
+                                                            <div>
+                                                                <p className="font-medium text-gray-900">PDF Document Attached</p>
+                                                                <p className="text-sm text-gray-500 truncate max-w-xs">{field.value}</p>
+                                                            </div>
+                                                            <div className="flex gap-2">
+                                                                <Button
+                                                                    type="button"
+                                                                    variant="outline"
+                                                                    size="sm"
+                                                                    onClick={() => window.open(field.value, '_blank')}
+                                                                >
+                                                                    <Eye className="w-4 h-4 mr-2" /> View PDF
+                                                                </Button>
+                                                                <Button
+                                                                    type="button"
+                                                                    variant="ghost"
+                                                                    size="sm"
+                                                                    className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                                                                    onClick={() => field.onChange('')}
+                                                                >
+                                                                    <X className="w-4 h-4 mr-2" /> Remove
+                                                                </Button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <FirebaseFileUpload
+                                                            onUploadSuccess={(url) => field.onChange(url)}
+                                                            folder="blog-pdfs"
+                                                            accept="application/pdf"
+                                                            fileTypeLabel="PDF Document"
+                                                        >
+                                                            {({ open, loading }) => (
+                                                                <div
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        if (!loading) open();
+                                                                    }}
+                                                                    className={`border-2 border-dashed border-gray-200 rounded-lg p-12 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors ${loading ? 'cursor-not-allowed opacity-70' : ''}`}
+                                                                >
+                                                                    {loading ? (
+                                                                        <Loader2 className="w-10 h-10 text-gray-400 mb-2 animate-spin" />
+                                                                    ) : (
+                                                                        <FileText className="w-10 h-10 text-gray-400 mb-2" />
+                                                                    )}
+                                                                    <div className="text-center">
+                                                                        <p className="font-medium text-gray-700">
+                                                                            {loading ? 'Uploading PDF...' : 'Click to upload PDF'}
+                                                                        </p>
+                                                                        <p className="text-sm text-gray-500">Max size: 10MB</p>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                        </FirebaseFileUpload>
+                                                    )}
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            )}
 
                             <FormField
                                 control={form.control}
@@ -280,7 +411,7 @@ export function PostForm({ post }: PostFormProps) {
                                                 <Switch
                                                     checked={field.value}
                                                     onCheckedChange={field.onChange}
-                                                    className="data-[state=unchecked]:bg-gray-200" // Ensure visibility when off
+                                                    className="data-[state=unchecked]:bg-gray-200"
                                                 />
                                             </FormControl>
                                         </FormItem>
@@ -312,24 +443,29 @@ export function PostForm({ post }: PostFormProps) {
                                                             </Button>
                                                         </div>
                                                     ) : (
-                                                        <CldUploadWidget
-                                                            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || 'default_unsigned'}
-                                                            onSuccess={(result: any) => {
-                                                                if (result.info?.secure_url) {
-                                                                    field.onChange(result.info.secure_url);
-                                                                }
-                                                            }}
+                                                        <FirebaseImageUpload
+                                                            onUploadSuccess={(url) => field.onChange(url)}
+                                                            folder="blog-covers"
                                                         >
-                                                            {({ open }) => (
+                                                            {({ open, loading }) => (
                                                                 <div
-                                                                    onClick={(e) => { e.preventDefault(); open(); }}
-                                                                    className="border-2 border-dashed border-gray-200 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors"
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        if (!loading) open();
+                                                                    }}
+                                                                    className={`border-2 border-dashed border-gray-200 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors ${loading ? 'cursor-not-allowed opacity-70' : ''}`}
                                                                 >
-                                                                    <ImagePlus className="w-8 h-8 text-gray-400 mb-2" />
-                                                                    <span className="text-sm text-gray-500">Upload Cover Image</span>
+                                                                    {loading ? (
+                                                                        <Loader2 className="w-8 h-8 text-gray-400 mb-2 animate-spin" />
+                                                                    ) : (
+                                                                        <ImagePlus className="w-8 h-8 text-gray-400 mb-2" />
+                                                                    )}
+                                                                    <span className="text-sm text-gray-500">
+                                                                        {loading ? 'Uploading...' : 'Upload Cover Image'}
+                                                                    </span>
                                                                 </div>
                                                             )}
-                                                        </CldUploadWidget>
+                                                        </FirebaseImageUpload>
                                                     )}
                                                 </div>
                                             </FormControl>

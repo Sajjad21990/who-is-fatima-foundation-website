@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Calendar, User, ArrowRight } from "lucide-react";
+import { Search, Calendar, User, ArrowRight, FileText } from "lucide-react";
 import Link from "next/link";
 import { getPosts } from "@/lib/blog";
 import { format } from 'date-fns';
@@ -79,9 +79,16 @@ export default async function BlogPage() {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-white/95 backdrop-blur-sm text-[#E63946] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-                        {post.type}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <span className="bg-white/95 backdrop-blur-sm text-[#E63946] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm flex items-center gap-1">
+                        {post.postFormat === 'pdf' ? (
+                          <>
+                            <FileText className="w-3 h-3" />
+                            PDF
+                          </>
+                        ) : (
+                          post.type
+                        )}
                       </span>
                     </div>
                   </div>
@@ -108,7 +115,8 @@ export default async function BlogPage() {
 
                     <Link href={`/blog/${post.slug}`} className="mt-auto">
                       <Button variant="link" className="p-0 h-auto text-[#E63946] hover:text-[#1D3557] font-bold group/btn text-base">
-                        Read Article <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                        {post.postFormat === 'pdf' ? 'View PDF' : 'Read Article'}
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
                   </div>

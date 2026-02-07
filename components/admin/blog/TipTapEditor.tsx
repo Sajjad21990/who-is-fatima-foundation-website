@@ -17,10 +17,11 @@ import {
     Undo,
     Redo,
     Link as LinkIcon,
-    Image as ImageIcon
+    Image as ImageIcon,
+    Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { CldUploadWidget } from 'next-cloudinary';
+import { FirebaseImageUpload } from '@/components/admin/FirebaseImageUpload';
 import { useEffect } from 'react';
 
 interface TipTapEditorProps {
@@ -169,30 +170,31 @@ export function TipTapEditor({ value, onChange }: TipTapEditorProps) {
                     <LinkIcon className="h-4 w-4" />
                 </Toggle>
 
-                <CldUploadWidget
-                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || 'default_unsigned'}
-                    onSuccess={(result: any) => {
-                        if (result.info?.secure_url) {
-                            editor.chain().focus().setImage({ src: result.info.secure_url }).run();
-                        }
+                <FirebaseImageUpload
+                    onUploadSuccess={(url) => {
+                        editor.chain().focus().setImage({ src: url }).run();
                     }}
+                    folder="blog-content"
                 >
-                    {({ open }) => {
-                        return (
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-9 w-9 p-0"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    open();
-                                }}
-                            >
+                    {({ open, loading }) => (
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-9 w-9 p-0"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                open();
+                            }}
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
                                 <ImageIcon className="h-4 w-4" />
-                            </Button>
-                        );
-                    }}
-                </CldUploadWidget>
+                            )}
+                        </Button>
+                    )}
+                </FirebaseImageUpload>
 
                 <div className="flex-1" />
 

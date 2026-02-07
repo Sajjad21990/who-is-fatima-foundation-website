@@ -10,6 +10,8 @@ export interface BlogPost {
   coverImage: string;
   tags: string[];
   type: 'blog' | 'news' | 'event';
+  postFormat?: 'rich-text' | 'pdf';
+  pdfUrl?: string;
   isPublished: boolean;
   author: {
     uid: string;
