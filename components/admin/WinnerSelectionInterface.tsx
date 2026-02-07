@@ -46,6 +46,16 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
         return grouped;
     }, [submissions]);
 
+    // Group submissions by score for statistics
+    const scoreDistribution = useMemo(() => {
+        const counts = new Map<number, number>();
+        submissions.forEach(sub => {
+            counts.set(sub.score, (counts.get(sub.score) || 0) + 1);
+        });
+        // Sort by score descending
+        return Array.from(counts.entries()).sort((a, b) => b[0] - a[0]);
+    }, [submissions]);
+
     // Calculate ranking sequence - We want 3, 2, 1 order for selection
     const unassignedRanks = useMemo(() => {
         const ranks = [1, 2, 3];
@@ -271,6 +281,37 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
 
                 {/* Right Side: Podium & Results */}
                 <div className={cn("lg:col-span-3 space-y-12", !isLocked && !selectionComplete && "lg:col-span-2")}>
+
+                    {/* Participation Stats (Only shown when no winners are selected yet) */}
+                    {!isLocked && winners.length === 0 && (
+                        <Card className="border-dashed border-2">
+                            <CardHeader>
+                                <CardTitle className="text-xl flex items-center gap-2">
+                                    <AlertCircle className="w-5 h-5 text-blue-500" />
+                                    Participation Statistics
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    {scoreDistribution.map(([score, count]) => (
+                                        <div key={score} className="p-4 bg-gray-50 rounded-xl border flex items-center justify-between">
+                                            <div>
+                                                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Score</p>
+                                                <p className="text-2xl font-black text-[#1D3557]">{score}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Participants</p>
+                                                <p className="text-2xl font-black text-[#E63946]">{count}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="mt-6 text-sm text-gray-400 italic text-center">
+                                    Total Submissions: {submissions.length}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    )}
 
                     {/* Podium (Top 3) */}
                     {winners.length > 0 && (

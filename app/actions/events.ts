@@ -90,3 +90,50 @@ export async function submitQuiz(slug: string, answers: Record<string, string>, 
     };
   }
 }
+
+export async function verifyAndGetSubmission(submissionId: string, phone: string) {
+  try {
+    // Fetch submission from Firestore
+    const submissionDoc = await adminDb.collection('quiz_submissions').doc(submissionId).get();
+
+    if (!submissionDoc.exists) {
+      return { success: false, message: 'Submission not found' };
+    }
+
+    const submission = { id: submissionDoc.id, ...submissionDoc.data() } as any;
+
+    // Verify phone number (compare last 4 digits for flexibility)
+    const storedPhone = (submission.userDetails?.phone || '').replace(/\D/g, '');
+    const inputPhone = phone.replace(/\D/g, '');
+
+    // Match last 4 digits or full number
+    const isMatch = storedPhone.endsWith(inputPhone) || storedPhone === inputPhone;
+
+    if (!isMatch) {
+      return { success: false, message: 'Phone number does not match our records.' };
+    }
+
+    // Fetch event questions
+    const event = await getEventBySlug(submission.slug, true);
+    if (!event) {
+      return { success: false, message: 'Event not found' };
+    }
+
+    const questions = (event as any).content?.questions || [];
+
+    return {
+      success: true,
+      submission: {
+        id: submission.id,
+        answers: submission.answers,
+        score: submission.score,
+        totalPoints: submission.totalPoints,
+        userDetails: { name: submission.userDetails?.name } // Only return name, not full details
+      },
+      questions
+    };
+  } catch (error) {
+    console.error('Verify submission error:', error);
+    return { success: false, message: 'Failed to verify submission' };
+  }
+}
