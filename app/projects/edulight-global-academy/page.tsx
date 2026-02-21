@@ -8,7 +8,7 @@ import 'yet-another-react-lightbox/styles.css';
 import { getImages, StorageItem, getOptimizedUrl } from '@/lib/storage';
 import { Loader2, Play, Building2, Ruler, IndianRupee, CheckCircle2, HardHat, Heart, FileText, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import PdfViewer from '@/components/blog/PdfViewer';
+import { PdfPostContent } from '@/components/blog/PdfPostContent';
 import Link from 'next/link';
 
 const ESTIMATE_PDF_URL =
@@ -159,7 +159,7 @@ export default function EdulightGlobalAcademyPage() {
                         </p>
                     </div>
                     <div className="max-w-4xl mx-auto">
-                        <PdfViewer url={ESTIMATE_PDF_URL} title="Edulight Global Academy — Construction Estimate" />
+                        <PdfPostContent url={ESTIMATE_PDF_URL} title="Edulight Global Academy — Construction Estimate" />
                     </div>
                 </div>
             </section>
