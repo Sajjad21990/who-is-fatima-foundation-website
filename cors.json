@@ -1,7 +1,9 @@
 [
     {
         "origin": [
-            "*"
+            "http://localhost:3000",
+            "https://www.whoisfatima.org",
+            "https://whoisfatima.org"
         ],
         "method": [
             "GET",
