@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import { ArrowRight, School, BookOpen, Target } from "lucide-react";
+import { ArrowRight, School, BookOpen, Target, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = {
   title: "Our Projects",
@@ -34,12 +35,13 @@ export default function ProjectsPage() {
       category: "Skill Development"
     },
     {
-      title: "Edulight Global School",
+      title: "Edulight Global Academy",
       location: "Dargah-e-Alia, Najaf-e-Hind, Jogipura, Bijnor, UP",
       description: "Giving children in rural areas access to structured education. Affiliated with Delhi Board, focusing on quality teaching and community values.",
       features: ["Nursery to 5th Standard", "Recognized Curriculum", "Community Values"],
       image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1080&auto=format&fit=crop",
-      category: "Formal Education"
+      category: "Formal Education",
+      href: "/projects/edulight-global-academy"
     },
     {
       title: "Sakina Sewing Classes",
@@ -121,6 +123,15 @@ export default function ProjectsPage() {
                       </span>
                     ))}
                   </div>
+
+                  {project.href && (
+                    <Link href={project.href}>
+                      <Button className="w-full bg-white border-2 border-[#E63946] text-[#E63946] hover:bg-[#E63946] hover:text-white transition-colors group/btn">
+                        View Project Details
+                        <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}

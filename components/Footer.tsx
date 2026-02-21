@@ -13,7 +13,7 @@ export function Footer() {
 
   const projects = [
     { label: "Sakina Education Center", href: "/projects" },
-    { label: "Edulight Global School", href: "/projects" },
+    { label: "Edulight Global Academy", href: "/projects/edulight-global-academy" },
     { label: "Computer Literacy", href: "/projects" },
     { label: "Skill Development", href: "/projects" },
     { label: "Community Outreach", href: "/projects" }

@@ -16,7 +16,7 @@ export default function DonatePage() {
     },
     {
       title: "Full Child Sponsorship",
-      description: "Edulight Global Academy - Term fees (11,500) + Books, Bag, Uniform & Stationary (2,500). Total ₹14,000/- yearly.",
+      description: "Edulight Global Academy - Term fees (10,500) + Books, Bag, Uniform & Stationary (2,500). Total ₹13,000/- yearly.",
       icon: Heart,
       action: "Sponsor Yearly"
     },
