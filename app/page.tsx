@@ -1,13 +1,13 @@
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Causes } from "@/components/Causes";
-import { VolunteerCTA } from "@/components/VolunteerCTA";
-import { Events } from "@/components/Events";
-import { Testimonials } from "@/components/Testimonials";
+// import { VolunteerCTA } from "@/components/VolunteerCTA";
+// import { Events } from "@/components/Events";
+// import { Testimonials } from "@/components/Testimonials";
 import { CounterStats } from "@/components/CounterStats";
 import { Blog } from "@/components/Blog";
 import { Newsletter } from "@/components/Newsletter";
-import { GalleryPreview } from "@/components/GalleryPreview";
+// import { GalleryPreview } from "@/components/GalleryPreview";
 
 export const metadata = {
   title: "Home",
@@ -20,11 +20,11 @@ export default function HomePage() {
       <Hero />
       <About />
       <Causes />
-      <VolunteerCTA />
-      <Events />
-      <Testimonials />
+      {/* <VolunteerCTA /> */}
+      {/* <Events /> */}
+      {/* <Testimonials /> */}
       <CounterStats />
-      <GalleryPreview />
+      {/* <GalleryPreview /> */}
       <Blog />
       <Newsletter />
     </>
