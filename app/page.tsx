@@ -8,6 +8,7 @@ import { CounterStats } from "@/components/CounterStats";
 import { Blog } from "@/components/Blog";
 import { Newsletter } from "@/components/Newsletter";
 // import { GalleryPreview } from "@/components/GalleryPreview";
+import { CondolenceModal } from "@/components/CondolenceModal";
 
 export const metadata = {
   title: "Home",
@@ -17,6 +18,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+      <CondolenceModal />
       <Hero />
       <About />
       <Causes />
