@@ -21,7 +21,7 @@ export default function ContactPage() {
 
       <section className="py-20">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Contact Info */}
             <div className="space-y-8">
               <div>

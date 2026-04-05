@@ -89,13 +89,13 @@ export default function SubmissionsTable({
                             <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('name')}>
                                 User Name <SortIcon columnKey="name" />
                             </TableHead>
-                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('email')}>
+                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors hidden md:table-cell" onClick={() => handleSort('email')}>
                                 Contact <SortIcon columnKey="email" />
                             </TableHead>
                             <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('score')}>
                                 Score <SortIcon columnKey="score" />
                             </TableHead>
-                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('timestamp')}>
+                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors hidden md:table-cell" onClick={() => handleSort('timestamp')}>
                                 Submitted <SortIcon columnKey="timestamp" />
                             </TableHead>
                             <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
@@ -107,7 +107,7 @@ export default function SubmissionsTable({
                                 <TableCell className="font-medium">
                                     {sub.userDetails?.name || 'Anonymous'}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="hidden md:table-cell">
                                     <div className="text-sm text-[#1D3557] font-medium">{sub.userDetails?.email}</div>
                                     <div className="text-xs text-gray-400">{sub.userDetails?.phone}</div>
                                 </TableCell>
@@ -123,7 +123,7 @@ export default function SubmissionsTable({
                                         <span className="text-gray-400 italic text-xs">Processing</span>
                                     )}
                                 </TableCell>
-                                <TableCell title={sub.timestamp} className="text-sm text-gray-500">
+                                <TableCell title={sub.timestamp} className="text-sm text-gray-500 hidden md:table-cell">
                                     {sub.timestamp ? formatDistance(new Date(sub.timestamp), new Date(), { addSuffix: true }) : '-'}
                                 </TableCell>
                                 <TableCell className="text-right">

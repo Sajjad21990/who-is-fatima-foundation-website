@@ -36,8 +36,8 @@ export function Footer() {
   return (
     <footer className="bg-[#1D3557] text-white">
       {/* Main Footer */}
-      <div className="max-w-[1440px] mx-auto px-20 py-16 lg:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16 lg:py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* About Column */}
           <div className="space-y-6">
             <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export function Footer() {
 
       {/* Copyright */}
       <div className="bg-[#0F1F2F] py-6">
-        <div className="max-w-[1440px] mx-auto px-20">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/70 text-sm flex items-center gap-1">
               Made with <Heart className="w-4 h-4 text-[#E63946] fill-[#E63946]" /> by Who is Fatima Foundation

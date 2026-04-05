@@ -71,6 +71,32 @@ export async function updatePost(id: string, data: Partial<BlogPost>) {
     }
 }
 
+export async function getRecentPosts(limit: number = 3) {
+    try {
+        const snapshot = await adminDb.collection(COLLECTION)
+            .where('isPublished', '==', true)
+            .orderBy('createdAt', 'desc')
+            .limit(limit)
+            .get();
+
+        return snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                slug: data.slug,
+                title: data.title,
+                description: data.excerpt || '',
+                date: data.createdAt,
+                author: data.author?.name || 'WFF Team',
+                img: data.coverImage || '',
+                tags: data.tags || [],
+            };
+        });
+    } catch (error) {
+        console.error('Error fetching recent posts:', error);
+        return [];
+    }
+}
+
 export async function deletePost(id: string) {
     try {
         await adminDb.collection(COLLECTION).doc(id).delete();

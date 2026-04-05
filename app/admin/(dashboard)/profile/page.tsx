@@ -73,7 +73,7 @@ export default function AdminProfilePage() {
                 <p className="text-gray-500">Manage your account information and security</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
                 {/* Personal Details Card */}
                 <div className="lg:col-span-1 space-y-6">
                     <Card className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

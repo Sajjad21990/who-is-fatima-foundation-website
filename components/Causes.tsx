@@ -39,8 +39,8 @@ export function Causes() {
         {/* SUPER 20 — Flagship Project */}
         <div className="max-w-5xl mx-auto mb-16">
           <div className="relative bg-gradient-to-br from-[#1D3557] to-[#264773] rounded-3xl overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-72 h-72 bg-[#E63946]/10 rounded-full -translate-y-1/3 translate-x-1/3" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#457B9D]/10 rounded-full translate-y-1/3 -translate-x-1/3" />
+            <div className="absolute top-0 right-0 w-40 h-40 sm:w-72 sm:h-72 bg-[#E63946]/10 rounded-full -translate-y-1/3 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 sm:w-48 sm:h-48 bg-[#457B9D]/10 rounded-full translate-y-1/3 -translate-x-1/3" />
 
             <div className="relative grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
               {/* Left — Content */}

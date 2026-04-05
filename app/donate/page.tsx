@@ -50,7 +50,7 @@ export default function DonatePage() {
       {/* Donation Options */}
       <section className="py-20">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {donationOptions.map((option, index) => (
               <div key={index} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
                 <div className="w-12 h-12 bg-[#F1FAEE] rounded-xl flex items-center justify-center mb-6">
@@ -82,7 +82,7 @@ export default function DonatePage() {
               <p className="text-[#457B9D] mb-6">
                 Secure and quick payments via UPI, Credit/Debit Cards, Net Banking, and Wallets.
               </p>
-              <div className="flex gap-4 mb-8">
+              <div className="flex flex-wrap gap-4 mb-8">
                 {["Google Pay", "PhonePe", "Paytm", "Cards"].map((method, idx) => (
                   <span key={idx} className="px-3 py-1 bg-gray-100 rounded text-sm text-gray-600 font-medium">
                     {method}
@@ -138,7 +138,7 @@ export default function DonatePage() {
                   <img
                     src="/images/common/qr.jpg"
                     alt="UPI QR Code"
-                    className="w-48 h-auto"
+                    className="w-32 sm:w-48 h-auto"
                   />
                 </div>
               </div>

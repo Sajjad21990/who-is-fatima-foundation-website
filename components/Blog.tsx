@@ -5,6 +5,7 @@ import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { getRecentPosts } from "@/app/actions/blog";
 
 interface BlogPost {
   slug: string;
@@ -22,9 +23,8 @@ export function Blog() {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const response = await fetch('/api/blog-posts');
-        const data = await response.json();
-        setPosts(data.slice(0, 3));
+        const data = await getRecentPosts(3);
+        setPosts(data);
       } catch (error) {
         console.error('Failed to load blog posts:', error);
       }
@@ -57,7 +57,7 @@ export function Blog() {
               className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow group flex flex-col h-full"
             >
               {/* Image */}
-              <div className="relative overflow-hidden h-64">
+              <div className="relative overflow-hidden h-48 sm:h-64">
                 <ImageWithFallback
                   src={post.img}
                   alt={post.title}

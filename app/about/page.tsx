@@ -16,35 +16,41 @@ export default function AboutPage() {
       {/* Vision & Mission */}
       <section className="py-20 bg-[#F1FAEE]">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white p-8 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-6">
-                <Eye className="w-6 h-6 text-[#E63946]" />
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            <div className="relative bg-gradient-to-br from-[#1D3557] to-[#264773] p-8 rounded-2xl shadow-xl overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="relative">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
+                  <Eye className="w-6 h-6 text-[#E63946]" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                <p className="text-white/70 leading-relaxed">
+                  To establish Sakina Education & Research Centers (SERCs) at every Shia Jama Masjid in Mumbai and provide quality education that builds skills, confidence, and opportunities for the next generation.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold text-[#1D3557] mb-4">Our Vision</h3>
-              <p className="text-[#457B9D] leading-relaxed">
-                To establish Sakina Education & Research Centers (SERCs) at every Shia Jama Masjid in Mumbai and provide quality education that builds skills, confidence, and opportunities for the next generation.
-              </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 bg-[#1D3557]/10 rounded-xl flex items-center justify-center mb-6">
-                <Target className="w-6 h-6 text-[#1D3557]" />
+            <div className="relative bg-gradient-to-br from-[#1D3557] to-[#264773] p-8 rounded-2xl shadow-xl overflow-hidden">
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+              <div className="relative">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
+                  <Target className="w-6 h-6 text-[#E63946]" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
+                <ul className="space-y-3 text-white/70">
+                  <li className="flex gap-3">
+                    <span className="text-[#E63946] font-bold">•</span>
+                    Provide affordable and accessible education to underprivileged children.
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#E63946] font-bold">•</span>
+                    Run schools and learning centers that blend modern education with community values.
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#E63946] font-bold">•</span>
+                    Empower youth with practical skills like computer education.
+                  </li>
+                </ul>
               </div>
-              <h3 className="text-2xl font-bold text-[#1D3557] mb-4">Our Mission</h3>
-              <ul className="space-y-3 text-[#457B9D]">
-                <li className="flex gap-3">
-                  <span className="text-[#E63946] font-bold">•</span>
-                  Provide affordable and accessible education to underprivileged children.
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-[#E63946] font-bold">•</span>
-                  Run schools and learning centers that blend modern education with community values.
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-[#E63946] font-bold">•</span>
-                  Empower youth with practical skills like computer education.
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -65,8 +71,7 @@ export default function AboutPage() {
                 <img
                   src="/images/team/anwar-merchant.png"
                   alt="Mr. Anwar Merchant"
-                  className="rounded-full object-cover object-top shadow-lg border-4 border-white"
-                  style={{ width: '192px', height: '192px' }}
+                  className="rounded-full object-cover object-top shadow-lg border-4 border-white w-36 h-36 sm:w-48 sm:h-48"
                 />
               </div>
               <div className="p-8">
@@ -107,8 +112,7 @@ export default function AboutPage() {
                 <img
                   src="/images/team/abrar.jpg"
                   alt="Mr. Abrar Husain Syed"
-                  className="rounded-full object-cover object-top shadow-lg border-4 border-white"
-                  style={{ width: '192px', height: '192px' }}
+                  className="rounded-full object-cover object-top shadow-lg border-4 border-white w-36 h-36 sm:w-48 sm:h-48"
                 />
               </div>
               <div className="p-8">

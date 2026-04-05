@@ -50,8 +50,8 @@ export default function MessagesTable({
                         <TableRow>
                             <TableHead className="font-bold text-[#1D3557]">Sender</TableHead>
                             <TableHead className="font-bold text-[#1D3557]">Subject</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Status</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Received</TableHead>
+                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Status</TableHead>
+                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Received</TableHead>
                             <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -70,7 +70,7 @@ export default function MessagesTable({
                                     </p>
                                     <p className="text-xs text-gray-400 line-clamp-1 truncate max-w-[200px]">{m.message}</p>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="hidden md:table-cell">
                                     {m.status !== 'read' ? (
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-red-50 text-[#E63946] border border-red-100 italic animate-pulse">
                                             New
@@ -81,7 +81,7 @@ export default function MessagesTable({
                                         </span>
                                     )}
                                 </TableCell>
-                                <TableCell className="text-xs text-gray-500">
+                                <TableCell className="text-xs text-gray-500 hidden md:table-cell">
                                     <div className="flex items-center gap-1">
                                         <Clock className="w-3 h-3" />
                                         {m.createdAt ? formatDistanceToNow(new Date(m.createdAt), { addSuffix: true }) : '-'}

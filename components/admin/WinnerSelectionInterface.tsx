@@ -317,7 +317,7 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                     {winners.length > 0 && (
                         <div>
                             <h2 className="text-2xl font-bold text-center text-[#1D3557] mb-8">🏆 Top Winners</h2>
-                            <div className="mb-8 mt-[10vh]">
+                            <div className="mb-8">
                                 <Podium winners={winners.filter(w => w.rank <= 3)} />
                             </div>
                         </div>
@@ -327,9 +327,9 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                     {/* Only show if we have winners with rank > 3 */}
                     {winners.some(w => w.rank > 3) && (
                         <Card>
-                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                            <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4">
                                 <CardTitle>Leaderboard</CardTitle>
-                                <div className="w-64">
+                                <div className="w-full sm:w-64">
                                     <SearchInput
                                         placeholder="Search name or ID..."
                                         onChange={setSearchQuery}
@@ -338,42 +338,46 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="bg-white rounded-md border text-sm">
-                                    <div className="grid grid-cols-12 gap-4 p-4 border-b bg-gray-50 font-medium text-gray-500">
-                                        <div className="col-span-1">Rank</div>
-                                        <div className="col-span-4">Name</div>
-                                        <div className="col-span-4">Score</div>
-                                        <div className="col-span-3 text-right">Submission ID</div>
-                                    </div>
-                                    <div className="divide-y max-h-[500px] overflow-y-auto">
-                                        {winners
-                                            .filter(w => w.rank > 3)
-                                            .filter(w => {
-                                                if (!searchQuery) return true;
-                                                const q = searchQuery.toLowerCase();
-                                                return w.userDetails.name.toLowerCase().includes(q) ||
-                                                    w.submissionId.toLowerCase().includes(q);
-                                            })
-                                            .sort((a, b) => a.rank - b.rank)
-                                            .map((winner) => (
-                                                <div key={winner.submissionId} className="grid grid-cols-12 gap-4 p-4 hover:bg-gray-50 items-center">
-                                                    <div className="col-span-1 font-semibold text-[#1D3557]">
-                                                        #{winner.rank}
-                                                    </div>
-                                                    <div className="col-span-4 font-medium text-gray-900">
-                                                        {winner.userDetails.name}
-                                                    </div>
-                                                    <div className="col-span-4">
-                                                        <span className="px-2 py-1 bg-[#1D3557] text-white rounded text-xs font-bold">
-                                                            {winner.score}
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-span-3 text-right text-gray-400 font-mono text-xs">
-                                                        {winner.submissionId}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                    </div>
+                                <div className="bg-white rounded-md border text-sm overflow-x-auto">
+                                    <table className="w-full text-left">
+                                        <thead className="bg-gray-50 text-gray-500 font-medium">
+                                            <tr>
+                                                <th className="px-3 py-3 md:px-4">Rank</th>
+                                                <th className="px-3 py-3 md:px-4">Name</th>
+                                                <th className="px-3 py-3 md:px-4">Score</th>
+                                                <th className="px-3 py-3 md:px-4 text-right hidden sm:table-cell">Submission ID</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y max-h-[500px] overflow-y-auto">
+                                            {winners
+                                                .filter(w => w.rank > 3)
+                                                .filter(w => {
+                                                    if (!searchQuery) return true;
+                                                    const q = searchQuery.toLowerCase();
+                                                    return w.userDetails.name.toLowerCase().includes(q) ||
+                                                        w.submissionId.toLowerCase().includes(q);
+                                                })
+                                                .sort((a, b) => a.rank - b.rank)
+                                                .map((winner) => (
+                                                    <tr key={winner.submissionId} className="hover:bg-gray-50">
+                                                        <td className="px-3 py-3 md:px-4 font-semibold text-[#1D3557]">
+                                                            #{winner.rank}
+                                                        </td>
+                                                        <td className="px-3 py-3 md:px-4 font-medium text-gray-900">
+                                                            {winner.userDetails.name}
+                                                        </td>
+                                                        <td className="px-3 py-3 md:px-4">
+                                                            <span className="px-2 py-1 bg-[#1D3557] text-white rounded text-xs font-bold">
+                                                                {winner.score}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-3 py-3 md:px-4 text-right text-gray-400 font-mono text-xs hidden sm:table-cell">
+                                                            {winner.submissionId}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </CardContent>
                         </Card>

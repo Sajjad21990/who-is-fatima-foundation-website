@@ -46,12 +46,12 @@ export function CounterStats() {
               key={index}
               className="text-center space-y-4 group"
             >
-              <div className="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                <stat.icon className="w-8 h-8 text-white" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
 
               <div>
-                <div className="text-4xl lg:text-5xl text-white mb-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl text-white mb-2">
                   <Counter
                     end={stat.end}
                     suffix={stat.suffix}

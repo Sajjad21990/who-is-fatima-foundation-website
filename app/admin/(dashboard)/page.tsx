@@ -75,9 +75,9 @@ export default async function AdminDashboard() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Title</TableHead>
-                            <TableHead>Type</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Created</TableHead>
+                            <TableHead className="hidden md:table-cell">Type</TableHead>
+                            <TableHead className="hidden md:table-cell">Status</TableHead>
+                            <TableHead className="hidden md:table-cell">Created</TableHead>
                             <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -87,22 +87,22 @@ export default async function AdminDashboard() {
                                 <TableCell className="font-medium">
                                     <div className="flex items-center gap-3">
                                         <img src={event.thumbnailUrl} alt={event.title} className="w-10 h-10 rounded-lg object-cover" />
-                                        <span className="line-clamp-1">{event.title}</span>
+                                        <span className="line-clamp-1 min-w-0">{event.title}</span>
                                     </div>
                                 </TableCell>
-                                <TableCell className="capitalize">
+                                <TableCell className="capitalize hidden md:table-cell">
                                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${event.type === 'quiz' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
                                         }`}>
                                         {event.type}
                                     </span>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="hidden md:table-cell">
                                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${event.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                                         }`}>
                                         {event.isActive ? 'Active' : 'Draft'}
                                     </span>
                                 </TableCell>
-                                <TableCell>{new Date(event.createdAt).toLocaleDateString()}</TableCell>
+                                <TableCell className="hidden md:table-cell">{new Date(event.createdAt).toLocaleDateString()}</TableCell>
                                 <TableCell className="text-right">
                                     <Link href={`/admin/events/${event.slug}`}>
                                         <Button size="sm" variant="outline" className="gap-2">

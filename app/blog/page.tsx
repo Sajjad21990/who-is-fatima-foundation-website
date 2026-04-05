@@ -93,7 +93,7 @@ export default async function BlogPage() {
                     </div>
                   </div>
 
-                  <div className="p-8 flex flex-col flex-grow">
+                  <div className="p-5 sm:p-8 flex flex-col flex-grow">
                     <div className="flex items-center gap-4 text-xs text-gray-500 mb-4 font-medium">
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-[#E63946]" />

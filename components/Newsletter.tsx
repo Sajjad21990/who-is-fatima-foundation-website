@@ -19,7 +19,7 @@ export function Newsletter() {
     <section className="py-20 lg:py-28 bg-[#F1FAEE]">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-3xl p-12 lg:p-16 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-3xl p-6 sm:p-12 lg:p-16 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute -top-10 -right-10 w-64 h-64 bg-white rounded-full"></div>

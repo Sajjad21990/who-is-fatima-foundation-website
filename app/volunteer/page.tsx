@@ -68,13 +68,13 @@ export default function VolunteerPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8 justify-items-center">
             {volunteers.map((volunteer, index) => (
               <div key={index} className="text-center">
                 {/* Avatar Container */}
-                <div className="w-40 h-40 bg-white rounded-2xl flex items-center justify-center overflow-hidden mx-auto shadow-md border border-gray-100">
+                <div className="w-28 h-28 sm:w-40 sm:h-40 bg-white rounded-2xl flex items-center justify-center overflow-hidden mx-auto shadow-md border border-gray-100">
                   {volunteer.avatar ? (
-                    <img src={volunteer.avatar} alt={volunteer.name} className="w-20 h-20 object-contain" />
+                    <img src={volunteer.avatar} alt={volunteer.name} className="w-14 h-14 sm:w-20 sm:h-20 object-contain" />
                   ) : (
                     <span className="text-4xl font-bold text-[#1D3557]">{volunteer.initial}</span>
                   )}
@@ -90,7 +90,7 @@ export default function VolunteerPage() {
           </div>
 
           {/* Icon Attributions */}
-          <p style={{ backgroundColor: 'transparent', marginTop: '50px', opacity: 0.1 }}>
+          <p className="mt-12 text-xs text-gray-400">
             Icons by{" "}
             <a href="https://www.flaticon.com/free-icons/influencer" className="hover:text-[#457B9D]/50" target="_blank" rel="noopener noreferrer">srip</a>
             {" & "}

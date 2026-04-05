@@ -27,8 +27,7 @@ export function FloatingSocials() {
 
     return (
         <div
-            className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end"
-            style={{ position: 'fixed', right: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 50 }}
+            className="fixed right-2 sm:right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end"
         >
             {socialLinks.map((social, index) => (
                 <a
@@ -37,7 +36,7 @@ export function FloatingSocials() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="text-white w-12 h-12 flex items-center justify-center transition-all duration-300 hover:w-16 relative group shadow-md border-b-[1px] border-white/10 first:rounded-tl-lg last:rounded-bl-lg"
+                    className="text-white w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 hover:w-16 active:scale-95 relative group shadow-md border-b-[1px] border-white/10 first:rounded-tl-lg last:rounded-bl-lg"
                     style={{ backgroundColor: social.hex }}
                 >
                     <social.icon className="w-6 h-6" />

@@ -181,7 +181,7 @@ export function PostForm({ post }: PostFormProps) {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="pb-20">
                 {/* Top Actions Bar - Sticky */}
-                <div className="sticky top-0 z-40 bg-gray-50/95 backdrop-blur-sm border-b mb-8 py-4 -mx-8 px-8 flex items-center justify-between">
+                <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b shadow-sm mb-8 py-4 -mx-4 px-4 md:-mx-8 md:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-4">
                         <Button type="button" variant="ghost" size="icon" onClick={() => router.back()}>
                             <ArrowLeft className="w-4 h-4" />
@@ -196,7 +196,7 @@ export function PostForm({ post }: PostFormProps) {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                         {form.watch('slug') && (
                             <Button
                                 type="button"

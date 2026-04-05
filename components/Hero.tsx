@@ -43,17 +43,17 @@ export function Hero() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-8">
               <div>
-                <div className="text-3xl text-[#E63946]">150+</div>
+                <div className="text-2xl sm:text-3xl text-[#E63946]">292+</div>
                 <div className="text-sm text-[#457B9D]">Students</div>
               </div>
               <div>
-                <div className="text-3xl text-[#E63946]">2</div>
+                <div className="text-2xl sm:text-3xl text-[#E63946]">3</div>
                 <div className="text-sm text-[#457B9D]">Centers</div>
               </div>
               <div>
-                <div className="text-3xl text-[#E63946]">1</div>
+                <div className="text-2xl sm:text-3xl text-[#E63946]">1</div>
                 <div className="text-sm text-[#457B9D]">School</div>
               </div>
             </div>
@@ -65,7 +65,7 @@ export function Hero() {
               <ImageWithFallback
                 src="/images/hero/hero-2.jpg"
                 alt="Charity volunteers helping community"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover"
               />
               {/* Floating Card */}
               {/* <div className="absolute bottom-8 left-8 bg-white rounded-2xl p-6 shadow-xl max-w-[280px]">

@@ -49,9 +49,9 @@ export default function VolunteersTable({
                     <TableHeader className="bg-gray-50/50">
                         <TableRow>
                             <TableHead className="font-bold text-[#1D3557]">Volunteer</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Area of Interest</TableHead>
+                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Area of Interest</TableHead>
                             <TableHead className="font-bold text-[#1D3557]">Status</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Applied</TableHead>
+                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Applied</TableHead>
                             <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -71,7 +71,7 @@ export default function VolunteersTable({
                                         </div>
                                     </div>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="hidden md:table-cell">
                                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-700 border border-purple-100 italic">
                                         {v.areaOfInterest}
                                     </span>
@@ -85,7 +85,7 @@ export default function VolunteersTable({
                                         {v.status || 'New'}
                                     </span>
                                 </TableCell>
-                                <TableCell className="text-sm text-gray-500">
+                                <TableCell className="text-sm text-gray-500 hidden md:table-cell">
                                     {v.createdAt ? format(new Date(v.createdAt), 'MMM d, yyyy') : '-'}
                                 </TableCell>
                                 <TableCell className="text-right">

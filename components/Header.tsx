@@ -47,7 +47,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-[#1D3557]"
+            className="md:hidden text-[#1D3557] p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
