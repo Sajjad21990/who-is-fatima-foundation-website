@@ -7,28 +7,27 @@ export function CounterStats() {
   const stats = [
     {
       icon: Users,
-      end: 150,
+      end: 292,
       label: "Students Educated",
       suffix: "+"
     },
     {
       icon: Heart,
-      end: 2,
-      label: "Research Centers",
-      prefix: "",
-      suffix: ""
+      end: 70,
+      label: "Women Trained",
+      suffix: "+"
     },
     {
       icon: Globe,
-      end: 1,
-      label: "Global School",
+      end: 3,
+      label: "SERC Centers",
       suffix: ""
     },
     {
       icon: TrendingUp,
-      end: 100,
-      label: "Goal: Every Masjid",
-      suffix: "%"
+      end: 5,
+      label: "SUPER 20 Scholars",
+      suffix: "/20"
     }
   ];
 
@@ -55,7 +54,6 @@ export function CounterStats() {
                 <div className="text-4xl lg:text-5xl text-white mb-2">
                   <Counter
                     end={stat.end}
-                    prefix={stat.prefix}
                     suffix={stat.suffix}
                   />
                 </div>

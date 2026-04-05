@@ -47,7 +47,8 @@ export default async function EventResultsPage({
         );
     }
 
-    const { winners } = winnersData;
+    const { winners, lockedBy } = winnersData;
+    const isLuckyDraw = lockedBy === 'lucky-draw-script';
     const top3 = winners.filter((w: any) => w.rank <= 3);
     const others = winners.filter((w: any) => w.rank > 3).sort((a: any, b: any) => a.rank - b.rank);
 
@@ -64,7 +65,9 @@ export default async function EventResultsPage({
 
             {/* Podium for Top 3 */}
             <div className="mb-16">
-                <h2 className="text-2xl font-bold text-center text-[#1D3557] mb-8">🏆 Top Winners</h2>
+                <h2 className="text-2xl font-bold text-center text-[#1D3557] mb-8">
+                    {isLuckyDraw ? '🎲 Lucky Draw Winners' : '🏆 Top Winners'}
+                </h2>
                 <Podium winners={top3} />
             </div>
 
