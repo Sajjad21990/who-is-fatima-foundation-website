@@ -1,0 +1,269 @@
+{
+  "id": "zulhijjah-quiz-2026",
+  "slug": "zulhijjah-quiz-2026",
+  "type": "quiz",
+  "title": "Zulhijjah 1447 Quiz",
+  "description": "Test your knowledge about the sacred month of Zulhijjah, Hajj, Ghadeer-e-Khum and related events.",
+  "thumbnailUrl": "https://images.unsplash.com/photo-1553755088-ef1973c7b4a1?auto=format&fit=crop&q=80",
+  "isActive": true,
+  "createdAt": "2026-05-17T12:00:00Z",
+  "endDate": "2026-06-03T23:59:59Z",
+  "showScore": false,
+  "registrationFields": [
+    {
+      "id": "name",
+      "label": "Full Name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "phone",
+      "label": "Phone Number",
+      "type": "tel",
+      "required": true
+    },
+    {
+      "id": "age",
+      "label": "Age",
+      "type": "number",
+      "required": true,
+      "minAge": 1,
+      "maxAge": 100
+    },
+    {
+      "id": "location",
+      "label": "Location",
+      "type": "text",
+      "required": true
+    }
+  ],
+  "content": {
+    "questions": [
+      {
+        "id": "q1",
+        "text": "Zulhijjah Mahine ka Matlab?",
+        "type": "mcq",
+        "options": [
+          "Haajat ka Mahina",
+          "Ghadeer ka Mahina",
+          "Hujjat ka Mahina",
+          "Hajj ka Mahina"
+        ],
+        "correctAnswer": [3],
+        "points": 1
+      },
+      {
+        "id": "q2",
+        "text": "Maula Ali (a.s.) aur Bibi Zahra (s.a.) ka Aqd 1st Zulhijja ko",
+        "type": "mcq",
+        "options": [
+          "2nd Hijri Makkah mein hua",
+          "2nd Hijri Madinah mein hua",
+          "3rd Hijri Madinah mein hua",
+          "4th Hijri Madinah mein hua"
+        ],
+        "correctAnswer": [1],
+        "points": 1
+      },
+      {
+        "id": "q3",
+        "text": "Hajj un logon per waajib nahin hai jo",
+        "type": "mcq",
+        "options": [
+          "Hajj karne ka paisa nahin rakhte",
+          "Paisa to hai magar doosron ki madad ko zaroori samjhte hain",
+          "Jinhen bheed se ghabrahat hoti hai",
+          "Shak ho jaye ke Makkah pahunch kar beemar na ho jayen"
+        ],
+        "correctAnswer": [0],
+        "points": 1
+      },
+      {
+        "id": "q4",
+        "text": "Meezaabe Rahmat",
+        "type": "mcq",
+        "options": [
+          "Karbala mein hai",
+          "Najaf mein hai",
+          "Makkah mein hai",
+          "Madina mein hai"
+        ],
+        "correctAnswer": [2],
+        "points": 1
+      },
+      {
+        "id": "q5",
+        "text": "Madina pahunch kar Haaji confuse hai ke Bibi Zahra (s.a.) kahan dafn hain?",
+        "type": "mcq",
+        "options": [
+          "Jannatul Baqie mein",
+          "Masjidun Nabawi mein",
+          "Hujra-e-Paighambar mein",
+          "Masoomeen (a.s.) ke alawa kisi ko nahin maloom"
+        ],
+        "correctAnswer": [3],
+        "points": 1
+      },
+      {
+        "id": "q6",
+        "text": "Tawaaf kise kahte hain?",
+        "type": "mcq",
+        "options": [
+          "Khana-e-Kabah ke 7 chakkar lagane ko",
+          "Khana-e-Kabah ke har chakkar lagane ko",
+          "Safa aur Marwah pahadi ke darmiyan tezi se chalne ko",
+          "Oopar ke teeno mein se ek bhi nahin"
+        ],
+        "correctAnswer": [0],
+        "points": 1
+      },
+      {
+        "id": "q7",
+        "text": "Khana-e-Kabah ke 4 corners (Rukn) hain. Ek Rukn jis mein Janab Fatima binte Asad ki entry ke liye dar bana tha uska naam hai",
+        "type": "mcq",
+        "options": [
+          "Rukn-e-Shaami",
+          "Rukn-e-Yemeni",
+          "Rukn-e-Iraqi",
+          "Hajar-e-Aswad ka Rukn"
+        ],
+        "correctAnswer": [1],
+        "points": 1
+      },
+      {
+        "id": "q8",
+        "text": "Hajj ke liye neeche 4 mein se ek miqaat nahin hai.",
+        "type": "mcq",
+        "options": ["Johfa", "Yalamlam", "Masjid-e-Shajarah", "Taaef"],
+        "correctAnswer": [3],
+        "points": 1
+      },
+      {
+        "id": "q9",
+        "text": "Khaan-e-Kaabah ki tameer mukammal karne ke baad Hazrat Ibrahim aur Hazrat Ismail (a.s.) ne kaun see dua padhi thee (surah aur ayat no.)",
+        "type": "mcq",
+        "options": [
+          "Baqarah: 127",
+          "Baqarah: 201",
+          "Aal-e-Imraan: 08",
+          "Aal-e-Imraan: 53"
+        ],
+        "correctAnswer": [0],
+        "points": 1
+      },
+      {
+        "id": "q10",
+        "text": "Rasulullah (s.a.) ne kaun see Hijri mein aakhri Hajj kiya",
+        "type": "mcq",
+        "options": ["9th Hijri", "10th Hijri", "11th Hijri", "12th Hijri"],
+        "correctAnswer": [1],
+        "points": 1
+      },
+      {
+        "id": "q11",
+        "text": "Tawaafun Nisa wajib hai",
+        "type": "mcq",
+        "options": [
+          "Sirf ghair shaadi shuda mard per",
+          "Sirf shaadi shuda aurat per",
+          "Har shaadi shuda aur ghair shaadi shuda mard aur aurat per",
+          "Tallaq shuda aur bewah aurat per"
+        ],
+        "correctAnswer": [2],
+        "points": 1
+      },
+      {
+        "id": "q12",
+        "text": "Surah Hajj Quran Majeed ki surah no.",
+        "type": "mcq",
+        "options": ["22", "30", "41", "77"],
+        "correctAnswer": [0],
+        "points": 1
+      },
+      {
+        "id": "q13",
+        "text": "Hajj-e-Tamatto mein kahan per rukna (woqoof) per tamaam gunaah bakhsh diye jaate hain",
+        "type": "mcq",
+        "options": ["Mina", "Muzdalfa", "Arafat", "Jamaraat"],
+        "correctAnswer": [2],
+        "points": 1
+      },
+      {
+        "id": "q14",
+        "text": "Mina mein 3 shaitano ko 10 Zulhijjah se 12 Zulhijjah tak kul kitni kankariyan maarna waajib hai",
+        "type": "mcq",
+        "options": ["63", "73", "53", "49"],
+        "correctAnswer": [3],
+        "points": 1
+      },
+      {
+        "id": "q15",
+        "text": "Ghadeer-e-Khum",
+        "type": "mcq",
+        "options": [
+          "Ek pahadi ilaaqa hai",
+          "Ek chatyal maidaan hai",
+          "Ek talaab ka naam hai",
+          "Haajiyon ke rukne ki ek sarai hai"
+        ],
+        "correctAnswer": [2],
+        "points": 1
+      },
+      {
+        "id": "q16",
+        "text": "Qurbani ke gosht ke liye afzal hai ke",
+        "type": "mcq",
+        "options": [
+          "3 barabar ke hisse karen",
+          "4 barabar ke hisse karen",
+          "5 barabar ke hisse karen",
+          "Waleema karen"
+        ],
+        "correctAnswer": [0],
+        "points": 1
+      },
+      {
+        "id": "q17",
+        "text": "Ghadeer-e-Khum mein Hazrat Ali (a.s.) ko Maula banne ke baad Bakhkhin Bakhkhin kahkar kisne mubarakbad dee?",
+        "type": "mcq",
+        "options": [
+          "Hazrat Usman ne",
+          "Hazrat Abu Bakr ne",
+          "Hazrat Umar ne",
+          "Abu Sufiyan ne"
+        ],
+        "correctAnswer": [2],
+        "points": 1
+      },
+      {
+        "id": "q18",
+        "text": "Imam Husain (a.s.) kis Hijri mein Makkah se Karbala ke liye rawana hue?",
+        "type": "mcq",
+        "options": ["59 Hijri", "60 Hijri", "61 Hijri", "62 Hijri"],
+        "correctAnswer": [1],
+        "points": 1
+      },
+      {
+        "id": "q19",
+        "text": "Kufa mein Janab-e-Muslim ki shahadat",
+        "type": "mcq",
+        "options": [
+          "6 Zulhijjah ko hui",
+          "7 Zulhijjah ko hui",
+          "8 Zulhijjah ko hui",
+          "9 Zulhijjah ko hui"
+        ],
+        "correctAnswer": [34],
+        "points": 1
+      },
+      {
+        "id": "q20",
+        "text": "Paighambar-e-Islam ne Mubahila kis mulk ke Isaiyon se karna tha",
+        "type": "mcq",
+        "options": ["Rome ke", "Ethiopia ke", "Najraan ke", "Syria ke"],
+        "correctAnswer": [2],
+        "points": 1
+      }
+    ]
+  }
+}
