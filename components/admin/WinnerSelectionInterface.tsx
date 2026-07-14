@@ -217,8 +217,8 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                 {/* Left Side: Selection Area (only if not locked and not complete) */}
                 {!isLocked && !selectionComplete && currentTargetRank && (
                     <div className="lg:col-span-1 space-y-6">
-                        <Card className="border-2 border-[#1D3557]">
-                            <CardHeader className="bg-[#1D3557] text-white">
+                        <Card className="border-2 border-brand-navy">
+                            <CardHeader className="bg-brand-navy text-white">
                                 <CardTitle className="flex items-center gap-2">
                                     <Trophy className="w-5 h-5 text-yellow-400" />
                                     Select Rank {currentTargetRank}
@@ -228,7 +228,7 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                                 <div className="space-y-4">
                                     <div className="text-center p-4 bg-gray-50 rounded-lg">
                                         <p className="text-sm text-gray-500 mb-1">Score</p>
-                                        <p className="text-3xl font-bold text-[#1D3557]">
+                                        <p className="text-3xl font-bold text-brand-navy">
                                             {nextRankCandidates.length > 0 ? nextRankCandidates[0].score : '-'}
                                         </p>
                                     </div>
@@ -255,7 +255,7 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                                             <Button
                                                 onClick={handleLuckyDraw}
                                                 disabled={drawInProgress}
-                                                className="w-full bg-[#E63946] hover:bg-[#d62828] h-12 text-lg animate-pulse"
+                                                className="w-full bg-brand-red hover:bg-[#d62828] h-12 text-lg animate-pulse"
                                             >
                                                 {drawInProgress ? (
                                                     <span className="flex items-center gap-2">
@@ -297,11 +297,11 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                                         <div key={score} className="p-4 bg-gray-50 rounded-xl border flex items-center justify-between">
                                             <div>
                                                 <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Score</p>
-                                                <p className="text-2xl font-black text-[#1D3557]">{score}</p>
+                                                <p className="text-2xl font-black text-brand-navy">{score}</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Participants</p>
-                                                <p className="text-2xl font-black text-[#E63946]">{count}</p>
+                                                <p className="text-2xl font-black text-brand-red">{count}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -316,7 +316,7 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                     {/* Podium (Top 3) */}
                     {winners.length > 0 && (
                         <div>
-                            <h2 className="text-2xl font-bold text-center text-[#1D3557] mb-8">🏆 Top Winners</h2>
+                            <h2 className="text-2xl font-bold text-center text-brand-navy mb-8">🏆 Top Winners</h2>
                             <div className="mb-8">
                                 <Podium winners={winners.filter(w => w.rank <= 3)} />
                             </div>
@@ -360,14 +360,14 @@ export default function WinnerSelectionInterface({ slug, submissions, existingWi
                                                 .sort((a, b) => a.rank - b.rank)
                                                 .map((winner) => (
                                                     <tr key={winner.submissionId} className="hover:bg-gray-50">
-                                                        <td className="px-3 py-3 md:px-4 font-semibold text-[#1D3557]">
+                                                        <td className="px-3 py-3 md:px-4 font-semibold text-brand-navy">
                                                             #{winner.rank}
                                                         </td>
                                                         <td className="px-3 py-3 md:px-4 font-medium text-gray-900">
                                                             {winner.userDetails.name}
                                                         </td>
                                                         <td className="px-3 py-3 md:px-4">
-                                                            <span className="px-2 py-1 bg-[#1D3557] text-white rounded text-xs font-bold">
+                                                            <span className="px-2 py-1 bg-brand-navy text-white rounded text-xs font-bold">
                                                                 {winner.score}
                                                             </span>
                                                         </td>

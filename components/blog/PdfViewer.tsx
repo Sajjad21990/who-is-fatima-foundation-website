@@ -94,7 +94,7 @@ export default function PdfViewer({ url, title }: PdfViewerProps) {
             >
                 {loading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50/50 backdrop-blur-sm z-10">
-                        <Loader2 className="w-10 h-10 text-[#E63946] animate-spin mb-4" />
+                        <Loader2 className="w-10 h-10 text-brand-red animate-spin mb-4" />
                         <p className="text-sm text-gray-500 font-medium">Rendering document...</p>
                     </div>
                 )}
@@ -135,7 +135,7 @@ export default function PdfViewer({ url, title }: PdfViewerProps) {
                         <button
                             key={index}
                             onClick={() => setPageNumber(index + 1)}
-                            className={`aspect-[1/1.41] rounded-lg border-2 transition-all overflow-hidden bg-white shadow-sm hover:shadow-md ${pageNumber === index + 1 ? 'border-[#E63946] ring-2 ring-red-100' : 'border-transparent opacity-60 hover:opacity-100'
+                            className={`aspect-[1/1.41] rounded-lg border-2 transition-all overflow-hidden bg-white shadow-sm hover:shadow-md ${pageNumber === index + 1 ? 'border-brand-red ring-2 ring-red-100' : 'border-transparent opacity-60 hover:opacity-100'
                                 }`}
                         >
                             <Document file={url} loading={null}>

@@ -21,7 +21,7 @@ export default function AdminProfilePage() {
     if (authLoading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="w-8 h-8 animate-spin text-[#E63946]" />
+                <Loader2 className="w-8 h-8 animate-spin text-brand-red" />
             </div>
         );
     }
@@ -69,7 +69,7 @@ export default function AdminProfilePage() {
     return (
         <div className="space-y-8 max-w-5xl mx-auto">
             <div className="flex flex-col gap-2">
-                <h1 className="text-3xl font-bold text-[#1D3557]">Profile Settings</h1>
+                <h1 className="text-3xl font-bold text-brand-navy">Profile Settings</h1>
                 <p className="text-gray-500">Manage your account information and security</p>
             </div>
 
@@ -78,23 +78,23 @@ export default function AdminProfilePage() {
                 <div className="lg:col-span-1 space-y-6">
                     <Card className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <CardHeader className="bg-[#f8f9fa] border-b border-gray-100">
-                            <CardTitle className="text-lg text-[#1D3557] flex items-center gap-2">
-                                <User className="w-5 h-5 text-[#E63946]" />
+                            <CardTitle className="text-lg text-brand-navy flex items-center gap-2">
+                                <User className="w-5 h-5 text-brand-red" />
                                 Personal Info
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-6 space-y-6">
                             <div className="space-y-1">
                                 <Label className="text-xs uppercase tracking-widest text-gray-400 font-bold">Full Name</Label>
-                                <p className="text-[#1D3557] font-semibold text-lg">{userProfile?.displayName || 'Not Set'}</p>
+                                <p className="text-brand-navy font-semibold text-lg">{userProfile?.displayName || 'Not Set'}</p>
                             </div>
                             <div className="space-y-1">
                                 <Label className="text-xs uppercase tracking-widest text-gray-400 font-bold">Email Address</Label>
-                                <p className="text-[#1D3557] font-medium truncate">{userProfile?.email}</p>
+                                <p className="text-brand-navy font-medium truncate">{userProfile?.email}</p>
                             </div>
                             <div className="space-y-1 pt-2">
                                 <Label className="text-xs uppercase tracking-widest text-gray-400 font-bold block mb-2">Access Level</Label>
-                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-[#1D3557] text-white uppercase tracking-wider">
+                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-navy text-white uppercase tracking-wider">
                                     <Shield className="w-3 h-3 mr-1" />
                                     {userProfile?.role}
                                 </span>
@@ -107,8 +107,8 @@ export default function AdminProfilePage() {
                 <div className="lg:col-span-2 space-y-6">
                     <Card className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <CardHeader className="bg-[#f8f9fa] border-b border-gray-100">
-                            <CardTitle className="text-lg text-[#1D3557] flex items-center gap-2">
-                                <Lock className="w-5 h-5 text-[#E63946]" />
+                            <CardTitle className="text-lg text-brand-navy flex items-center gap-2">
+                                <Lock className="w-5 h-5 text-brand-red" />
                                 Security Settings
                             </CardTitle>
                             <CardDescription className="text-gray-500 pt-1">Update your account password regularly to stay secure</CardDescription>
@@ -116,14 +116,14 @@ export default function AdminProfilePage() {
                         <CardContent className="p-6">
                             <form onSubmit={handleChangePassword} className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="currentPassword" className="text-sm font-semibold text-[#1D3557]">Current Password</Label>
+                                    <Label htmlFor="currentPassword" className="text-sm font-semibold text-brand-navy">Current Password</Label>
                                     <div className="relative">
                                         <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                                         <Input
                                             id="currentPassword"
                                             type="password"
                                             placeholder="Enter current password"
-                                            className="pl-10 h-11 rounded-xl border-gray-200 focus:ring-2 focus:ring-[#E63946]/10"
+                                            className="pl-10 h-11 rounded-xl border-gray-200 focus:ring-2 focus:ring-brand-red/10"
                                             value={currentPassword}
                                             onChange={(e) => setCurrentPassword(e.target.value)}
                                             required
@@ -133,14 +133,14 @@ export default function AdminProfilePage() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="newPassword" title="At least 6 characters" className="text-sm font-semibold text-[#1D3557]">New Password</Label>
+                                        <Label htmlFor="newPassword" title="At least 6 characters" className="text-sm font-semibold text-brand-navy">New Password</Label>
                                         <div className="relative">
                                             <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                                             <Input
                                                 id="newPassword"
                                                 type="password"
                                                 placeholder="Enter new password"
-                                                className="pl-10 h-11 rounded-xl border-gray-200 focus:ring-2 focus:ring-[#E63946]/10"
+                                                className="pl-10 h-11 rounded-xl border-gray-200 focus:ring-2 focus:ring-brand-red/10"
                                                 value={newPassword}
                                                 onChange={(e) => setNewPassword(e.target.value)}
                                                 required
@@ -148,14 +148,14 @@ export default function AdminProfilePage() {
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="confirmPassword" className="text-sm font-semibold text-[#1D3557]">Confirm New Password</Label>
+                                        <Label htmlFor="confirmPassword" className="text-sm font-semibold text-brand-navy">Confirm New Password</Label>
                                         <div className="relative">
                                             <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                                             <Input
                                                 id="confirmPassword"
                                                 type="password"
                                                 placeholder="Confirm new password"
-                                                className="pl-10 h-11 rounded-xl border-gray-200 focus:ring-2 focus:ring-[#E63946]/10"
+                                                className="pl-10 h-11 rounded-xl border-gray-200 focus:ring-2 focus:ring-brand-red/10"
                                                 value={confirmPassword}
                                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                                 required
@@ -174,7 +174,7 @@ export default function AdminProfilePage() {
 
                                 <Button
                                     type="submit"
-                                    className="w-full md:w-auto px-10 h-12 bg-[#1D3557] hover:bg-[#1D3557]/90 text-white rounded-xl shadow-md transition-all font-semibold"
+                                    className="w-full md:w-auto px-10 h-12 bg-brand-navy hover:bg-brand-navy/90 text-white rounded-xl shadow-md transition-all font-semibold"
                                     disabled={loading}
                                 >
                                     {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : 'Update Password'}

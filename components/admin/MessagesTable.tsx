@@ -48,11 +48,11 @@ export default function MessagesTable({
                 <Table>
                     <TableHeader className="bg-gray-50/50">
                         <TableRow>
-                            <TableHead className="font-bold text-[#1D3557]">Sender</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Subject</TableHead>
-                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Status</TableHead>
-                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Received</TableHead>
-                            <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
+                            <TableHead className="font-bold text-brand-navy">Sender</TableHead>
+                            <TableHead className="font-bold text-brand-navy">Subject</TableHead>
+                            <TableHead className="font-bold text-brand-navy hidden md:table-cell">Status</TableHead>
+                            <TableHead className="font-bold text-brand-navy hidden md:table-cell">Received</TableHead>
+                            <TableHead className="text-right font-bold text-brand-navy">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -60,19 +60,19 @@ export default function MessagesTable({
                             <TableRow key={m.id} className="hover:bg-gray-50/50 transition-colors">
                                 <TableCell>
                                     <div>
-                                        <p className="font-bold text-[#1D3557]">{m.name}</p>
+                                        <p className="font-bold text-brand-navy">{m.name}</p>
                                         <p className="text-xs text-gray-500">{m.email}</p>
                                     </div>
                                 </TableCell>
                                 <TableCell>
-                                    <p className={`text-sm ${m.status !== 'read' ? 'font-bold text-[#1D3557]' : 'text-gray-600'}`}>
+                                    <p className={`text-sm ${m.status !== 'read' ? 'font-bold text-brand-navy' : 'text-gray-600'}`}>
                                         {m.subject}
                                     </p>
                                     <p className="text-xs text-gray-400 line-clamp-1 truncate max-w-[200px]">{m.message}</p>
                                 </TableCell>
                                 <TableCell className="hidden md:table-cell">
                                     {m.status !== 'read' ? (
-                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-red-50 text-[#E63946] border border-red-100 italic animate-pulse">
+                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-red-50 text-brand-red border border-red-100 italic animate-pulse">
                                             New
                                         </span>
                                     ) : (
@@ -89,7 +89,7 @@ export default function MessagesTable({
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <Link href={`/admin/messages/${m.id}`}>
-                                        <Button size="sm" variant="ghost" className="text-[#1D3557] hover:bg-white border border-transparent hover:border-gray-200 shadow-sm gap-2 rounded-xl">
+                                        <Button size="sm" variant="ghost" className="text-brand-navy hover:bg-white border border-transparent hover:border-gray-200 shadow-sm gap-2 rounded-xl">
                                             Read <ArrowRight className="w-4 h-4" />
                                         </Button>
                                     </Link>
@@ -114,7 +114,7 @@ export default function MessagesTable({
                         variant="outline"
                         size="sm"
                         onClick={handlePrevPage}
-                        className="rounded-xl border-gray-200 text-[#1D3557] gap-1"
+                        className="rounded-xl border-gray-200 text-brand-navy gap-1"
                     >
                         <ChevronLeft className="w-4 h-4" /> Back to Top
                     </Button>
@@ -124,7 +124,7 @@ export default function MessagesTable({
                         variant="outline"
                         size="sm"
                         onClick={handleNextPage}
-                        className="rounded-xl border-gray-200 text-[#1D3557] gap-1"
+                        className="rounded-xl border-gray-200 text-brand-navy gap-1"
                     >
                         Load More <ChevronRight className="w-4 h-4" />
                     </Button>

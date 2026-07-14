@@ -2,24 +2,39 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail } from "lucide-react";
+import { Mail, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { subscribeNewsletter } from "@/app/actions/newsletter";
+import { toast } from "sonner";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter signup:", email);
-    setEmail("");
-    alert("Thank you for subscribing to our newsletter!");
+    setLoading(true);
+    try {
+      const result = await subscribeNewsletter(email);
+      if (result.success) {
+        toast.success(result.message);
+        setEmail("");
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-[#F1FAEE]">
+    <section className="py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-3xl p-6 sm:p-12 lg:p-16 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-brand-red to-brand-coral rounded-3xl p-6 sm:p-12 lg:p-16 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute -top-10 -right-10 w-64 h-64 bg-white rounded-full"></div>
@@ -32,7 +47,7 @@ export function Newsletter() {
                 <Mail className="w-8 h-8 text-white" />
               </div>
 
-              <h2 className="text-3xl lg:text-4xl text-white">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white">
                 Subscribe to Our Newsletter
               </h2>
 
@@ -50,13 +65,14 @@ export function Newsletter() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="flex-1 bg-white border-none h-14 px-6 text-[#1D3557] placeholder:text-[#457B9D]"
+                    className="flex-1 bg-white border-none h-14 px-6 text-brand-navy placeholder:text-brand-blue"
                   />
                   <Button
                     type="submit"
-                    className="bg-[#1D3557] text-white hover:bg-[#1D3557]/90 h-14 px-8 whitespace-nowrap"
+                    disabled={loading}
+                    className="bg-brand-navy text-white hover:bg-brand-navy/90 h-14 px-8 whitespace-nowrap"
                   >
-                    Subscribe Now
+                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Subscribe Now'}
                   </Button>
                 </div>
                 <p className="text-sm text-white/70 mt-4">

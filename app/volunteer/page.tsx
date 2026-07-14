@@ -11,7 +11,7 @@ export default function VolunteerPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-[#E63946] to-[#FF6B6B] text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-r from-brand-red to-brand-coral text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-32 h-32 border-4 border-white rounded-full"></div>
           <div className="absolute bottom-10 right-10 w-40 h-40 border-4 border-white rounded-full"></div>
@@ -29,12 +29,12 @@ export default function VolunteerPage() {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F1FAEE] rounded-full text-[#E63946] mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-cream rounded-full text-brand-red mb-6">
                 <HandHeart className="w-5 h-5" />
                 <span className="font-medium">Make a Difference</span>
               </div>
-              <h2 className="text-3xl lg:text-4xl text-[#1D3557] mb-6">Why Volunteer?</h2>
-              <p className="text-[#457B9D] mb-8 leading-relaxed">
+              <h2 className="text-3xl lg:text-4xl text-brand-navy mb-6">Why Volunteer?</h2>
+              <p className="text-brand-blue mb-8 leading-relaxed">
                 Volunteers play a key role in helping us reach more children. Share your skills in teaching, management, or fundraising and be part of a growing movement.
               </p>
               <ul className="space-y-4 mb-8">
@@ -44,8 +44,8 @@ export default function VolunteerPage() {
                   "Help in event organization",
                   "Support fundraising campaigns"
                 ].map((item, index) => (
-                  <li key={index} className="flex items-center gap-3 text-[#1D3557]">
-                    <CheckCircle2 className="w-5 h-5 text-[#E63946]" />
+                  <li key={index} className="flex items-center gap-3 text-brand-navy">
+                    <CheckCircle2 className="w-5 h-5 text-brand-red" />
                     {item}
                   </li>
                 ))}
@@ -59,11 +59,11 @@ export default function VolunteerPage() {
       </section>
 
       {/* Volunteer Spotlights Section */}
-      <section className="py-20 bg-[#F1FAEE]">
+      <section className="py-20 bg-brand-cream">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#1D3557] mb-4">Meet Our Volunteers</h2>
-            <p className="text-[#457B9D] max-w-2xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mb-4">Meet Our Volunteers</h2>
+            <p className="text-brand-blue max-w-2xl mx-auto">
               Dedicated individuals making a difference in the lives of children through education.
             </p>
           </div>
@@ -76,15 +76,15 @@ export default function VolunteerPage() {
                   {volunteer.avatar ? (
                     <img src={volunteer.avatar} alt={volunteer.name} className="w-14 h-14 sm:w-20 sm:h-20 object-contain" />
                   ) : (
-                    <span className="text-4xl font-bold text-[#1D3557]">{volunteer.initial}</span>
+                    <span className="text-4xl font-bold text-brand-navy">{volunteer.initial}</span>
                   )}
                 </div>
 
                 {/* Name */}
-                <h3 className="font-semibold text-lg text-[#1D3557] mt-4">{volunteer.name}</h3>
+                <h3 className="font-semibold text-lg text-brand-navy mt-4">{volunteer.name}</h3>
 
                 {/* Designation */}
-                <p className="text-[#E63946] text-sm mt-1 font-medium">{volunteer.designation}</p>
+                <p className="text-brand-red text-sm mt-1 font-medium">{volunteer.designation}</p>
               </div>
             ))}
           </div>
@@ -92,9 +92,9 @@ export default function VolunteerPage() {
           {/* Icon Attributions */}
           <p className="mt-12 text-xs text-gray-400">
             Icons by{" "}
-            <a href="https://www.flaticon.com/free-icons/influencer" className="hover:text-[#457B9D]/50" target="_blank" rel="noopener noreferrer">srip</a>
+            <a href="https://www.flaticon.com/free-icons/influencer" className="hover:text-brand-blue/50" target="_blank" rel="noopener noreferrer">srip</a>
             {" & "}
-            <a href="https://www.flaticon.com/free-icons/computer" className="hover:text-[#457B9D]/50" target="_blank" rel="noopener noreferrer">Freepik</a>
+            <a href="https://www.flaticon.com/free-icons/computer" className="hover:text-brand-blue/50" target="_blank" rel="noopener noreferrer">Freepik</a>
             {" - Flaticon"}
           </p>
         </div>

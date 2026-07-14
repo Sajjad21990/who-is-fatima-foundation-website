@@ -21,7 +21,7 @@ export function EventCard({ event }: EventCardProps) {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider ${event.type === 'quiz' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${event.type === 'quiz' ? 'bg-brand-red text-white' : 'bg-brand-navy text-white'
                         }`}>
                         {event.type}
                     </span>
@@ -30,7 +30,7 @@ export function EventCard({ event }: EventCardProps) {
 
             {/* Content */}
             <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#1D3557] mb-2 line-clamp-2">
+                <h3 className="text-xl font-semibold text-brand-navy mb-2 line-clamp-2">
                     {event.title}
                 </h3>
                 <p className="text-gray-600 mb-4 line-clamp-2 text-sm">
@@ -69,14 +69,14 @@ export function EventCard({ event }: EventCardProps) {
                 {/* determine if we should show Start Quiz or View Results */}
                 {(event.type === 'quiz' && event.endDate && new Date() > new Date(event.endDate)) ? (
                     <Link href={`/events/${event.slug}/results`} className="block w-full">
-                        <Button className="w-full bg-[#1D3557] hover:bg-[#162a47] text-white">
+                        <Button className="w-full bg-brand-navy hover:bg-brand-navy-dark text-white">
                             View Results
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                     </Link>
                 ) : (
                     <Link href={`/events/${event.slug}`} className="block w-full">
-                        <Button className="w-full bg-[#1D3557] hover:bg-[#162a47] text-white">
+                        <Button className="w-full bg-brand-navy hover:bg-brand-navy-dark text-white">
                             {event.type === 'quiz' ? 'Start Quiz' : 'Register Now'}
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>

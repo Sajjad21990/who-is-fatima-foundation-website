@@ -27,7 +27,7 @@ export default function ProjectsPage() {
       features: ["Computer Basics", "Web Development Crash Course", "Career Counseling"],
       image: "/images/projects/serc-miraroad.png",
       category: "Skill Development",
-      stats: { label: "Students Completed Courses", value: 107 },
+      stats: { label: "Students Completed Courses", value: 90 },
     },
     {
       title: "Sakina Education & Research Center",
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
       image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1080&auto=format&fit=crop",
       category: "Formal Education",
       href: "/projects/edulight-global-academy",
-      stats: { label: "Students Enrolled", value: 41 },
+      stats: { label: "Students Enrolled", value: 72 },
     },
     {
       title: "Sakina Sewing Classes",
@@ -86,7 +86,7 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 bg-[#1D3557] text-white">
+      <section className="py-20 bg-brand-navy text-white">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center">
           <h1 className="text-4xl lg:text-5xl font-bold mb-6">Our Work & Projects</h1>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
@@ -99,18 +99,18 @@ export default function ProjectsPage() {
       <section className="py-20 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="text-center mb-12">
-            <span className="bg-[#E63946] text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full">
+            <span className="bg-brand-red text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full">
               Flagship Initiative
             </span>
-            <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-6">
-              SUPER <span className="text-[#E63946]">20</span>
+            <h2 className="text-3xl lg:text-4xl text-brand-navy mt-6">
+              SUPER <span className="text-brand-red">20</span>
             </h2>
-            <p className="text-[#457B9D] mt-3 max-w-2xl mx-auto text-lg">
+            <p className="text-brand-blue mt-3 max-w-2xl mx-auto text-lg">
               Selecting the brightest minds from our community and giving them everything they need to succeed.
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#1D3557] to-[#264773] rounded-3xl overflow-hidden shadow-2xl">
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-brand-navy to-brand-navy-2 rounded-3xl overflow-hidden shadow-2xl">
             <div className="grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
               {/* Left — Details */}
               <div className="space-y-8">
@@ -122,9 +122,9 @@ export default function ProjectsPage() {
                 <div className="space-y-3">
                   <div className="flex items-end justify-between">
                     <span className="text-white font-semibold">Students Enrolled</span>
-                    <span className="text-[#E63946] font-bold text-2xl">5<span className="text-white/60 text-base font-normal"> / 20</span></span>
+                    <span className="text-brand-red font-bold text-2xl">5<span className="text-white/60 text-base font-normal"> / 20</span></span>
                   </div>
-                  <Progress value={25} className="h-3 bg-white/15 [&>[data-slot=progress-indicator]]:bg-gradient-to-r [&>[data-slot=progress-indicator]]:from-[#E63946] [&>[data-slot=progress-indicator]]:to-[#FF6B6B]" />
+                  <Progress value={25} className="h-3 bg-white/15 [&>[data-slot=progress-indicator]]:bg-gradient-to-r [&>[data-slot=progress-indicator]]:from-brand-red [&>[data-slot=progress-indicator]]:to-brand-coral" />
                   <p className="text-white/50 text-sm">5 girls currently enrolled — 15 spots remaining</p>
                 </div>
 
@@ -134,7 +134,7 @@ export default function ProjectsPage() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="flex items-start gap-3 bg-white/5 rounded-xl p-4">
                       <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <GraduationCap className="w-5 h-5 text-[#E63946]" />
+                        <GraduationCap className="w-5 h-5 text-brand-red" />
                       </div>
                       <div>
                         <span className="text-white font-medium text-sm">College Fees</span>
@@ -143,7 +143,7 @@ export default function ProjectsPage() {
                     </div>
                     <div className="flex items-start gap-3 bg-white/5 rounded-xl p-4">
                       <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="w-5 h-5 text-[#E63946]" />
+                        <BookOpen className="w-5 h-5 text-brand-red" />
                       </div>
                       <div>
                         <span className="text-white font-medium text-sm">Coaching</span>
@@ -152,7 +152,7 @@ export default function ProjectsPage() {
                     </div>
                     <div className="flex items-start gap-3 bg-white/5 rounded-xl p-4">
                       <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <Users className="w-5 h-5 text-[#E63946]" />
+                        <Users className="w-5 h-5 text-brand-red" />
                       </div>
                       <div>
                         <span className="text-white font-medium text-sm">Mentorship</span>
@@ -161,7 +161,7 @@ export default function ProjectsPage() {
                     </div>
                     <div className="flex items-start gap-3 bg-white/5 rounded-xl p-4">
                       <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <Gift className="w-5 h-5 text-[#E63946]" />
+                        <Gift className="w-5 h-5 text-brand-red" />
                       </div>
                       <div>
                         <span className="text-white font-medium text-sm">Monthly Hampers</span>
@@ -177,17 +177,17 @@ export default function ProjectsPage() {
                 <div className="relative w-full aspect-square max-w-sm mx-auto">
                   <div className="absolute inset-0 rounded-full border-4 border-dashed border-white/10 animate-[spin_60s_linear_infinite]" />
                   <div className="absolute inset-6 rounded-full border-2 border-white/5" />
-                  <div className="absolute inset-12 bg-gradient-to-br from-[#E63946] to-[#FF6B6B] rounded-full flex flex-col items-center justify-center shadow-xl shadow-[#E63946]/20">
+                  <div className="absolute inset-12 bg-gradient-to-br from-brand-red to-brand-coral rounded-full flex flex-col items-center justify-center shadow-xl shadow-brand-red/20">
                     <span className="text-6xl lg:text-7xl font-black text-white">20</span>
                     <span className="text-white/90 font-medium text-sm tracking-wider uppercase mt-1">Scholars</span>
                   </div>
                   <div className="absolute top-4 right-4 bg-white rounded-xl px-4 py-2 shadow-lg">
-                    <span className="text-[#1D3557] font-bold text-lg">5</span>
-                    <span className="text-[#457B9D] text-xs block">Enrolled</span>
+                    <span className="text-brand-navy font-bold text-lg">5</span>
+                    <span className="text-brand-blue text-xs block">Enrolled</span>
                   </div>
                   <div className="absolute bottom-4 left-4 bg-white rounded-xl px-4 py-2 shadow-lg">
-                    <span className="text-[#E63946] font-bold text-lg">15</span>
-                    <span className="text-[#457B9D] text-xs block">Remaining</span>
+                    <span className="text-brand-red font-bold text-lg">15</span>
+                    <span className="text-brand-blue text-xs block">Remaining</span>
                   </div>
                 </div>
               </div>
@@ -197,11 +197,11 @@ export default function ProjectsPage() {
       </section>
 
       {/* Current Projects */}
-      <section className="py-20 bg-[#F1FAEE]">
+      <section className="py-20 bg-brand-cream">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="text-center mb-16">
-            <span className="text-[#E63946] font-medium">Current Initiatives</span>
-            <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Making a Difference Today</h2>
+            <span className="text-brand-red font-medium">Current Initiatives</span>
+            <h2 className="text-3xl lg:text-4xl text-brand-navy mt-2">Making a Difference Today</h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
@@ -214,26 +214,26 @@ export default function ProjectsPage() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="bg-white text-[#E63946] px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-white text-brand-red px-3 py-1 rounded-full text-sm font-medium">
                       {project.category}
                     </span>
                   </div>
                 </div>
                 <div className="p-8">
-                  <h3 className="text-2xl font-bold text-[#1D3557] mb-2">{project.title}</h3>
-                  <p className="text-[#E63946] font-medium mb-4">{project.location}</p>
-                  <p className="text-[#457B9D] mb-6">{project.description}</p>
+                  <h3 className="text-2xl font-bold text-brand-navy mb-2">{project.title}</h3>
+                  <p className="text-brand-red font-medium mb-4">{project.location}</p>
+                  <p className="text-brand-blue mb-6">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.features.map((feature, idx) => (
-                      <span key={idx} className="bg-[#F1FAEE] text-[#1D3557] px-3 py-1 rounded-full text-sm">
+                      <span key={idx} className="bg-brand-cream text-brand-navy px-3 py-1 rounded-full text-sm">
                         {feature}
                       </span>
                     ))}
                   </div>
 
                   {project.stats && (
-                    <div className="flex items-center gap-3 mb-6 bg-[#1D3557] rounded-xl px-5 py-3">
-                      <GraduationCap className="w-5 h-5 text-[#E63946] flex-shrink-0" />
+                    <div className="flex items-center gap-3 mb-6 bg-brand-navy rounded-xl px-5 py-3">
+                      <GraduationCap className="w-5 h-5 text-brand-red flex-shrink-0" />
                       <div>
                         <span className="text-white font-bold text-lg">{project.stats.value}+</span>
                         <span className="text-white/70 text-sm ml-2">{project.stats.label}</span>
@@ -243,7 +243,7 @@ export default function ProjectsPage() {
 
                   {project.href && (
                     <Link href={project.href}>
-                      <Button className="w-full bg-white border-2 border-[#E63946] text-[#E63946] hover:bg-[#E63946] hover:text-white transition-colors group/btn">
+                      <Button className="w-full bg-white border-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition-colors group/btn">
                         View Project Details
                         <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
@@ -260,8 +260,8 @@ export default function ProjectsPage() {
       <section className="py-20">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="text-center mb-16">
-            <span className="text-[#E63946] font-medium">Our Vision</span>
-            <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Future Plans</h2>
+            <span className="text-brand-red font-medium">Our Vision</span>
+            <h2 className="text-3xl lg:text-4xl text-brand-navy mt-2">Future Plans</h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
@@ -275,9 +275,9 @@ export default function ProjectsPage() {
                   />
                 </div>
                 <div className="p-8">
-                  <h3 className="text-2xl font-bold text-[#1D3557] mb-2">{project.title}</h3>
-                  <p className="text-[#E63946] font-medium mb-4">{project.location}</p>
-                  <p className="text-[#457B9D] mb-6">{project.description}</p>
+                  <h3 className="text-2xl font-bold text-brand-navy mb-2">{project.title}</h3>
+                  <p className="text-brand-red font-medium mb-4">{project.location}</p>
+                  <p className="text-brand-blue mb-6">{project.description}</p>
                 </div>
               </div>
             ))}

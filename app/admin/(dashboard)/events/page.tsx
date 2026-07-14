@@ -19,7 +19,7 @@ export default async function EventsPage() {
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold text-[#1D3557]">Events</h1>
+                <h1 className="text-3xl font-bold text-brand-navy">Events</h1>
             </div>
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -56,7 +56,7 @@ export default async function EventsPage() {
                                     </span>
                                 </TableCell>
                                 <TableCell>
-                                    <span className="inline-flex items-center gap-1 text-sm font-medium text-[#1D3557]">
+                                    <span className="inline-flex items-center gap-1 text-sm font-medium text-brand-navy">
                                         <Users className="w-4 h-4 text-gray-400" />
                                         {submissionCounts[event.slug] || 0}
                                     </span>

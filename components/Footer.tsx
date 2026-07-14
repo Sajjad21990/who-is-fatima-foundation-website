@@ -22,9 +22,8 @@ export function Footer() {
   const resources = [
     { label: "Become a Volunteer", href: "/volunteer" },
     { label: "Blog", href: "/blog" },
-    { label: "FAQs", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" }
+    { label: "Events & Quizzes", href: "/events" },
+    { label: "Donate", href: "/donate" }
   ];
 
   const socialLinks = [
@@ -34,7 +33,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#1D3557] text-white">
+    <footer className="bg-brand-navy text-white">
       {/* Main Footer */}
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16 lg:py-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -68,13 +67,13 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white mb-6">Quick Links</h3>
+            <h3 className="text-white text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-[#E63946] transition-colors text-sm"
+                    className="text-white/70 hover:text-brand-red transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -85,13 +84,13 @@ export function Footer() {
 
           {/* Projects */}
           <div>
-            <h3 className="text-white mb-6">Our Projects</h3>
+            <h3 className="text-white text-lg font-semibold mb-6">Our Projects</h3>
             <ul className="space-y-3">
               {projects.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-[#E63946] transition-colors text-sm"
+                    className="text-white/70 hover:text-brand-red transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -102,13 +101,13 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-white mb-6">Resources</h3>
+            <h3 className="text-white text-lg font-semibold mb-6">Resources</h3>
             <ul className="space-y-3">
               {resources.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-[#E63946] transition-colors text-sm"
+                    className="text-white/70 hover:text-brand-red transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -134,7 +133,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 bg-white/10 hover:bg-[#E63946] rounded-full flex items-center justify-center transition-colors"
+                    className="w-10 h-10 bg-white/10 hover:bg-brand-red rounded-full flex items-center justify-center transition-colors"
                     aria-label={social.label}
                   >
                     <Icon className="w-5 h-5" />
@@ -151,7 +150,7 @@ export function Footer() {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/70 text-sm flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-[#E63946] fill-[#E63946]" /> by Who is Fatima Foundation
+              Made with <Heart className="w-4 h-4 text-brand-red fill-brand-red" /> by Who is Fatima Foundation
             </p>
             <p className="text-white/70 text-sm">
               © {new Date().getFullYear()} Who is Fatima. All rights reserved.

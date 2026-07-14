@@ -36,12 +36,12 @@ export function WebinarRegister({ event }: WebinarRegisterProps) {
                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle className="w-8 h-8" />
                 </div>
-                <h2 className="text-2xl font-bold text-[#1D3557] mb-2">You're Registered!</h2>
+                <h2 className="text-2xl font-bold text-brand-navy mb-2">You're Registered!</h2>
                 <p className="text-gray-600 mb-6">
                     We have sent a confirmation email to <strong>{details.email}</strong> with the webinar link.
                 </p>
                 <div className="bg-gray-50 p-4 rounded-xl mb-8 text-left">
-                    <p className="font-semibold text-[#1D3557] mb-1">Webinar Details:</p>
+                    <p className="font-semibold text-brand-navy mb-1">Webinar Details:</p>
                     <div className="space-y-2 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
@@ -72,7 +72,7 @@ export function WebinarRegister({ event }: WebinarRegisterProps) {
                     />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-bold text-[#1D3557] mb-3">{event.title}</h1>
+                    <h1 className="text-3xl font-bold text-brand-navy mb-3">{event.title}</h1>
                     <p className="text-gray-600 mb-6">{event.description}</p>
 
                     <div className="space-y-3">
@@ -100,7 +100,7 @@ export function WebinarRegister({ event }: WebinarRegisterProps) {
 
             {/* Registration Form */}
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <h2 className="text-2xl font-bold text-[#1D3557] mb-6">Register for Webinar</h2>
+                <h2 className="text-2xl font-bold text-brand-navy mb-6">Register for Webinar</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="name">Full Name</Label>
@@ -148,7 +148,7 @@ export function WebinarRegister({ event }: WebinarRegisterProps) {
 
                     <Button
                         type="submit"
-                        className="w-full bg-[#E63946] hover:bg-[#E63946]/90 text-white mt-4 h-12 text-lg"
+                        className="w-full bg-brand-red hover:bg-brand-red/90 text-white mt-4 h-12 text-lg"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Registering...' : 'Secure My Spot'}

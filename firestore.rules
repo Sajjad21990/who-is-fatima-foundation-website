@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // The app reads/writes Firestore exclusively through the Firebase Admin SDK
+    // (server-side), which bypasses these rules. The only thing the client SDK
+    // legitimately touches is the signed-in user's own profile (AuthProvider).
+    // Everything else is denied to the client so that a leaked NEXT_PUBLIC_* config
+    // cannot be used to read submissions/PII or tamper with data.
+
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false; // profiles are created/updated via the Admin SDK only
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

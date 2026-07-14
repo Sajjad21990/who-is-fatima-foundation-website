@@ -13,7 +13,7 @@ export default async function AdminPostsPage() {
         <div className="space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-[#1D3557]">Blog Posts</h1>
+                    <h1 className="text-3xl font-bold text-brand-navy">Blog Posts</h1>
                     <p className="text-gray-500">Manage your blog, news, and events content.</p>
                 </div>
                 <Link href="/admin/posts/new">
@@ -54,7 +54,7 @@ export default async function AdminPostsPage() {
                                                 </div>
                                             )}
                                             <div>
-                                                <p className="font-medium text-[#1D3557] line-clamp-1">{post.title}</p>
+                                                <p className="font-medium text-brand-navy line-clamp-1">{post.title}</p>
                                                 <p className="text-xs text-gray-400">/{post.slug}</p>
                                             </div>
                                         </div>

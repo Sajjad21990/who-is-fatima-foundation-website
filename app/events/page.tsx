@@ -13,7 +13,7 @@ export default async function EventsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 bg-[#1D3557] text-white">
+      <section className="py-20 bg-brand-navy text-white">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center">
           <h1 className="text-4xl lg:text-5xl font-bold mb-6">Upcoming Events & Quizzes</h1>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
@@ -23,13 +23,13 @@ export default async function EventsPage() {
       </section>
 
       {/* Events Grid Section */}
-      <section className="py-20 bg-[#F1FAEE]">
+      <section className="py-20 bg-brand-cream">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
 
           {/* Section Header */}
           <div className="text-center mb-16">
-            <span className="text-[#E63946] font-medium">Join Us</span>
-            <h2 className="text-3xl lg:text-4xl text-[#1D3557] mt-2">Explore Our Activities</h2>
+            <span className="text-brand-red font-medium">Join Us</span>
+            <h2 className="text-3xl lg:text-4xl text-brand-navy mt-2">Explore Our Activities</h2>
           </div>
 
           {/* Grid */}

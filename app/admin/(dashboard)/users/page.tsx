@@ -19,7 +19,7 @@ export default async function UsersPage() {
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold text-[#1D3557]">Team Members</h1>
+                <h1 className="text-3xl font-bold text-brand-navy">Team Members</h1>
                 <AddUserDialog />
             </div>
 
@@ -42,7 +42,7 @@ export default async function UsersPage() {
                                             <UserCircle className="w-6 h-6 text-gray-400" />
                                         </div>
                                         <div>
-                                            <p className="font-medium text-[#1D3557]">{user.displayName}</p>
+                                            <p className="font-medium text-brand-navy">{user.displayName}</p>
                                             <p className="text-sm text-gray-500">{user.email}</p>
                                         </div>
                                     </div>

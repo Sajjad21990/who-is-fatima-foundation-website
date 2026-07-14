@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${poppins.className} ${amiri.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${amiri.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
         <LayoutWrapper>{children}</LayoutWrapper>
         <Toaster />

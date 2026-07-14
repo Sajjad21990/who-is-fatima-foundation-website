@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { HandHeart, Users, Calendar, Award } from "lucide-react";
+import Link from "next/link";
+import { HandHeart, Users, Globe, GraduationCap } from "lucide-react";
 
 export function VolunteerCTA() {
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-r from-[#E63946] to-[#FF6B6B] relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-gradient-to-r from-brand-red to-brand-coral relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 border-4 border-white rounded-full"></div>
@@ -20,7 +21,7 @@ export function VolunteerCTA() {
               <span>Join Our Team</span>
             </div>
 
-            <h2 className="text-4xl lg:text-5xl">
+            <h2 className="text-4xl lg:text-5xl font-bold">
               Become a Volunteer & Make an Impact
             </h2>
 
@@ -32,17 +33,19 @@ export function VolunteerCTA() {
 
             <div className="flex flex-wrap gap-4 pt-4">
               <Button
+                asChild
                 size="lg"
-                className="bg-white text-[#E63946] hover:bg-white/90 px-8"
+                className="bg-white text-brand-red hover:bg-white/90 px-8"
               >
-                Join as Volunteer
+                <Link href="/volunteer">Join as Volunteer</Link>
               </Button>
               <Button
+                asChild
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-[#E63946] px-8"
+                className="border-2 border-white text-white hover:bg-white hover:text-brand-red px-8"
               >
-                Learn More
+                <Link href="/projects">Learn More</Link>
               </Button>
             </div>
           </div>
@@ -50,10 +53,10 @@ export function VolunteerCTA() {
           {/* Right Stats */}
           <div className="grid grid-cols-2 gap-6">
             {[
-              { icon: Users, number: "12,500+", label: "Active Volunteers" },
-              { icon: Calendar, number: "450+", label: "Events This Year" },
-              { icon: HandHeart, number: "85K", label: "Hours Contributed" },
-              { icon: Award, number: "50+", label: "Awards Won" }
+              { icon: Users, number: "292+", label: "Students Educated" },
+              { icon: HandHeart, number: "70+", label: "Women Trained" },
+              { icon: Globe, number: "3", label: "SERC Centers" },
+              { icon: GraduationCap, number: "5/20", label: "SUPER 20 Scholars" }
             ].map((stat, index) => (
               <div
                 key={index}

@@ -19,26 +19,26 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Who is Fatima Foundation" className="h-12 w-auto" />
-            <span className="text-[#E63946] font-semibold text-xl">Who is Fatima</span>
+            <span className="text-brand-red font-semibold text-xl">Who is Fatima</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className={`transition-colors ${isActive('/') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Home</Link>
-            <Link href="/about" className={`transition-colors ${isActive('/about') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>About</Link>
-            <Link href="/projects" className={`transition-colors ${isActive('/projects') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Projects</Link>
-            <Link href="/events" className={`transition-colors ${isActive('/events') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Events</Link>
-            <Link href="/volunteer" className={`transition-colors ${isActive('/volunteer') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Volunteer</Link>
-            <Link href="/gallery" className={`transition-colors ${isActive('/gallery') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Gallery</Link>
-            <Link href="/blog" className={`transition-colors ${isActive('/blog') || pathname?.startsWith('/blog/') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Blog</Link>
-            <Link href="/contact" className={`transition-colors ${isActive('/contact') ? 'text-[#E63946]' : 'text-[#1D3557] hover:text-[#E63946]'}`}>Contact</Link>
+            <Link href="/" className={`transition-colors ${isActive('/') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Home</Link>
+            <Link href="/about" className={`transition-colors ${isActive('/about') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>About</Link>
+            <Link href="/projects" className={`transition-colors ${isActive('/projects') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Projects</Link>
+            <Link href="/events" className={`transition-colors ${isActive('/events') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Events</Link>
+            <Link href="/volunteer" className={`transition-colors ${isActive('/volunteer') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Volunteer</Link>
+            <Link href="/gallery" className={`transition-colors ${isActive('/gallery') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Gallery</Link>
+            <Link href="/blog" className={`transition-colors ${isActive('/blog') || pathname?.startsWith('/blog/') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Blog</Link>
+            <Link href="/contact" className={`transition-colors ${isActive('/contact') ? 'text-brand-red' : 'text-brand-navy hover:text-brand-red'}`}>Contact</Link>
           </nav>
 
           {/* CTA Button */}
           <div className="hidden md:block">
             <Link href="/donate">
               <Button
-                className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] text-white hover:opacity-90 px-8 py-6"
+                className="bg-gradient-to-r from-brand-red to-brand-coral text-white hover:opacity-90 px-8 py-6"
               >
                 Donate Now
               </Button>
@@ -47,8 +47,10 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-[#1D3557] p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+            className="md:hidden text-brand-navy p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -58,17 +60,17 @@ export function Header() {
         {isMenuOpen && (
           <nav className="md:hidden py-4 border-t border-gray-200">
             <div className="flex flex-col gap-4">
-              <Link href="/" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Home</Link>
-              <Link href="/about" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
-              <Link href="/projects" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Projects</Link>
-              <Link href="/events" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Events</Link>
-              <Link href="/volunteer" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Volunteer</Link>
-              <Link href="/gallery" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
-              <Link href="/blog" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
-              <Link href="/contact" className="text-[#1D3557] hover:text-[#E63946] transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              <Link href="/" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Home</Link>
+              <Link href="/about" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
+              <Link href="/projects" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Projects</Link>
+              <Link href="/events" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Events</Link>
+              <Link href="/volunteer" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Volunteer</Link>
+              <Link href="/gallery" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+              <Link href="/blog" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
+              <Link href="/contact" className="text-brand-navy hover:text-brand-red transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
               <Link href="/donate" onClick={() => setIsMenuOpen(false)}>
                 <Button
-                  className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] text-white hover:opacity-90 w-full"
+                  className="bg-gradient-to-r from-brand-red to-brand-coral text-white hover:opacity-90 w-full"
                 >
                   Donate Now
                 </Button>

@@ -48,11 +48,11 @@ export default function VolunteersTable({
                 <Table>
                     <TableHeader className="bg-gray-50/50">
                         <TableRow>
-                            <TableHead className="font-bold text-[#1D3557]">Volunteer</TableHead>
-                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Area of Interest</TableHead>
-                            <TableHead className="font-bold text-[#1D3557]">Status</TableHead>
-                            <TableHead className="font-bold text-[#1D3557] hidden md:table-cell">Applied</TableHead>
-                            <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
+                            <TableHead className="font-bold text-brand-navy">Volunteer</TableHead>
+                            <TableHead className="font-bold text-brand-navy hidden md:table-cell">Area of Interest</TableHead>
+                            <TableHead className="font-bold text-brand-navy">Status</TableHead>
+                            <TableHead className="font-bold text-brand-navy hidden md:table-cell">Applied</TableHead>
+                            <TableHead className="text-right font-bold text-brand-navy">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -60,11 +60,11 @@ export default function VolunteersTable({
                             <TableRow key={v.id} className="hover:bg-gray-50/50 transition-colors">
                                 <TableCell>
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1D3557] flex items-center justify-center font-bold">
+                                        <div className="w-10 h-10 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center font-bold">
                                             {v.name.charAt(0)}
                                         </div>
                                         <div>
-                                            <p className="font-bold text-[#1D3557]">{v.name}</p>
+                                            <p className="font-bold text-brand-navy">{v.name}</p>
                                             <p className="text-xs text-gray-500 flex items-center gap-1">
                                                 <MapPin className="w-3 h-3" /> {v.location || 'Unknown'}
                                             </p>
@@ -77,7 +77,7 @@ export default function VolunteersTable({
                                     </span>
                                 </TableCell>
                                 <TableCell>
-                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${v.status === 'new' ? 'bg-red-50 text-[#E63946] border border-red-100' :
+                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${v.status === 'new' ? 'bg-red-50 text-brand-red border border-red-100' :
                                             v.status === 'approved' ? 'bg-green-50 text-green-700 border border-green-100' :
                                                 v.status === 'rejected' ? 'bg-gray-50 text-gray-700 border border-gray-100' :
                                                     'bg-blue-50 text-blue-700 border border-blue-100'
@@ -90,7 +90,7 @@ export default function VolunteersTable({
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <Link href={`/admin/volunteers/${v.id}`}>
-                                        <Button size="sm" variant="ghost" className="text-[#1D3557] hover:bg-white border border-transparent hover:border-gray-200 shadow-sm gap-2 rounded-xl">
+                                        <Button size="sm" variant="ghost" className="text-brand-navy hover:bg-white border border-transparent hover:border-gray-200 shadow-sm gap-2 rounded-xl">
                                             Details <ArrowRight className="w-4 h-4" />
                                         </Button>
                                     </Link>
@@ -115,7 +115,7 @@ export default function VolunteersTable({
                         variant="outline"
                         size="sm"
                         onClick={handlePrevPage}
-                        className="rounded-xl border-gray-200 text-[#1D3557] gap-1"
+                        className="rounded-xl border-gray-200 text-brand-navy gap-1"
                     >
                         <ChevronLeft className="w-4 h-4" /> Back to Top
                     </Button>
@@ -125,7 +125,7 @@ export default function VolunteersTable({
                         variant="outline"
                         size="sm"
                         onClick={handleNextPage}
-                        className="rounded-xl border-gray-200 text-[#1D3557] gap-1"
+                        className="rounded-xl border-gray-200 text-brand-navy gap-1"
                     >
                         Load More <ChevronRight className="w-4 h-4" />
                     </Button>

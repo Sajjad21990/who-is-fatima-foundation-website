@@ -57,7 +57,7 @@ export default function AnswerVerificationModal({
         <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-hidden flex flex-col">
                 <DialogHeader>
-                    <DialogTitle className="text-[#1D3557] flex items-center gap-2">
+                    <DialogTitle className="text-brand-navy flex items-center gap-2">
                         <Eye className="w-5 h-5" />
                         {submissionData ? 'Your Answers' : 'View Your Answers'}
                     </DialogTitle>
@@ -90,7 +90,7 @@ export default function AnswerVerificationModal({
                         <Button
                             onClick={handleVerify}
                             disabled={isLoading}
-                            className="w-full bg-[#E63946] hover:bg-[#d62828]"
+                            className="w-full bg-brand-red hover:bg-[#d62828]"
                         >
                             {isLoading ? (
                                 <span className="flex items-center gap-2">

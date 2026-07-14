@@ -28,7 +28,7 @@ export function ScoreOverride({ submissionId, currentScore, totalPoints }: Score
         setLoading(true);
 
         try {
-            const result = await updateSubmissionScore(submissionId, Number(score), userProfile.email);
+            const result = await updateSubmissionScore(submissionId, Number(score));
             if (result.success) {
                 setPopup({ type: 'success', message: 'Score updated successfully!' });
                 setIsEditing(false);
@@ -57,11 +57,11 @@ export function ScoreOverride({ submissionId, currentScore, totalPoints }: Score
                         <div className={`w-16 h-16 ${popup.type === 'success' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'} rounded-full flex items-center justify-center mx-auto mb-4`}>
                             {popup.type === 'success' ? <Check className="w-8 h-8" /> : <X className="w-8 h-8" />}
                         </div>
-                        <h3 className="text-xl font-bold text-[#1D3557] mb-2">{popup.type === 'success' ? 'Success' : 'Error'}</h3>
+                        <h3 className="text-xl font-bold text-brand-navy mb-2">{popup.type === 'success' ? 'Success' : 'Error'}</h3>
                         <p className="text-gray-600 mb-6">{popup.message}</p>
                         <Button
                             onClick={() => setPopup(null)}
-                            className={`w-full ${popup.type === 'success' ? 'bg-[#1D3557] hover:bg-[#1D3557]/90' : 'bg-[#E63946] hover:bg-[#E63946]/90'} text-white rounded-xl`}
+                            className={`w-full ${popup.type === 'success' ? 'bg-brand-navy hover:bg-brand-navy/90' : 'bg-brand-red hover:bg-brand-red/90'} text-white rounded-xl`}
                         >
                             Okay, got it
                         </Button>
@@ -70,7 +70,7 @@ export function ScoreOverride({ submissionId, currentScore, totalPoints }: Score
             )}
 
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <h3 className="font-semibold text-[#1D3557] mb-4">Scoring</h3>
+                <h3 className="font-semibold text-brand-navy mb-4">Scoring</h3>
 
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-gray-500">Total Score</span>
@@ -85,7 +85,7 @@ export function ScoreOverride({ submissionId, currentScore, totalPoints }: Score
                                 />
                             </div>
                         ) : (
-                            <span className="text-3xl font-bold text-[#E63946]">{currentScore}</span>
+                            <span className="text-3xl font-bold text-brand-red">{currentScore}</span>
                         )}
                         <span className="text-gray-400">/{totalPoints}</span>
                     </div>
@@ -95,7 +95,7 @@ export function ScoreOverride({ submissionId, currentScore, totalPoints }: Score
                     <div className="mt-4">
                         {isEditing ? (
                             <div className="flex items-center gap-2">
-                                <Button size="sm" onClick={handleSave} disabled={loading} className="w-full bg-[#1D3557]">
+                                <Button size="sm" onClick={handleSave} disabled={loading} className="w-full bg-brand-navy">
                                     <Save className="w-4 h-4 mr-2" /> Save
                                 </Button>
                                 <Button size="sm" variant="ghost" onClick={() => setIsEditing(false)} disabled={loading}>

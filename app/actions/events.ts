@@ -1,139 +1,146 @@
 'use server';
 
 import { adminDb } from '@/lib/firebase-admin';
-import { getEventBySlug } from '@/lib/events';
+import { getEventBySlug, loadRawEvent } from '@/lib/events';
+import { gradeQuiz } from '@/lib/grade';
 import { QuizEvent, UserDetails } from '@/lib/types';
-import fs from 'fs';
-import path from 'path';
+
+function normalizePhone(value: string | undefined | null): string {
+    return (value || '').replace(/\D/g, '');
+}
+
+/** Reject obviously malformed answer payloads before touching the database. */
+function sanitizeAnswers(answers: unknown, questionIds: Set<string>): Record<string, string> {
+    if (!answers || typeof answers !== 'object' || Array.isArray(answers)) {
+        return {};
+    }
+    const clean: Record<string, string> = {};
+    for (const [key, value] of Object.entries(answers as Record<string, unknown>)) {
+        if (!questionIds.has(key)) continue; // ignore keys that aren't real questions
+        if (typeof value !== 'string') continue;
+        clean[key] = value.slice(0, 2000); // cap answer length
+    }
+    return clean;
+}
 
 export async function submitQuiz(slug: string, answers: Record<string, string>, userDetails: UserDetails) {
-  try {
-    // 1. Read the FULL event data from the server file system
-    const contentDirectory = path.join(process.cwd(), 'content/events');
-    const fullPath = path.join(contentDirectory, `${slug}.json`);
-
-    if (!fs.existsSync(fullPath)) {
-      throw new Error('Event not found');
-    }
-
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const event = JSON.parse(fileContents) as QuizEvent;
-
-    if (event.type !== 'quiz') {
-      throw new Error('Invalid event type');
-    }
-
-    // 2. Calculate Score
-    let score = 0;
-    let totalPoints = 0;
-    const questions = event.content.questions;
-
-    questions.forEach(question => {
-      const userAnswer = answers[question.id];
-      const points = question.points || 0;
-      totalPoints += points;
-
-      if (question.type === 'mcq') {
-        const correctIndices = question.correctAnswer;
-        const correctOptionTexts = correctIndices.map(idx => question.options[idx]);
-
-        if (correctOptionTexts.includes(userAnswer)) {
-          score += points;
+    try {
+        // Load the validated event (with answer key) from the server file system.
+        const event = await loadRawEvent(slug);
+        if (!event || event.type !== 'quiz') {
+            return { success: false, message: 'Event not found' };
         }
-      }
-      else if (question.type === 'boolean') {
-        if (String(question.correctAnswer) === userAnswer) {
-          score += points;
+        const quiz = event as QuizEvent;
+
+        // Basic input validation.
+        const name = (userDetails?.name || '').trim();
+        if (!name) {
+            return { success: false, message: 'Name is required' };
         }
-      }
-      else if (question.type === 'text' || (question as any).autoGrade) {
-        // For text questions or autoGrade questions, award full points if answered
-        if (userAnswer && userAnswer.trim().length > 0) {
-          score += points;
+        const cleanUserDetails: UserDetails = {
+            ...userDetails,
+            name: name.slice(0, 200),
+            email: (userDetails?.email || '').slice(0, 200),
+            phone: (userDetails?.phone || '').slice(0, 40),
+        };
+
+        const questionIds = new Set(quiz.content.questions.map((q) => q.id));
+        const cleanAnswers = sanitizeAnswers(answers, questionIds);
+
+        // Best-effort duplicate guard: one submission per phone per quiz.
+        const phone = normalizePhone(cleanUserDetails.phone);
+        if (phone) {
+            try {
+                const existing = await adminDb.collection('quiz_submissions')
+                    .where('slug', '==', quiz.slug)
+                    .where('userDetails.phone', '==', cleanUserDetails.phone)
+                    .limit(1)
+                    .get();
+                if (!existing.empty) {
+                    return { success: false, message: 'You have already submitted this quiz.' };
+                }
+            } catch (dupeError) {
+                // Missing composite index or transient error — fail open so real users aren't blocked.
+                console.warn('Duplicate-submission check skipped:', dupeError);
+            }
         }
-      }
-    });
 
-    // 3. Store in Firestore
-    const submission = {
-      eventId: event.id,
-      slug: event.slug,
-      userDetails,
-      answers,
-      score,
-      totalPoints,
-      timestamp: new Date().toISOString()
-    };
+        const { score, totalPoints } = gradeQuiz(quiz, cleanAnswers);
 
-    await adminDb.collection('quiz_submissions').add(submission);
+        await adminDb.collection('quiz_submissions').add({
+            eventId: quiz.id,
+            slug: quiz.slug,
+            userDetails: cleanUserDetails,
+            answers: cleanAnswers,
+            score,
+            totalPoints,
+            timestamp: new Date().toISOString(),
+        });
 
-    // 4. Return result based on showScore setting
-    if (event.showScore) {
-      return {
-        success: true,
-        score: score,
-        totalPoints: totalPoints,
-        message: 'Quiz submitted successfully'
-      };
-    } else {
-      return {
-        success: true,
-        message: 'Quiz submitted successfully'
-      };
+        if (quiz.showScore) {
+            return { success: true, score, totalPoints, message: 'Quiz submitted successfully' };
+        }
+        return { success: true, message: 'Quiz submitted successfully' };
+    } catch (error) {
+        console.error('Quiz submission error:', error);
+        return { success: false, message: 'Failed to submit quiz' };
     }
-
-  } catch (error) {
-    console.error('Quiz submission error:', error);
-    return {
-      success: false,
-      message: 'Failed to submit quiz'
-    };
-  }
 }
 
 export async function verifyAndGetSubmission(submissionId: string, phone: string) {
-  try {
-    // Fetch submission from Firestore
-    const submissionDoc = await adminDb.collection('quiz_submissions').doc(submissionId).get();
+    try {
+        const submissionDoc = await adminDb.collection('quiz_submissions').doc(submissionId).get();
+        if (!submissionDoc.exists) {
+            return { success: false, message: 'Submission not found' };
+        }
 
-    if (!submissionDoc.exists) {
-      return { success: false, message: 'Submission not found' };
+        const submission = { id: submissionDoc.id, ...submissionDoc.data() } as {
+            id: string;
+            slug: string;
+            answers?: Record<string, string>;
+            score?: number;
+            totalPoints?: number;
+            userDetails?: { name?: string; phone?: string };
+        };
+
+        const storedPhone = normalizePhone(submission.userDetails?.phone);
+        const inputPhone = normalizePhone(phone);
+
+        // Require a substantial phone number — never match an empty/short string.
+        // (Fixes the endsWith("") bypass that returned true for any input.)
+        if (inputPhone.length < 7 || storedPhone.length < 7) {
+            return { success: false, message: 'Please enter the full phone number used for this submission.' };
+        }
+
+        const isMatch =
+            storedPhone === inputPhone ||
+            storedPhone.endsWith(inputPhone) ||
+            inputPhone.endsWith(storedPhone);
+
+        if (!isMatch) {
+            return { success: false, message: 'Phone number does not match our records.' };
+        }
+
+        const event = await getEventBySlug(submission.slug, true);
+        if (!event) {
+            return { success: false, message: 'Event not found' };
+        }
+
+        const questions = (event as QuizEvent).content?.questions || [];
+
+        return {
+            success: true,
+            submission: {
+                id: submission.id,
+                answers: submission.answers,
+                score: submission.score,
+                totalPoints: submission.totalPoints,
+                userDetails: { name: submission.userDetails?.name }, // only the name, not full contact details
+            },
+            questions,
+        };
+    } catch (error) {
+        console.error('Verify submission error:', error);
+        return { success: false, message: 'Failed to verify submission' };
     }
-
-    const submission = { id: submissionDoc.id, ...submissionDoc.data() } as any;
-
-    // Verify phone number (compare last 4 digits for flexibility)
-    const storedPhone = (submission.userDetails?.phone || '').replace(/\D/g, '');
-    const inputPhone = phone.replace(/\D/g, '');
-
-    // Match last 4 digits or full number
-    const isMatch = storedPhone.endsWith(inputPhone) || storedPhone === inputPhone;
-
-    if (!isMatch) {
-      return { success: false, message: 'Phone number does not match our records.' };
-    }
-
-    // Fetch event questions
-    const event = await getEventBySlug(submission.slug, true);
-    if (!event) {
-      return { success: false, message: 'Event not found' };
-    }
-
-    const questions = (event as any).content?.questions || [];
-
-    return {
-      success: true,
-      submission: {
-        id: submission.id,
-        answers: submission.answers,
-        score: submission.score,
-        totalPoints: submission.totalPoints,
-        userDetails: { name: submission.userDetails?.name } // Only return name, not full details
-      },
-      questions
-    };
-  } catch (error) {
-    console.error('Verify submission error:', error);
-    return { success: false, message: 'Failed to verify submission' };
-  }
 }

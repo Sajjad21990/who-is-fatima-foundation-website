@@ -71,7 +71,7 @@ export function AddUserDialog() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-[#E63946] hover:bg-[#E63946]/90 gap-2">
+                <Button className="bg-brand-red hover:bg-brand-red/90 gap-2">
                     <PlusCircle className="w-4 h-4" /> Add Team Member
                 </Button>
             </DialogTrigger>
@@ -132,7 +132,7 @@ export function AddUserDialog() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit" disabled={loading} className="w-full bg-[#1D3557]">
+                        <Button type="submit" disabled={loading} className="w-full bg-brand-navy">
                             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Create User'}
                         </Button>
                     </DialogFooter>

@@ -65,16 +65,33 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'Poppins', sans-serif;
   }
 }
 
 @theme {
-  --font-sans: 'Poppins', sans-serif;
-  --font-inter: 'Inter', sans-serif;
+  /* Poppins is loaded via next/font in app/layout.tsx as the --font-poppins CSS
+     variable; wire it through --font-sans so the `font-sans` class actually renders it. */
+  --font-sans: var(--font-poppins), sans-serif;
+  --font-amiri: var(--font-amiri), serif;
+
+  /* Brand palette — single source of truth. Use bg-brand-*, text-brand-*, etc.
+     instead of hardcoded arbitrary hex values scattered across components. */
+  --color-brand-red: #E63946;
+  --color-brand-red-dark: #D32F3D;
+  --color-brand-navy: #1D3557;
+  --color-brand-navy-dark: #162A47;
+  --color-brand-navy-2: #264773;
+  --color-brand-blue: #457B9D;
+  --color-brand-blue-dark: #3D6A88;
+  --color-brand-cream: #F1FAEE;
+  --color-brand-coral: #FF6B6B;
 
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));

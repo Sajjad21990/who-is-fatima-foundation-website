@@ -1,4 +1,5 @@
 
+import { cache } from 'react';
 import { adminDb } from '@/lib/firebase-admin';
 
 export interface BlogPost {
@@ -58,7 +59,8 @@ export async function getPosts(options: {
   }
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+// Wrapped in React.cache so generateMetadata + the page component share one read per request.
+export const getPostBySlug = cache(async (slug: string): Promise<BlogPost | null> => {
   try {
     const snapshot = await adminDb.collection(COLLECTION)
       .where('slug', '==', slug)
@@ -76,7 +78,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     console.error('Error fetching post by slug:', error);
     return null;
   }
-}
+});
 
 export async function getPostById(id: string): Promise<BlogPost | null> {
   try {

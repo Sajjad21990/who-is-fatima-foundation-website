@@ -1,34 +1,36 @@
 'use server';
 
 import { adminDb } from '@/lib/firebase-admin';
-import { getEvents } from '@/lib/events';
+import { getEvents, loadRawEvent } from '@/lib/events';
+import { gradeQuiz } from '@/lib/grade';
+import { QuizEvent } from '@/lib/types';
+import { requireStaff, requireEditor, requireAdmin } from '@/lib/auth';
+import { revalidatePath } from 'next/cache';
+
+function errorMessage(error: unknown): string {
+    return error instanceof Error ? error.message : 'Something went wrong';
+}
 
 export interface DashboardStats {
     totalEvents: number;
     totalSubmissions: number;
     totalVolunteers: number;
     totalMessages: number;
-    recentSubmissions: any[];
+    recentSubmissions: Record<string, unknown>[];
 }
 
-export async function getDashboardStats() {
+export async function getDashboardStats(): Promise<DashboardStats> {
     try {
-        const events = await getEvents();
+        await requireStaff();
 
-        // Get counts
-        const submissionsSnapshot = await adminDb.collection('quiz_submissions').count().get();
-        const volunteersSnapshot = await adminDb.collection('volunteer_applications').count().get();
-        const messagesSnapshot = await adminDb.collection('contact_messages').count().get();
-
-        const totalSubmissions = submissionsSnapshot.data().count;
-        const totalVolunteers = volunteersSnapshot.data().count;
-        const totalMessages = messagesSnapshot.data().count;
-
-        // Get recent submissions (last 5)
-        const recentSnapshot = await adminDb.collection('quiz_submissions')
-            .orderBy('timestamp', 'desc')
-            .limit(5)
-            .get();
+        // All independent — fetch concurrently instead of four serial round-trips.
+        const [events, submissionsSnapshot, volunteersSnapshot, messagesSnapshot, recentSnapshot] = await Promise.all([
+            getEvents(),
+            adminDb.collection('quiz_submissions').count().get(),
+            adminDb.collection('volunteer_applications').count().get(),
+            adminDb.collection('contact_messages').count().get(),
+            adminDb.collection('quiz_submissions').orderBy('timestamp', 'desc').limit(5).get(),
+        ]);
 
         const recentSubmissions = recentSnapshot.docs.map(doc => ({
             id: doc.id,
@@ -37,9 +39,9 @@ export async function getDashboardStats() {
 
         return {
             totalEvents: events.length,
-            totalSubmissions,
-            totalVolunteers,
-            totalMessages,
+            totalSubmissions: submissionsSnapshot.data().count,
+            totalVolunteers: volunteersSnapshot.data().count,
+            totalMessages: messagesSnapshot.data().count,
             recentSubmissions
         };
     } catch (error) {
@@ -56,30 +58,22 @@ export async function getDashboardStats() {
 
 export async function getSubmissionCounts(): Promise<Record<string, number>> {
     try {
-        const snapshot = await adminDb.collection('quiz_submissions').get();
-        const counts: Record<string, number> = {};
+        await requireStaff();
 
-        snapshot.docs.forEach(doc => {
-            const data = doc.data();
-            // Match by slug or eventId for robustness against renames
-            const key = data.slug || data.eventId;
-            if (key) {
-                // If it's an old slug like 'imam-mahdi-quiz', still count it? 
-                // Or better, normalize it if we know the mapping.
-                // For now, let's just count everything and the page will match what it can.
-                counts[key] = (counts[key] || 0) + 1;
+        // One count() aggregation per event instead of reading the whole collection.
+        const events = await getEvents();
+        const entries = await Promise.all(
+            events.map(async (event) => {
+                const snap = await adminDb
+                    .collection('quiz_submissions')
+                    .where('slug', '==', event.slug)
+                    .count()
+                    .get();
+                return [event.slug, snap.data().count] as const;
+            })
+        );
 
-                // Also attribute to common prefixes to handle jan-2026 tags
-                if (key.includes('-')) {
-                    const base = key.split('-').slice(0, 3).join('-'); // e.g. imam-mahdi-quiz
-                    if (base !== key) {
-                        counts[base] = (counts[base] || 0) + 1;
-                    }
-                }
-            }
-        });
-
-        return counts;
+        return Object.fromEntries(entries);
     } catch (error) {
         console.error('Error fetching submission counts:', error);
         return {};
@@ -88,6 +82,8 @@ export async function getSubmissionCounts(): Promise<Record<string, number>> {
 
 export async function getEventSubmissions(slug: string, limit: number = 20, afterId?: string) {
     try {
+        await requireStaff();
+
         let query = adminDb.collection('quiz_submissions')
             .where('slug', '==', slug)
             .orderBy('timestamp', 'desc');
@@ -118,12 +114,10 @@ export async function getEventSubmissions(slug: string, limit: number = 20, afte
 
 export async function searchEventSubmissions(slug: string, query: string, limit: number = 20) {
     try {
-        // Fallback Strategy: Fetch ALL submissions for this event and filter in-memory.
-        // Why? 
-        // 1. Firestore regex/case-insensitive search is not natively supported without third-party services (Algolia/Typesense) or specific schema changes (lowercase fields).
-        // 2. The number of submissions per event is reasonable (likely < 5000).
-        // 3. This guarantees mostly accurate results for both Name (partial, case-insensitive) and ID (partial).
+        await requireStaff();
 
+        // Firestore has no native case-insensitive substring search; for the modest
+        // per-event submission counts we fetch the event's submissions and filter in memory.
         const snapshot = await adminDb.collection('quiz_submissions')
             .where('slug', '==', slug)
             .orderBy('timestamp', 'desc')
@@ -132,28 +126,20 @@ export async function searchEventSubmissions(slug: string, query: string, limit:
         const allSubmissions = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
-        }));
+        })) as Array<{ id: string; userDetails?: { name?: string } }>;
 
         const lowerQuery = query.toLowerCase();
 
-        const filtered = allSubmissions.filter((sub: any) => {
+        const filtered = allSubmissions.filter((sub) => {
             const name = sub.userDetails?.name?.toLowerCase() || '';
             const id = sub.id.toLowerCase();
             return name.includes(lowerQuery) || id.includes(lowerQuery);
         });
 
-        // Pagination for the search results (client expects paginated structure)
-        // We return the top 'limit' of the filtered results. 
-        // Note: Real pagination for search results would require keeping state, but here we just return the top matches.
-        // If users need to see more search results, we would need to slice differently based on an offset not just 'nextId'. 
-        // Valid simplification: Return top 50, or just return first page.
-
-        const hasMore = filtered.length > limit;
         const items = filtered.slice(0, limit);
-        const nextId = null; // Search pagination is complex with in-memory filter, disabling 'Load More' for search results for now or implementing simple slice. 
 
-        return { items, nextId, hasMore: false }; // Disable infinite scroll for search results to avoid complexity
-
+        // Load-more is disabled for search results (in-memory filter has no stable cursor).
+        return { items, nextId: null, hasMore: false };
     } catch (error) {
         console.error('Error searching submissions:', error);
         return { items: [], nextId: null, hasMore: false };
@@ -162,6 +148,8 @@ export async function searchEventSubmissions(slug: string, query: string, limit:
 
 export async function getAllEventSubmissions(slug: string) {
     try {
+        await requireStaff();
+
         const snapshot = await adminDb.collection('quiz_submissions')
             .where('slug', '==', slug)
             .orderBy('timestamp', 'desc')
@@ -179,6 +167,8 @@ export async function getAllEventSubmissions(slug: string) {
 
 export async function getSubmission(id: string) {
     try {
+        await requireStaff();
+
         const doc = await adminDb.collection('quiz_submissions').doc(id).get();
         if (!doc.exists) return null;
         return { id: doc.id, ...doc.data() };
@@ -188,25 +178,32 @@ export async function getSubmission(id: string) {
     }
 }
 
-export async function updateSubmissionScore(submissionId: string, newScore: number, performedBy: string) {
+export async function updateSubmissionScore(submissionId: string, newScore: number) {
     try {
+        const user = await requireEditor();
+
+        if (typeof newScore !== 'number' || !Number.isFinite(newScore) || newScore < 0) {
+            return { success: false, error: 'Invalid score' };
+        }
+
         const submissionRef = adminDb.collection('quiz_submissions').doc(submissionId);
         const submissionDoc = await submissionRef.get();
 
-        if (!submissionDoc.exists) throw new Error('Submission not found');
+        if (!submissionDoc.exists) {
+            return { success: false, error: 'Submission not found' };
+        }
 
         const oldScore = submissionDoc.data()?.score;
 
         await adminDb.runTransaction(async (t) => {
-            // Update score
             t.update(submissionRef, { score: newScore });
 
-            // Create audit log
+            // Audit identity comes from the verified session, never from the client.
             const auditRef = adminDb.collection('audit_logs').doc();
             t.set(auditRef, {
                 action: 'UPDATE_SCORE',
                 submissionId,
-                performedBy,
+                performedBy: user.email || user.uid,
                 oldScore,
                 newScore,
                 timestamp: new Date().toISOString()
@@ -216,26 +213,83 @@ export async function updateSubmissionScore(submissionId: string, newScore: numb
         return { success: true };
     } catch (error) {
         console.error('Error updating score:', error);
-        return { success: false, error };
+        return { success: false, error: errorMessage(error) };
+    }
+}
+
+/**
+ * Re-grade every stored submission for a quiz using the CURRENT (validated) answer key.
+ *
+ * This is the permanent replacement for the one-off `fix-*.mjs` migration scripts:
+ * whenever an answer key is corrected in content/events/*.json, run this to bring all
+ * historical scores back in line — no bespoke script required.
+ */
+export async function recalculateEventScores(slug: string) {
+    try {
+        const user = await requireEditor();
+
+        const event = await loadRawEvent(slug);
+        if (!event || event.type !== 'quiz') {
+            return { success: false, error: 'Quiz not found' };
+        }
+        const quiz = event as QuizEvent;
+
+        const snapshot = await adminDb.collection('quiz_submissions')
+            .where('slug', '==', slug)
+            .get();
+
+        let updated = 0;
+        let batch = adminDb.batch();
+        let ops = 0;
+
+        for (const doc of snapshot.docs) {
+            const data = doc.data();
+            const { score, totalPoints } = gradeQuiz(quiz, (data.answers as Record<string, string>) || {});
+            if (data.score !== score || data.totalPoints !== totalPoints) {
+                batch.update(doc.ref, { score, totalPoints });
+                updated++;
+                ops++;
+                if (ops >= 400) {
+                    await batch.commit();
+                    batch = adminDb.batch();
+                    ops = 0;
+                }
+            }
+        }
+        if (ops > 0) await batch.commit();
+
+        await adminDb.collection('audit_logs').add({
+            action: 'RECALCULATE_SCORES',
+            slug,
+            updatedCount: updated,
+            totalCount: snapshot.size,
+            performedBy: user.email || user.uid,
+            timestamp: new Date().toISOString(),
+        });
+
+        revalidatePath(`/admin/events/${slug}`);
+        return { success: true, updated, total: snapshot.size };
+    } catch (error) {
+        console.error('Error recalculating scores:', error);
+        return { success: false, error: errorMessage(error) };
     }
 }
 
 export async function getAuditLogs(submissionId: string) {
     try {
+        await requireStaff();
+
         const snapshot = await adminDb.collection('audit_logs')
             .where('submissionId', '==', submissionId)
-            // .orderBy('timestamp', 'desc') // Removed to avoid composite index requirement
             .get();
 
         const logs = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
-        }));
+        })) as Array<{ id: string; timestamp: string }>;
 
-        // Sort in memory
-        return logs.sort((a: any, b: any) => {
-            return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-        });
+        // Sorted in memory to avoid a composite index on a small per-submission set.
+        return logs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     } catch (error) {
         console.error('Error fetching audit logs:', error);
         return [];
@@ -247,6 +301,8 @@ import { getAuth } from 'firebase-admin/auth';
 
 export async function getUsers() {
     try {
+        await requireAdmin();
+
         const snapshot = await adminDb.collection('users')
             .orderBy('createdAt', 'desc')
             .get();
@@ -263,6 +319,12 @@ export async function getUsers() {
 
 export async function createAdminUser(email: string, password: string, displayName: string, role: 'admin' | 'editor' | 'viewer') {
     try {
+        await requireAdmin();
+
+        if (!['admin', 'editor', 'viewer'].includes(role)) {
+            return { success: false, error: 'Invalid role' };
+        }
+
         const auth = getAuth();
 
         // Create Firebase Auth user
@@ -282,15 +344,17 @@ export async function createAdminUser(email: string, password: string, displayNa
         });
 
         return { success: true, uid: userRecord.uid };
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error creating user:', error);
-        return { success: false, error: error.message };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
 // Volunteer Management
 export async function getVolunteers(limit: number = 20, afterId?: string) {
     try {
+        await requireStaff();
+
         let query = adminDb.collection('volunteer_applications')
             .orderBy('createdAt', 'desc');
 
@@ -320,6 +384,8 @@ export async function getVolunteers(limit: number = 20, afterId?: string) {
 
 export async function updateVolunteerStatus(id: string, status: string) {
     try {
+        await requireEditor();
+
         await adminDb.collection('volunteer_applications').doc(id).update({
             status,
             updatedAt: new Date().toISOString()
@@ -327,13 +393,15 @@ export async function updateVolunteerStatus(id: string, status: string) {
         return { success: true };
     } catch (error) {
         console.error('Error updating volunteer status:', error);
-        return { success: false, error };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
 // Contact Management
 export async function getContactMessages(limit: number = 20, afterId?: string) {
     try {
+        await requireStaff();
+
         let query = adminDb.collection('contact_messages')
             .orderBy('createdAt', 'desc');
 
@@ -363,6 +431,8 @@ export async function getContactMessages(limit: number = 20, afterId?: string) {
 
 export async function markMessageRead(id: string) {
     try {
+        await requireEditor();
+
         await adminDb.collection('contact_messages').doc(id).update({
             status: 'read',
             readAt: new Date().toISOString()
@@ -370,7 +440,7 @@ export async function markMessageRead(id: string) {
         return { success: true };
     } catch (error) {
         console.error('Error marking message as read:', error);
-        return { success: false, error };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
@@ -378,137 +448,89 @@ export async function markMessageRead(id: string) {
 export interface Winner {
     rank: number;
     submissionId: string;
-    userDetails: any;
+    userDetails: Record<string, unknown>;
     score: number;
     totalPoints: number;
 }
 
 export async function saveEventWinners(slug: string, winners: Winner[]) {
     try {
-        // 1. Get ALL submissions for this event
-        const submissions = (await getAllEventSubmissions(slug)) as any[];
+        const user = await requireEditor();
 
-        // 2. Separate selected winners from the rest
+        const submissions = (await adminDb.collection('quiz_submissions')
+            .where('slug', '==', slug)
+            .orderBy('timestamp', 'desc')
+            .get()).docs.map(doc => ({ id: doc.id, ...doc.data() })) as Array<{
+                id: string;
+                score: number;
+                totalPoints?: number;
+                timestamp: string;
+                userDetails: Record<string, unknown>;
+            }>;
+
         const selectedWinnerIds = new Set(winners.map(w => w.submissionId));
 
-        // 3. Filter and sort remaining participants
-        // We want to rank them after the selected winners (startRank)
-        // Sort by score (desc), then by timestamp (asc) to favor early birds in ties for sorting display,
-        // though we will assign same rank for same score.
-        const remainingParticipants = submissions
-            .filter((sub: any) => !selectedWinnerIds.has(sub.id))
-            .sort((a: any, b: any) => {
-                if (b.score !== a.score) {
-                    return b.score - a.score;
-                }
+        // Rank everyone who wasn't hand-picked, below the selected winners.
+        const remaining = submissions
+            .filter((sub) => !selectedWinnerIds.has(sub.id))
+            .sort((a, b) => {
+                if (b.score !== a.score) return b.score - a.score;
                 return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
             });
 
-        // 4. Assign ranks to remaining participants
-        // The next rank starts after the lowest rank in the selected `winners`
-        // Typically this will be 4 if we selected top 3.
-        const maxSelectedRank = Math.max(...winners.map(w => w.rank), 0);
-        let currentRank = maxSelectedRank + 1;
-
+        const startRank = Math.max(0, ...winners.map(w => w.rank)) + 1;
         const leaderboard: Winner[] = [...winners];
 
-        // Handling ties for remaining participants
-        // If scores are equal, they get the same rank.
-        // We iterate through the sorted remaining participants.
-
-        for (let i = 0; i < remainingParticipants.length; i++) {
-            const participant = remainingParticipants[i];
-
-            // If it's not the first one, check if score is same as previous
-            if (i > 0 && participant.score === remainingParticipants[i - 1].score) {
+        // Standard competition ranking (ties share a rank; the next distinct score skips).
+        let prevScore: number | null = null;
+        let prevRank = startRank;
+        remaining.forEach((participant, i) => {
+            let rank: number;
+            if (i === 0) {
+                rank = startRank;
+            } else if (participant.score === prevScore) {
+                rank = prevRank;
             } else {
-                // New rank (update currentRank to current position index + offset)
-                // Standard competition ranking: 1, 2, 2, 4... (gaps = number of people tied)
-                // OR Dense ranking: 1, 2, 2, 3... (no gaps)
-                // "after top 3 there can be same rank if required" -> User implies "same rank" is allowed.
-                // Let's use standard competition ranking relative to the list.
-                // Actually, simply:
-                // If distinct score, rank = (maxSelectedRank + 1) + i
-                // If same score, keep same rank as previous iteration.
-
-                // Let's optimize:
-                // The logical rank for item `i` is `(maxSelectedRank + 1) + i`
-                // BUT if it ties with `i-1`, we want to use `i-1`'s rank.
-
-                // Wait, typically if there is a tie for 4th, both get 4. The next person gets 6.
-                // Let's stick to that logic unless "Dense" is preferred. 
-                // "after top 3 there can be same rank if required"
-
-                // Implementation:
-                // Rank is determined by position in sorted list, but adjusted for ties.
-                const rankByPosition = (maxSelectedRank + 1) + i;
-                currentRank = rankByPosition;
+                rank = startRank + i;
             }
-
-            // Re-check logic: 
-            // i=0: rank = 4 + 0 = 4.
-            // i=1 (tied): score matches i=0. Should be rank 4? Yes.
-            // i=2 (lower): score lower. Should be rank 6? Yes.
-
-            // Logic for assigning the rank to the object:
-            let assignedRank = (maxSelectedRank + 1) + i;
-            if (i > 0 && participant.score === remainingParticipants[i - 1].score) {
-                // Find the rank of the previous one in our new list? 
-                // It's just the one we just pushed? No, leaderboard has winners too.
-                // Let's maintain a variable for the 'last assigned rank' and 'last score'.
-                // Actually easier:
-                const lastAdded = leaderboard[leaderboard.length - 1];
-                // Note: leaderboard has winners at start, so "lastAdded" might be a winner if i=0.
-                // But we are in remaining loop.
-                if (i === 0) {
-                    // First remaining person. Rank is definitely (maxSelectedRank + 1).
-                    assignedRank = maxSelectedRank + 1;
-                } else {
-                    // Check if score equals previous remaining participant
-                    if (participant.score === remainingParticipants[i - 1].score) {
-                        // Get rank of the LAST entry we added (which corresponds to remainingParticipants[i-1])
-                        assignedRank = leaderboard[leaderboard.length - 1].rank;
-                    } else {
-                        // No tie. Standard ranking.
-                        assignedRank = (maxSelectedRank + 1) + i;
-                    }
-                }
-            } else {
-                if (i === 0) assignedRank = maxSelectedRank + 1;
-            }
+            prevScore = participant.score;
+            prevRank = rank;
 
             leaderboard.push({
-                rank: assignedRank,
+                rank,
                 submissionId: participant.id,
                 userDetails: participant.userDetails,
                 score: participant.score,
                 totalPoints: participant.totalPoints || 0
             });
-        }
+        });
 
         await adminDb.collection('event_winners').doc(slug).set({
             slug,
             winners: leaderboard,
             lockedAt: new Date().toISOString(),
-            lockedBy: 'admin' // In a real app we'd track the user ID
+            lockedBy: user.email || user.uid
         });
         return { success: true };
     } catch (error) {
         console.error('Error saving event winners:', error);
-        return { success: false, error };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
 export async function resetEventWinners(slug: string) {
     try {
+        await requireEditor();
+
         await adminDb.collection('event_winners').doc(slug).delete();
         return { success: true };
     } catch (error) {
         console.error('Error resetting event winners:', error);
-        return { success: false, error };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
+// Public: the winners leaderboard is shown on the public results page.
 export async function getEventWinners(slug: string) {
     try {
         const doc = await adminDb.collection('event_winners').doc(slug).get();

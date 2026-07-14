@@ -24,9 +24,9 @@ export default function LeaderboardTable({ winners }: LeaderboardTableProps) {
 
     return (
         <>
-            <Card className="max-w-3xl mx-auto border-t-4 border-t-[#1D3557]">
+            <Card className="max-w-3xl mx-auto border-t-4 border-t-brand-navy">
                 <CardHeader className="bg-gray-50 border-b flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4">
-                    <CardTitle className="text-xl text-[#1D3557]">Leaderboard</CardTitle>
+                    <CardTitle className="text-xl text-brand-navy">Leaderboard</CardTitle>
                     <div className="w-full sm:w-64">
                         <SearchInput
                             placeholder="Search name or ID..."
@@ -52,7 +52,7 @@ export default function LeaderboardTable({ winners }: LeaderboardTableProps) {
                                         <td className="px-3 py-3 md:px-6 md:py-4 text-gray-900 font-medium">#{winner.rank}</td>
                                         <td className="px-3 py-3 md:px-6 md:py-4 text-gray-600">
                                             <button
-                                                className="text-left sm:hidden hover:text-[#E63946] transition-colors"
+                                                className="text-left sm:hidden hover:text-brand-red transition-colors"
                                                 onClick={() => setSelectedSubmission({
                                                     id: winner.submissionId,
                                                     name: winner.userDetails.name
@@ -62,7 +62,7 @@ export default function LeaderboardTable({ winners }: LeaderboardTableProps) {
                                             </button>
                                             <span className="hidden sm:inline">{winner.userDetails.name}</span>
                                         </td>
-                                        <td className="px-3 py-3 md:px-6 md:py-4 text-center font-mono text-[#1D3557] font-bold">
+                                        <td className="px-3 py-3 md:px-6 md:py-4 text-center font-mono text-brand-navy font-bold">
                                             {winner.score}
                                         </td>
                                         <td className="px-3 py-3 md:px-6 md:py-4 text-right hidden sm:table-cell">
@@ -73,7 +73,7 @@ export default function LeaderboardTable({ winners }: LeaderboardTableProps) {
                                                     id: winner.submissionId,
                                                     name: winner.userDetails.name
                                                 })}
-                                                className="text-[#1D3557] hover:text-[#E63946] hover:bg-red-50"
+                                                className="text-brand-navy hover:text-brand-red hover:bg-red-50"
                                             >
                                                 <Eye className="w-4 h-4 mr-1" />
                                                 View

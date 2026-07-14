@@ -32,7 +32,7 @@ export function CounterStats() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-r from-[#457B9D] to-[#1D3557] relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-gradient-to-r from-brand-blue to-brand-navy relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>

@@ -15,15 +15,15 @@ export function GalleryPreview() {
             <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                 <div className="flex justify-between items-end mb-12">
                     <div>
-                        <div className="inline-block px-4 py-2 bg-[#F1FAEE] rounded-full mb-4">
-                            <span className="text-[#E63946]">Our Gallery</span>
+                        <div className="inline-block px-4 py-2 bg-brand-cream rounded-full mb-4">
+                            <span className="text-brand-red">Our Gallery</span>
                         </div>
-                        <h2 className="text-4xl lg:text-5xl text-[#1D3557]">
-                            Moments of <span className="text-[#E63946]">Joy</span>
+                        <h2 className="text-4xl lg:text-5xl text-brand-navy">
+                            Moments of <span className="text-brand-red">Joy</span>
                         </h2>
                     </div>
                     <Link href="/gallery">
-                        <Button variant="outline" className="hidden md:flex border-[#1D3557] text-[#1D3557] hover:bg-[#1D3557] hover:text-white">
+                        <Button variant="outline" className="hidden md:flex border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white">
                             View Full Gallery
                         </Button>
                     </Link>
@@ -43,7 +43,7 @@ export function GalleryPreview() {
 
                 <div className="mt-8 text-center md:hidden">
                     <Link href="/gallery">
-                        <Button variant="outline" className="border-[#1D3557] text-[#1D3557] hover:bg-[#1D3557] hover:text-white w-full">
+                        <Button variant="outline" className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white w-full">
                             View Full Gallery
                         </Button>
                     </Link>

@@ -9,8 +9,11 @@ import { ScoreOverride } from '@/components/admin/ScoreOverride';
 
 export default async function SubmissionDetailsPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const submissionData = await getSubmission(id);
-    const auditLogs = await getAuditLogs(id);
+    // Independent reads — run concurrently.
+    const [submissionData, auditLogs] = await Promise.all([
+        getSubmission(id),
+        getAuditLogs(id),
+    ]);
 
     if (!submissionData) {
         notFound();
@@ -26,13 +29,11 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
     // Cast to any to access quiz-specific fields without strict type guards for now
     const questions = (event.content as any).questions || [];
 
-    console.log({ submission, questions })
-
     return (
         <div className="space-y-8">
             {/* Header */}
             <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                <Link href={`/admin/events/${submission.slug}`} className="hover:text-[#E63946] flex items-center gap-1">
+                <Link href={`/admin/events/${submission.slug}`} className="hover:text-brand-red flex items-center gap-1">
                     <ArrowLeft className="w-4 h-4" /> Back to Submissions
                 </Link>
             </div>
@@ -42,7 +43,7 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
                 <div className="lg:col-span-2 space-y-6">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold text-[#1D3557]">Submission Answers</h2>
+                            <h2 className="text-xl font-bold text-brand-navy">Submission Answers</h2>
                             <span className="text-sm text-gray-400">{questions.length} Questions</span>
                         </div>
 
@@ -90,7 +91,7 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
                                                         {question.points} pts
                                                     </span>
                                                 </div>
-                                                <p className="font-semibold text-[#1D3557] mb-3">{question.text}</p>
+                                                <p className="font-semibold text-brand-navy mb-3">{question.text}</p>
 
                                                 <div className="space-y-2">
                                                     <div>
@@ -103,7 +104,7 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
                                                     {!isCorrect && question.type !== 'text' && !question.autoGrade && (
                                                         <div className="mt-2 pt-2 border-t border-black/5">
                                                             <span className="text-xs text-gray-400 block mb-0.5">Correct Answer</span>
-                                                            <p className="font-medium text-[#1D3557]">
+                                                            <p className="font-medium text-brand-navy">
                                                                 {correctAnswerText}
                                                             </p>
                                                         </div>
@@ -122,7 +123,7 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
                 <div className="space-y-6">
                     {/* User Details Card */}
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 className="font-semibold text-[#1D3557] mb-4 flex items-center gap-2">
+                        <h3 className="font-semibold text-brand-navy mb-4 flex items-center gap-2">
                             <User className="w-5 h-5 text-gray-400" /> Participant
                         </h3>
                         <div className="space-y-3 text-sm">
@@ -163,7 +164,7 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
 
                     {/* Audit Logs */}
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 className="font-semibold text-[#1D3557] mb-4 flex items-center gap-2">
+                        <h3 className="font-semibold text-brand-navy mb-4 flex items-center gap-2">
                             <History className="w-5 h-5 text-gray-400" /> History
                         </h3>
                         <div className="space-y-4 relative pl-2">
@@ -175,9 +176,9 @@ export default async function SubmissionDetailsPage({ params }: { params: Promis
                                     <div className="absolute left-0 top-1.5 w-6 h-6 bg-white rounded-full border-2 border-gray-200 flex items-center justify-center">
                                         <div className="w-2 h-2 bg-gray-400 rounded-full" />
                                     </div>
-                                    <p className="text-[#1D3557] font-medium">Score updated</p>
+                                    <p className="text-brand-navy font-medium">Score updated</p>
                                     <p className="text-xs text-gray-500">
-                                        {log.oldScore} &rarr; <span className="font-bold text-[#E63946]">{log.newScore}</span>
+                                        {log.oldScore} &rarr; <span className="font-bold text-brand-red">{log.newScore}</span>
                                     </p>
                                     <p className="text-xs text-gray-400 mt-1">
                                         by {log.performedBy}

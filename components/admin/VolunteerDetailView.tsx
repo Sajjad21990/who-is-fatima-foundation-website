@@ -44,13 +44,13 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
             {/* Left Column: Personal Info */}
             <div className="lg:col-span-1 space-y-6">
                 <Card className="border-none shadow-sm ring-1 ring-gray-100 overflow-hidden">
-                    <div className="h-24 bg-[#1D3557] relative">
+                    <div className="h-24 bg-brand-navy relative">
                         <div className="absolute -bottom-10 left-6 w-20 h-20 rounded-2xl bg-white shadow-md flex items-center justify-center border-4 border-white">
-                            <User className="w-10 h-10 text-[#1D3557]" />
+                            <User className="w-10 h-10 text-brand-navy" />
                         </div>
                     </div>
                     <CardContent className="pt-14 pb-6 px-6">
-                        <h2 className="text-2xl font-bold text-[#1D3557]">{volunteer.name}</h2>
+                        <h2 className="text-2xl font-bold text-brand-navy">{volunteer.name}</h2>
                         <p className="text-gray-500 flex items-center gap-1 mt-1">
                             <MapPin className="w-4 h-4" /> {volunteer.location || 'Unknown Location'}
                         </p>
@@ -62,7 +62,7 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs uppercase font-bold tracking-tighter">Email</p>
-                                    <p className="font-medium text-[#1D3557] break-all">{volunteer.email}</p>
+                                    <p className="font-medium text-brand-navy break-all">{volunteer.email}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 text-sm">
@@ -71,7 +71,7 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs uppercase font-bold tracking-tighter">Phone</p>
-                                    <p className="font-medium text-[#1D3557]">{volunteer.phone}</p>
+                                    <p className="font-medium text-brand-navy">{volunteer.phone}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 text-sm">
@@ -80,7 +80,7 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs uppercase font-bold tracking-tighter">Age</p>
-                                    <p className="font-medium text-[#1D3557]">{volunteer.age} Years</p>
+                                    <p className="font-medium text-brand-navy">{volunteer.age} Years</p>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
                 </Card>
 
                 <Card className="border-none shadow-sm ring-1 ring-gray-100 p-6">
-                    <h3 className="font-bold text-[#1D3557] mb-4">Application Status</h3>
+                    <h3 className="font-bold text-brand-navy mb-4">Application Status</h3>
                     <div className={`p-4 rounded-xl flex items-center gap-3 mb-6 ${volunteer.status === 'approved' ? 'bg-green-50 text-green-700 border border-green-100' :
                         volunteer.status === 'rejected' ? 'bg-red-50 text-red-700 border border-red-100' :
                             'bg-blue-50 text-blue-700 border border-blue-100'
@@ -139,7 +139,7 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
             <div className="lg:col-span-2 space-y-6">
                 <Card className="border-none shadow-sm ring-1 ring-gray-100 overflow-hidden">
                     <CardHeader className="bg-gray-50/50 border-b border-gray-100">
-                        <CardTitle className="text-lg text-[#1D3557]">Application Details</CardTitle>
+                        <CardTitle className="text-lg text-brand-navy">Application Details</CardTitle>
                     </CardHeader>
                     <CardContent className="p-6 space-y-8">
                         <div className="space-y-3">
@@ -160,11 +160,11 @@ export default function VolunteerDetailView({ volunteer }: { volunteer: any }) {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 bg-gray-50 rounded-xl">
                                     <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest leading-tight">Submitted On</p>
-                                    <p className="text-[#1D3557] font-medium">{format(new Date(volunteer.createdAt), 'PPPP')}</p>
+                                    <p className="text-brand-navy font-medium">{format(new Date(volunteer.createdAt), 'PPPP')}</p>
                                 </div>
                                 <div className="p-4 bg-gray-50 rounded-xl">
                                     <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest leading-tight">Time Received</p>
-                                    <p className="text-[#1D3557] font-medium">{format(new Date(volunteer.createdAt), 'p')}</p>
+                                    <p className="text-brand-navy font-medium">{format(new Date(volunteer.createdAt), 'p')}</p>
                                 </div>
                             </div>
                         </div>

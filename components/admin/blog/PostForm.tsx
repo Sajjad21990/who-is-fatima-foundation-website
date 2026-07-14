@@ -187,7 +187,7 @@ export function PostForm({ post }: PostFormProps) {
                             <ArrowLeft className="w-4 h-4" />
                         </Button>
                         <div>
-                            <h1 className="text-2xl font-bold text-[#1D3557]">
+                            <h1 className="text-2xl font-bold text-brand-navy">
                                 {post ? 'Edit Post' : 'Create New Post'}
                             </h1>
                             <p className="text-gray-500 text-sm">

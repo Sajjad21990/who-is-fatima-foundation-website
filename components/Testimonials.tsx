@@ -38,17 +38,17 @@ export function Testimonials() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#F1FAEE]">
+    <section className="py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-block px-4 py-2 bg-white rounded-full mb-4">
-            <span className="text-[#E63946]">Testimonials</span>
+            <span className="text-brand-red">Testimonials</span>
           </div>
-          <h2 className="text-4xl lg:text-5xl text-[#1D3557] mb-4">
-            What People Say About <span className="text-[#E63946]">Us</span>
+          <h2 className="text-4xl lg:text-5xl text-brand-navy mb-4">
+            What People Say About <span className="text-brand-red">Us</span>
           </h2>
-          <p className="text-[#457B9D]">
+          <p className="text-brand-blue">
             Hear from our donors, volunteers, and community partners about their
             experiences with HopeGive.
           </p>
@@ -68,12 +68,12 @@ export function Testimonials() {
                 <Card className="bg-white border-none shadow-lg h-full">
                   <CardContent className="p-8 space-y-6">
                     {/* Quote Icon */}
-                    <div className="w-12 h-12 bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-brand-red to-brand-coral rounded-full flex items-center justify-center">
                       <Quote className="w-6 h-6 text-white" />
                     </div>
 
                     {/* Quote */}
-                    <p className="text-[#457B9D] italic leading-relaxed">
+                    <p className="text-brand-blue italic leading-relaxed">
                       "{testimonial.quote}"
                     </p>
 
@@ -87,8 +87,8 @@ export function Testimonials() {
                         />
                       </div>
                       <div>
-                        <div className="text-[#1D3557]">{testimonial.name}</div>
-                        <div className="text-sm text-[#457B9D]">{testimonial.role}</div>
+                        <div className="text-brand-navy">{testimonial.name}</div>
+                        <div className="text-sm text-brand-blue">{testimonial.role}</div>
                       </div>
                     </div>
                   </CardContent>

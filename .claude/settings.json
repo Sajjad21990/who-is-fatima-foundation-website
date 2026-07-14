@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -rn \"from ['\\\\\"]\\\\.\\\\{1,2\\\\}/\\\\\\(button\\\\|card\\\\|input\\\\|utils\\\\|dialog\\\\|badge\\\\|progress\\\\|carousel\\\\|textarea\\\\|label\\\\\\)['\\\\\"]\" components --include='*.tsx')",
+      "Bash(python3 -c ' *)",
+      "Bash(git -C /Users/sajjad/Desktop/work/personal/who-is-fatima-foundation-website ls-files)",
+      "Bash(git -C /Users/sajjad/Desktop/work/personal/who-is-fatima-foundation-website check-ignore -v who-is-fatima-foundation-firebase-adminsdk-fbsvc-af918b8116.json .env)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); q=[x for x in d['content']['questions'] if x['id']=='q19'][0]; print\\(json.dumps\\(q, ensure_ascii=False, indent=1\\)\\)\")",
+      "Bash(grep -rhoE '\\(bg|text|border\\)-\\(blue|green|red|yellow|purple|pink|orange|teal|indigo|amber|emerald|sky|cyan|rose|lime|violet\\)-[0-9]{2,3}' app components --include='*.tsx' --exclude-dir=ui --exclude-dir=admin)",
+      "Bash(grep -rhoE '\\(bg|text|border\\)-gray-[0-9]{2,3}' app components --include='*.tsx' --exclude-dir=ui --exclude-dir=admin)",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('package.json'\\)\\); print\\(json.dumps\\(d.get\\('dependencies'\\), indent=1\\)\\); print\\(json.dumps\\(d.get\\('devDependencies'\\), indent=1\\)\\)\")",
+      "Bash(npm install *)",
+      "Bash(node \"/private/tmp/claude-501/-Users-sajjad-Desktop-work-personal-who-is-fatima-foundation-website/f81e8b34-4387-44cb-bfc5-4ee0c253b55c/scratchpad/token-sweep.mjs\")",
+      "Bash(xargs -n1 basename)",
+      "Bash(echo \"BUILD EXIT CODE: $?\")",
+      "Bash(grep -niE \"sakina|mira road|enrolled|completed|students|[0-9]{2,}\\\\+?|stat\" app/projects/page.tsx)",
+      "Bash(echo \"BUILD EXIT: $?\")"
+    ]
+  }
+}

@@ -32,25 +32,25 @@ export function About() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-6">
-            <div className="inline-block px-4 py-2 bg-[#F1FAEE] rounded-full">
-              <span className="text-[#E63946]">About Who is Fatima Foundation</span>
+            <div className="inline-block px-4 py-2 bg-brand-cream rounded-full">
+              <span className="text-brand-red">About Who is Fatima Foundation</span>
             </div>
 
-            <h2 className="text-4xl lg:text-5xl text-[#1D3557]">
-              Uplifting Our <span className="text-[#E63946]">Community</span>
+            <h2 className="text-4xl lg:text-5xl text-brand-navy">
+              Uplifting Our <span className="text-brand-red">Community</span>
             </h2>
 
-            <p className="text-[#457B9D] leading-relaxed">
+            <p className="text-brand-blue leading-relaxed">
               Founded with the vision of uplifting our community, Who is Fatima Foundation is currently running Sakina Education & Research Centers in Malad (Baqariya Shia Jama Masjid), Mira Road (Haidery Shia Jama Masjid), and Jogipura, UP (Dargah-e-Alia). We are also running Edulight Global School in Jogipura.
             </p>
 
-            <p className="text-[#457B9D] leading-relaxed">
+            <p className="text-brand-blue leading-relaxed">
               Our dream is to establish education centers in every Shia Jama Masjid in Mumbai, ensuring quality education is accessible to all.
             </p>
 
             <div className="pt-4">
               <Link href="/about">
-                <Button variant="outline" className="border-[#E63946] text-[#E63946] hover:bg-[#E63946] hover:text-white">
+                <Button variant="outline" className="border-brand-red text-brand-red hover:bg-brand-red hover:text-white">
                   Read More
                 </Button>
               </Link>
@@ -62,13 +62,13 @@ export function About() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-[#F1FAEE] rounded-2xl p-6 hover:shadow-lg transition-shadow"
+                className="bg-brand-cream rounded-2xl p-6 hover:shadow-lg transition-shadow"
               >
-                <div className="w-14 h-14 bg-gradient-to-r from-[#E63946] to-[#FF6B6B] rounded-xl flex items-center justify-center mb-4">
+                <div className="w-14 h-14 bg-gradient-to-r from-brand-red to-brand-coral rounded-xl flex items-center justify-center mb-4">
                   <feature.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-[#1D3557] mb-2">{feature.title}</h3>
-                <p className="text-sm text-[#457B9D]">{feature.description}</p>
+                <h3 className="text-brand-navy mb-2">{feature.title}</h3>
+                <p className="text-sm text-brand-blue">{feature.description}</p>
               </div>
             ))}
           </div>

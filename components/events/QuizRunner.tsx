@@ -120,11 +120,11 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                         <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <X className="w-8 h-8" />
                         </div>
-                        <h3 className="text-xl font-bold text-[#1D3557] mb-2">Error</h3>
+                        <h3 className="text-xl font-bold text-brand-navy mb-2">Error</h3>
                         <p className="text-gray-600 mb-6">{error}</p>
                         <Button
                             onClick={() => setError(null)}
-                            className="w-full bg-[#E63946] hover:bg-[#E63946]/90 text-white rounded-xl"
+                            className="w-full bg-brand-red hover:bg-brand-red/90 text-white rounded-xl"
                         >
                             Okay, got it
                         </Button>
@@ -134,8 +134,8 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
 
             {isSubmitting && (
                 <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm">
-                    <Loader2 className="w-12 h-12 text-[#E63946] animate-spin mb-4" />
-                    <p className="text-lg font-medium text-[#1D3557]">Submitting your answers...</p>
+                    <Loader2 className="w-12 h-12 text-brand-red animate-spin mb-4" />
+                    <p className="text-lg font-medium text-brand-navy">Submitting your answers...</p>
                 </div>
             )}
 
@@ -159,13 +159,13 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                 <Trophy className="w-10 h-10" />
                             </div>
 
-                            <h2 className="text-2xl font-bold text-[#1D3557] mb-2">{result.message}</h2>
+                            <h2 className="text-2xl font-bold text-brand-navy mb-2">{result.message}</h2>
 
                             {event.showScore && result.score !== undefined ? (
                                 <div className="my-6 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                                     <span className="block text-sm text-gray-500 uppercase tracking-wider mb-1">Your Score</span>
                                     <div className="flex items-baseline justify-center gap-1">
-                                        <span className="text-5xl font-bold text-[#E63946]">{result.score}</span>
+                                        <span className="text-5xl font-bold text-brand-red">{result.score}</span>
                                         <span className="text-2xl text-gray-400">/{result.total}</span>
                                     </div>
                                 </div>
@@ -176,12 +176,12 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                 </p>
                             )}
 
-                            <Button onClick={() => window.location.href = '/events'} className="w-full bg-[#1D3557] hover:bg-[#1D3557]/90 text-white h-12 text-lg">
+                            <Button onClick={() => window.location.href = '/events'} className="w-full bg-brand-navy hover:bg-brand-navy/90 text-white h-12 text-lg">
                                 Back to Events
                             </Button>
                         </div>
                         {/* Decorative bottom bar */}
-                        <div className="h-2 bg-gradient-to-r from-[#1D3557] to-[#E63946]" />
+                        <div className="h-2 bg-gradient-to-r from-brand-navy to-brand-red" />
                     </motion.div>
                 </div>
             )}
@@ -195,13 +195,13 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                         exit={{ opacity: 0, y: -20 }}
                         className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100"
                     >
-                        <h2 className="text-2xl font-bold text-[#1D3557] mb-2">Almost there!</h2>
+                        <h2 className="text-2xl font-bold text-brand-navy mb-2">Almost there!</h2>
                         <p className="text-gray-600 mb-8">Please enter your details to start the quiz.</p>
 
                         <form onSubmit={handleStart} className="space-y-5">
                             {event.registrationFields?.map((field) => (
                                 <div key={field.id} className="space-y-2">
-                                    <Label htmlFor={field.id} className="text-base font-medium text-[#1D3557]">
+                                    <Label htmlFor={field.id} className="text-base font-medium text-brand-navy">
                                         {field.label} {field.required && <span className="text-red-500">*</span>}
                                     </Label>
                                     <Input
@@ -210,7 +210,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                         value={details[field.id] || ''}
                                         onChange={e => setDetails(prev => ({ ...prev, [field.id]: e.target.value }))}
                                         required={field.required}
-                                        className="h-12 px-4 rounded-xl border-gray-200 focus:border-[#E63946] focus:ring-[#E63946]/5"
+                                        className="h-12 px-4 rounded-xl border-gray-200 focus:border-brand-red focus:ring-brand-red/5"
                                     />
                                 </div>
                             ))}
@@ -219,7 +219,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                 <p className="text-sm text-gray-500 italic">No registration details required.</p>
                             )}
 
-                            <Button type="submit" className="w-full h-12 text-lg bg-[#E63946] hover:bg-[#E63946]/90 text-white mt-4 rounded-xl shadow-md hover:shadow-lg transition-all">
+                            <Button type="submit" className="w-full h-12 text-lg bg-brand-red hover:bg-brand-red/90 text-white mt-4 rounded-xl shadow-md hover:shadow-lg transition-all">
                                 Start Quiz <ChevronRight className="w-5 h-5 ml-2" />
                             </Button>
                         </form>
@@ -235,7 +235,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                         {/* Progress Bar Inside Card */}
                         <div className="h-2 bg-gray-100 w-full">
                             <motion.div
-                                className="h-full bg-[#E63946]"
+                                className="h-full bg-brand-red"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${progress}%` }}
                                 transition={{ duration: 0.5 }}
@@ -245,7 +245,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                         <div className="p-8 md:p-10 min-h-[400px] flex flex-col">
                             <div className="mb-4">
                                 <span className="text-sm font-medium text-gray-400 uppercase tracking-widest">Question {step} of {questions.length}</span>
-                                <h3 className="text-2xl font-bold text-[#1D3557] mt-2">{currentQuestion?.text}</h3>
+                                <h3 className="text-2xl font-bold text-brand-navy mt-2">{currentQuestion?.text}</h3>
                             </div>
 
                             <div className="flex-1 space-y-4">
@@ -257,12 +257,12 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                                 onClick={() => handleAnswer(currentQuestion.id, option)}
                                                 className={`w-full text-left py-3 px-6 rounded-full border-2 transition-all duration-200 flex items-center gap-4 group relative overflow-hidden
                                                 ${answers[currentQuestion.id] === option
-                                                        ? 'border-[#E63946] bg-[#FFFAFA] shadow-sm'
+                                                        ? 'border-brand-red bg-[#FFFAFA] shadow-sm'
                                                         : 'border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300'
                                                     }`}
                                             >
                                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors shrink-0 ${answers[currentQuestion.id] === option
-                                                    ? 'border-[#E63946] bg-[#E63946] text-white'
+                                                    ? 'border-brand-red bg-brand-red text-white'
                                                     : 'border-gray-300 text-gray-500 bg-gray-50 group-hover:border-gray-400'
                                                     }`}>
                                                     {answers[currentQuestion.id] === option ? (
@@ -271,7 +271,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                                         <span className="text-sm font-bold">{String.fromCharCode(65 + idx)}</span>
                                                     )}
                                                 </div>
-                                                <span className={`font-medium text-base leading-snug ${answers[currentQuestion.id] === option ? 'text-[#1D3557]' : 'text-gray-700'}`}>
+                                                <span className={`font-medium text-base leading-snug ${answers[currentQuestion.id] === option ? 'text-brand-navy' : 'text-gray-700'}`}>
                                                     {option}
                                                 </span>
                                             </button>
@@ -281,7 +281,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
 
                                 {currentQuestion?.type === 'text' && (
                                     <textarea
-                                        className="w-full p-4 rounded-xl border-2 border-gray-100 focus:border-[#E63946] focus:ring-0 min-h-[150px] resize-none"
+                                        className="w-full p-4 rounded-xl border-2 border-gray-100 focus:border-brand-red focus:ring-0 min-h-[150px] resize-none"
                                         placeholder="Type your answer here..."
                                         value={answers[currentQuestion.id] || ''}
                                         onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
@@ -293,7 +293,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                 <Button
                                     onClick={handleBack}
                                     variant="ghost"
-                                    className="text-gray-500 hover:text-[#1D3557] hover:bg-gray-50 px-6 cursor-pointer rounded-xl flex items-center gap-2"
+                                    className="text-gray-500 hover:text-brand-navy hover:bg-gray-50 px-6 cursor-pointer rounded-xl flex items-center gap-2"
                                 >
                                     <ChevronLeft className="w-4 h-4" />
                                     Previous
@@ -301,7 +301,7 @@ export function QuizRunner({ event, questions }: QuizRunnerProps) {
                                 <Button
                                     onClick={handleNext}
                                     disabled={!answers[currentQuestion?.id]}
-                                    className="bg-[#1D3557] hover:bg-[#1D3557]/90 text-white px-8 text-lg cursor-pointer rounded-xl"
+                                    className="bg-brand-navy hover:bg-brand-navy/90 text-white px-8 text-lg cursor-pointer rounded-xl"
                                 >
                                     {step === questions.length ? 'Submit Quiz' : 'Next Question'}
                                     {step !== questions.length && <ChevronRight className="w-4 h-4 ml-2" />}

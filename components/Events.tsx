@@ -35,13 +35,13 @@ export function Events() {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-block px-4 py-2 bg-[#F1FAEE] rounded-full mb-4">
-            <span className="text-[#E63946]">Upcoming Events</span>
+          <div className="inline-block px-4 py-2 bg-brand-cream rounded-full mb-4">
+            <span className="text-brand-red">Upcoming Events</span>
           </div>
-          <h2 className="text-4xl lg:text-5xl text-[#1D3557] mb-4">
-            Join Our Next <span className="text-[#E63946]">Event</span>
+          <h2 className="text-4xl lg:text-5xl text-brand-navy mb-4">
+            Join Our Next <span className="text-brand-red">Event</span>
           </h2>
-          <p className="text-[#457B9D]">
+          <p className="text-brand-blue">
             Connect with like-minded individuals and be part of something bigger.
             Our events bring communities together for a common cause.
           </p>
@@ -62,7 +62,7 @@ export function Events() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-[#E63946] text-white px-3 py-1 rounded-full text-sm">
+                  <span className="bg-brand-red text-white px-3 py-1 rounded-full text-sm">
                     {event.category}
                   </span>
                 </div>
@@ -70,20 +70,20 @@ export function Events() {
 
               {/* Content */}
               <div className="p-6 space-y-4">
-                <h3 className="text-[#1D3557] group-hover:text-[#E63946] transition-colors">
+                <h3 className="text-brand-navy group-hover:text-brand-red transition-colors">
                   {event.title}
                 </h3>
 
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-[#457B9D]">
+                  <div className="flex items-center gap-2 text-sm text-brand-blue">
                     <Calendar className="w-4 h-4" />
                     <span>{event.date}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-[#457B9D]">
+                  <div className="flex items-center gap-2 text-sm text-brand-blue">
                     <Clock className="w-4 h-4" />
                     <span>{event.time}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-[#457B9D]">
+                  <div className="flex items-center gap-2 text-sm text-brand-blue">
                     <MapPin className="w-4 h-4" />
                     <span>{event.location}</span>
                   </div>
@@ -91,7 +91,7 @@ export function Events() {
 
                 <Button
                   variant="outline"
-                  className="w-full border-[#E63946] text-[#E63946] hover:bg-[#E63946] hover:text-white gap-2"
+                  className="w-full border-brand-red text-brand-red hover:bg-brand-red hover:text-white gap-2"
                 >
                   Register Now
                   <ArrowRight className="w-4 h-4" />
@@ -104,7 +104,7 @@ export function Events() {
         {/* View All Button */}
         <div className="text-center mt-12">
           <Button
-            className="bg-gradient-to-r from-[#E63946] to-[#FF6B6B] text-white hover:opacity-90 px-8"
+            className="bg-gradient-to-r from-brand-red to-brand-coral text-white hover:opacity-90 px-8"
           >
             View All Events
           </Button>

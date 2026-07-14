@@ -25,8 +25,9 @@ export function AdminSidebar() {
     const handleLogout = async () => {
         try {
             await signOut(auth);
-            // Let the protected layout handle redirect
+            await fetch('/api/auth/session', { method: 'DELETE' });
             toast.success('Logged out');
+            window.location.href = '/admin/login';
         } catch (error) {
             console.error(error);
         }
@@ -51,9 +52,9 @@ export function AdminSidebar() {
     ];
 
     return (
-        <div className="w-full bg-[#1D3557] text-white h-full flex flex-col overflow-y-auto">
+        <div className="w-full bg-brand-navy text-white h-full flex flex-col overflow-y-auto">
             <div className="p-8">
-                <h2 className="text-xl font-bold font-mono tracking-tight">Admin<span className="text-[#E63946]">.</span></h2>
+                <h2 className="text-xl font-bold font-mono tracking-tight">Admin<span className="text-brand-red">.</span></h2>
                 <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">{userProfile?.role || 'Portal'}</p>
             </div>
 
@@ -61,7 +62,7 @@ export function AdminSidebar() {
                 {navItems.map((item) => (
                     <Link key={item.href} href={item.href}>
                         <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive(item.href)
-                            ? 'bg-[#E63946] text-white shadow-lg shadow-red-900/20'
+                            ? 'bg-brand-red text-white shadow-lg shadow-red-900/20'
                             : 'text-gray-300 hover:bg-white/10 hover:text-white'
                             }`}>
                             <item.icon className="w-5 h-5" />

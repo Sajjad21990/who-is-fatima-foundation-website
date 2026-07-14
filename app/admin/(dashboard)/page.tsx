@@ -22,7 +22,7 @@ export default async function AdminDashboard() {
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold text-[#1D3557]">Dashboard</h1>
+                <h1 className="text-3xl font-bold text-brand-navy">Dashboard</h1>
                 {/* <Button>Create Event</Button>  Future: CMS feature */}
             </div>
 
@@ -31,37 +31,37 @@ export default async function AdminDashboard() {
                 <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Events</CardTitle>
-                        <Calendar className="h-4 w-4 text-[#E63946]" />
+                        <Calendar className="h-4 w-4 text-brand-red" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalEvents}</div>
+                        <div className="text-3xl font-bold text-brand-navy">{stats.totalEvents}</div>
                     </CardContent>
                 </Card>
                 <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Submissions</CardTitle>
-                        <ArrowRight className="h-4 w-4 text-[#E63946]" />
+                        <ArrowRight className="h-4 w-4 text-brand-red" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalSubmissions}</div>
+                        <div className="text-3xl font-bold text-brand-navy">{stats.totalSubmissions}</div>
                     </CardContent>
                 </Card>
                 <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Volunteers</CardTitle>
-                        <Users className="h-4 w-4 text-[#E63946]" />
+                        <Users className="h-4 w-4 text-brand-red" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalVolunteers}</div>
+                        <div className="text-3xl font-bold text-brand-navy">{stats.totalVolunteers}</div>
                     </CardContent>
                 </Card>
                 <Card className="border-none shadow-sm ring-1 ring-gray-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-gray-500 uppercase tracking-widest">Messages</CardTitle>
-                        <BarChart3 className="h-4 w-4 text-[#E63946]" />
+                        <BarChart3 className="h-4 w-4 text-brand-red" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-[#1D3557]">{stats.totalMessages}</div>
+                        <div className="text-3xl font-bold text-brand-navy">{stats.totalMessages}</div>
                     </CardContent>
                 </Card>
             </div>
@@ -69,7 +69,7 @@ export default async function AdminDashboard() {
             {/* Events List */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-lg font-semibold text-[#1D3557]">Active Events</h2>
+                    <h2 className="text-lg font-semibold text-brand-navy">Active Events</h2>
                 </div>
                 <Table>
                     <TableHeader>
@@ -119,7 +119,7 @@ export default async function AdminDashboard() {
             {/* Recent Activity */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-lg font-semibold text-[#1D3557]">Recent Submissions</h2>
+                    <h2 className="text-lg font-semibold text-brand-navy">Recent Submissions</h2>
                 </div>
                 <div className="divide-y divide-gray-100">
                     {stats.recentSubmissions.map((sub: any) => (
@@ -129,8 +129,8 @@ export default async function AdminDashboard() {
                                     <Users className="w-5 h-5 text-gray-500" />
                                 </div>
                                 <div>
-                                    <p className="font-medium text-[#1D3557]">{sub.userDetails?.name || 'Anonymous'}</p>
-                                    <p className="text-sm text-gray-500">Submitted to <span className="font-medium text-[#E63946]">{sub.slug}</span></p>
+                                    <p className="font-medium text-brand-navy">{sub.userDetails?.name || 'Anonymous'}</p>
+                                    <p className="text-sm text-gray-500">Submitted to <span className="font-medium text-brand-red">{sub.slug}</span></p>
                                 </div>
                             </div>
                             <span className="text-sm text-gray-400">

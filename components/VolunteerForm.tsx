@@ -37,7 +37,7 @@ export function VolunteerForm() {
 
   return (
     <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-      <h3 className="text-2xl font-bold text-[#1D3557] mb-6">Volunteer Sign Up</h3>
+      <h3 className="text-2xl font-bold text-brand-navy mb-6">Volunteer Sign Up</h3>
 
       {/* Success/Error Popup */}
       {showPopup && formState && (
@@ -50,11 +50,11 @@ export function VolunteerForm() {
             <div className={`w-16 h-16 ${formState.success ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"} rounded-full flex items-center justify-center mx-auto mb-4`}>
               {formState.success ? <CheckCircle className="w-8 h-8" /> : <X className="w-8 h-8" />}
             </div>
-            <h3 className="text-xl font-bold text-[#1D3557] mb-2">{formState.success ? "Success!" : "Error"}</h3>
+            <h3 className="text-xl font-bold text-brand-navy mb-2">{formState.success ? "Success!" : "Error"}</h3>
             <p className="text-gray-600 mb-6">{formState.message}</p>
             <Button
               onClick={() => setShowPopup(false)}
-              className={`w-full ${formState.success ? "bg-[#1D3557] hover:bg-[#1D3557]/90" : "bg-[#E63946] hover:bg-[#E63946]/90"} text-white rounded-xl h-11`}
+              className={`w-full ${formState.success ? "bg-brand-navy hover:bg-brand-navy/90" : "bg-brand-red hover:bg-brand-red/90"} text-white rounded-xl h-11`}
             >
               Okay, got it
             </Button>
@@ -65,7 +65,7 @@ export function VolunteerForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#1D3557]">Full Name</label>
+            <label className="text-sm font-medium text-brand-navy">Full Name</label>
             <Input
               placeholder="Your Name"
               {...register("name")}
@@ -76,7 +76,7 @@ export function VolunteerForm() {
             )}
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#1D3557]">Age</label>
+            <label className="text-sm font-medium text-brand-navy">Age</label>
             <Input
               placeholder="25"
               type="number"
@@ -90,7 +90,7 @@ export function VolunteerForm() {
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#1D3557]">Phone</label>
+            <label className="text-sm font-medium text-brand-navy">Phone</label>
             <Input
               placeholder="+91 98765 43210"
               {...register("phone")}
@@ -101,7 +101,7 @@ export function VolunteerForm() {
             )}
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#1D3557]">Email</label>
+            <label className="text-sm font-medium text-brand-navy">Email</label>
             <Input
               placeholder="your@email.com"
               type="email"
@@ -114,7 +114,7 @@ export function VolunteerForm() {
           </div>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1D3557]">Location</label>
+          <label className="text-sm font-medium text-brand-navy">Location</label>
           <Input
             placeholder="Your City, Country"
             {...register("location")}
@@ -125,7 +125,7 @@ export function VolunteerForm() {
           )}
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1D3557]">Area of Interest</label>
+          <label className="text-sm font-medium text-brand-navy">Area of Interest</label>
           <Input
             placeholder="Teaching, Events, Admin, Fundraising..."
             {...register("areaOfInterest")}
@@ -139,7 +139,7 @@ export function VolunteerForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-[#E63946] hover:bg-[#E63946]/90 text-white h-12"
+          className="w-full bg-brand-red hover:bg-brand-red/90 text-white h-12"
         >
           {isSubmitting ? (
             <>

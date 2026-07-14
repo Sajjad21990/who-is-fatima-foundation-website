@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // A user counts as staff if their Firestore profile has an admin/editor role.
+    function isStaff() {
+      return request.auth != null
+        && firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role in ['admin', 'editor'];
+    }
+
+    // All stored media is delivered publicly on the website (gallery, blog covers,
+    // PDFs), so reads are open. Writes/deletes are restricted to staff accounts —
+    // this closes the hole where anyone could upload arbitrary files to the bucket.
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+  }
+}

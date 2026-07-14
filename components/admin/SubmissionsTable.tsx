@@ -77,7 +77,7 @@ export default function SubmissionsTable({
 
     const SortIcon = ({ columnKey }: { columnKey: string }) => {
         if (sortConfig?.key !== columnKey) return <span className="ml-2 text-gray-300">↕</span>;
-        return sortConfig.direction === 'asc' ? <span className="ml-2 text-[#E63946]">↑</span> : <span className="ml-2 text-[#E63946]">↓</span>;
+        return sortConfig.direction === 'asc' ? <span className="ml-2 text-brand-red">↑</span> : <span className="ml-2 text-brand-red">↓</span>;
     };
 
     return (
@@ -86,19 +86,19 @@ export default function SubmissionsTable({
                 <Table>
                     <TableHeader className="bg-gray-50/50">
                         <TableRow>
-                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('name')}>
+                            <TableHead className="font-bold text-brand-navy cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('name')}>
                                 User Name <SortIcon columnKey="name" />
                             </TableHead>
-                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors hidden md:table-cell" onClick={() => handleSort('email')}>
+                            <TableHead className="font-bold text-brand-navy cursor-pointer hover:bg-gray-100 transition-colors hidden md:table-cell" onClick={() => handleSort('email')}>
                                 Contact <SortIcon columnKey="email" />
                             </TableHead>
-                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('score')}>
+                            <TableHead className="font-bold text-brand-navy cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => handleSort('score')}>
                                 Score <SortIcon columnKey="score" />
                             </TableHead>
-                            <TableHead className="font-bold text-[#1D3557] cursor-pointer hover:bg-gray-100 transition-colors hidden md:table-cell" onClick={() => handleSort('timestamp')}>
+                            <TableHead className="font-bold text-brand-navy cursor-pointer hover:bg-gray-100 transition-colors hidden md:table-cell" onClick={() => handleSort('timestamp')}>
                                 Submitted <SortIcon columnKey="timestamp" />
                             </TableHead>
-                            <TableHead className="text-right font-bold text-[#1D3557]">Actions</TableHead>
+                            <TableHead className="text-right font-bold text-brand-navy">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -108,14 +108,14 @@ export default function SubmissionsTable({
                                     {sub.userDetails?.name || 'Anonymous'}
                                 </TableCell>
                                 <TableCell className="hidden md:table-cell">
-                                    <div className="text-sm text-[#1D3557] font-medium">{sub.userDetails?.email}</div>
+                                    <div className="text-sm text-brand-navy font-medium">{sub.userDetails?.email}</div>
                                     <div className="text-xs text-gray-400">{sub.userDetails?.phone}</div>
                                 </TableCell>
                                 <TableCell>
                                     {sub.score !== undefined ? (
                                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${(sub.score / sub.totalPoints) >= 0.8 ? 'bg-green-50 text-green-700 border border-green-100' :
                                             (sub.score / sub.totalPoints) >= 0.5 ? 'bg-yellow-50 text-yellow-700 border border-yellow-100' :
-                                                'bg-red-50 text-[#E63946] border border-red-100'
+                                                'bg-red-50 text-brand-red border border-red-100'
                                             }`}>
                                             {sub.score} / {sub.totalPoints}
                                         </span>
@@ -128,7 +128,7 @@ export default function SubmissionsTable({
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <Link href={`/admin/submissions/${sub.id}`}>
-                                        <Button size="sm" variant="ghost" className="text-[#1D3557] hover:bg-white border border-transparent hover:border-gray-200 shadow-sm gap-2 rounded-xl">
+                                        <Button size="sm" variant="ghost" className="text-brand-navy hover:bg-white border border-transparent hover:border-gray-200 shadow-sm gap-2 rounded-xl">
                                             View Details <ArrowRight className="w-4 h-4" />
                                         </Button>
                                     </Link>
@@ -153,7 +153,7 @@ export default function SubmissionsTable({
                         variant="outline"
                         size="sm"
                         onClick={handlePrevPage}
-                        className="rounded-xl border-gray-200 text-[#1D3557] gap-1"
+                        className="rounded-xl border-gray-200 text-brand-navy gap-1"
                     >
                         <ChevronLeft className="w-4 h-4" /> Back to Top
                     </Button>
@@ -163,7 +163,7 @@ export default function SubmissionsTable({
                         variant="outline"
                         size="sm"
                         onClick={handleNextPage}
-                        className="rounded-xl border-gray-200 text-[#1D3557] gap-1"
+                        className="rounded-xl border-gray-200 text-brand-navy gap-1"
                     >
                         Load More <ChevronRight className="w-4 h-4" />
                     </Button>

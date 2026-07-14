@@ -32,14 +32,21 @@ node scripts/fix-q4-scores.mjs   # Q4 score correction
 
 ### Data Layer — Hybrid Storage
 
-- **Firestore** (via Firebase Admin SDK): Blog posts, contact submissions, volunteer applications, quiz submissions, user profiles
-- **JSON files** in `/content/events/`: Event/quiz definitions — versioned in git, loaded at build/request time via `lib/events.ts`
-- **MDX files** in `/content/blog/`: Some blog content uses MDX with frontmatter (gray-matter), rendered with next-mdx-remote
-- **Server Actions** in `app/actions/`: `contact.ts`, `admin.ts`, `blog.ts` — handle mutations server-side
+- **Firestore** (via Firebase Admin SDK): Blog posts, contact submissions, volunteer applications, quiz submissions, user profiles, newsletter subscribers
+- **JSON files** in `/content/events/`: Event/quiz definitions — versioned in git, loaded at build/request time via `lib/events.ts`. Validated with a Zod schema (`lib/validations/event.ts`) that rejects out-of-range MCQ answer indices at load time.
+- **Server Actions** in `app/actions/`: `contact.ts`, `admin.ts`, `blog.ts`, `events.ts`, `volunteer.ts`, `newsletter.ts` — handle mutations server-side. Every admin/mutation action calls a role guard from `lib/auth.ts` first.
+
+### Auth (server-enforced)
+
+Admin auth uses **Firebase session cookies**. On login, the client exchanges its ID token at `POST /api/auth/session` for an httpOnly `session` cookie. `lib/auth.ts` (`getCurrentUser`, `requireRole`/`requireAdmin`/`requireEditor`/`requireStaff`) verifies the cookie + loads the Firestore role on the server. `middleware.ts` bounces unauthenticated `/admin/*` requests to login; the dashboard layout and every protected server action re-verify. Firestore/Storage rules (`firestore.rules`, `storage.rules`) lock client access down — deploy via the Firebase CLI (`firebase.json`, `firestore.indexes.json`).
+
+### Quiz scoring
+
+`lib/grade.ts` `gradeQuiz()` is the single grader used by both `submitQuiz` and the admin **Recalculate Scores** action (`recalculateEventScores` in `admin.ts`). After correcting an answer key in `content/events/*.json`, run recalculate from the admin event page to re-grade all stored submissions — no more one-off `fix-*.mjs` scripts.
 
 ### Image Pipeline
 
-Firebase Storage → ImageKit proxy (`ik.imagekit.io/whoisfatima`) for on-the-fly transformations. Cloudinary used for uploads. Utilities in `lib/storage.ts`.
+Firebase Storage → ImageKit proxy (`ik.imagekit.io/whoisfatima`) for on-the-fly transformations. Uploads go through the Firebase client SDK (`lib/storage.ts` `uploadImage`, admin only). The pure optimizer lives in `lib/image.ts` (`getOptimizedUrl`); the gallery is server-rendered via `lib/gallery.ts` (Admin SDK bucket listing) and displayed by `components/gallery/GalleryView.tsx`.
 
 ### Key Libraries
 

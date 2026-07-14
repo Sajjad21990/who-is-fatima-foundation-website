@@ -29,7 +29,7 @@ export default async function EventResultsPage({
                 </Link>
                 <Card className="max-w-md mx-auto">
                     <CardHeader>
-                        <CardTitle className="text-2xl text-[#1D3557]">Results Not Yet Available</CardTitle>
+                        <CardTitle className="text-2xl text-brand-navy">Results Not Yet Available</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <p className="text-gray-600 mb-6">
@@ -59,13 +59,13 @@ export default async function EventResultsPage({
             </Link>
 
             <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold text-[#1D3557] mb-2">{event.title} Results</h1>
+                <h1 className="text-4xl font-bold text-brand-navy mb-2">{event.title} Results</h1>
                 <p className="text-gray-500">Congratulations to all our participants!</p>
             </div>
 
             {/* Podium for Top 3 */}
             <div className="mb-16">
-                <h2 className="text-2xl font-bold text-center text-[#1D3557] mb-8">
+                <h2 className="text-2xl font-bold text-center text-brand-navy mb-8">
                     {isLuckyDraw ? '🎲 Lucky Draw Winners' : '🏆 Top Winners'}
                 </h2>
                 <Podium winners={top3} />

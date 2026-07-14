@@ -76,7 +76,7 @@ export default function EdulightGlobalAcademyPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="py-20 bg-[#1D3557] text-white">
+            <section className="py-20 bg-brand-navy text-white">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center">
                     <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6">
                         <Building2 className="w-4 h-4" />
@@ -93,11 +93,11 @@ export default function EdulightGlobalAcademyPage() {
             </section>
 
             {/* Project Info */}
-            <section className="py-20 bg-[#F1FAEE]">
+            <section className="py-20 bg-brand-cream">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center mb-12">
-                        <span className="text-[#E63946] font-medium">Construction Update</span>
-                        <h2 className="text-3xl lg:text-4xl font-bold text-[#1D3557] mt-2">Building Progress</h2>
+                        <span className="text-brand-red font-medium">Construction Update</span>
+                        <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mt-2">Building Progress</h2>
                     </div>
 
                     {/* Stats Cards */}
@@ -107,12 +107,12 @@ export default function EdulightGlobalAcademyPage() {
                                 key={i}
                                 className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
                             >
-                                <div className="w-12 h-12 bg-[#F1FAEE] rounded-xl flex items-center justify-center mb-4">
-                                    <stat.icon className="w-6 h-6 text-[#E63946]" />
+                                <div className="w-12 h-12 bg-brand-cream rounded-xl flex items-center justify-center mb-4">
+                                    <stat.icon className="w-6 h-6 text-brand-red" />
                                 </div>
-                                <p className="text-sm text-[#457B9D] font-medium mb-1">{stat.label}</p>
-                                <p className="text-2xl font-bold text-[#1D3557]">{stat.value}</p>
-                                <p className="text-xs text-[#457B9D] mt-1">{stat.sub}</p>
+                                <p className="text-sm text-brand-blue font-medium mb-1">{stat.label}</p>
+                                <p className="text-2xl font-bold text-brand-navy">{stat.value}</p>
+                                <p className="text-xs text-brand-blue mt-1">{stat.sub}</p>
                             </div>
                         ))}
                     </div>
@@ -121,12 +121,12 @@ export default function EdulightGlobalAcademyPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="w-10 h-10 bg-[#E63946]/10 rounded-lg flex items-center justify-center">
-                                    <Heart className="w-5 h-5 text-[#E63946]" />
+                                <div className="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center">
+                                    <Heart className="w-5 h-5 text-brand-red" />
                                 </div>
-                                <h3 className="text-xl font-bold text-[#1D3557]">Donors Welcome</h3>
+                                <h3 className="text-xl font-bold text-brand-navy">Donors Welcome</h3>
                             </div>
-                            <p className="text-[#457B9D] leading-relaxed">
+                            <p className="text-brand-blue leading-relaxed">
                                 Your generous contributions help us build a brighter future for children in rural areas.
                                 We welcome donors who share our vision of accessible, quality education for every child.
                             </p>
@@ -134,12 +134,12 @@ export default function EdulightGlobalAcademyPage() {
 
                         <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="w-10 h-10 bg-[#1D3557]/10 rounded-lg flex items-center justify-center">
-                                    <FileText className="w-5 h-5 text-[#1D3557]" />
+                                <div className="w-10 h-10 bg-brand-navy/10 rounded-lg flex items-center justify-center">
+                                    <FileText className="w-5 h-5 text-brand-navy" />
                                 </div>
-                                <h3 className="text-xl font-bold text-[#1D3557]">Item-wise Donations</h3>
+                                <h3 className="text-xl font-bold text-brand-navy">Item-wise Donations</h3>
                             </div>
-                            <p className="text-[#457B9D] leading-relaxed">
+                            <p className="text-brand-blue leading-relaxed">
                                 We also accept donations for item-wise materials as mentioned in the construction estimate below.
                                 Every brick, bag of cement, and fixture brings us closer to completion.
                             </p>
@@ -152,9 +152,9 @@ export default function EdulightGlobalAcademyPage() {
             <section className="py-20">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center mb-12">
-                        <span className="text-[#E63946] font-medium">Detailed Breakdown</span>
-                        <h2 className="text-3xl lg:text-4xl font-bold text-[#1D3557] mt-2">Construction Estimate</h2>
-                        <p className="text-[#457B9D] mt-3 max-w-2xl mx-auto">
+                        <span className="text-brand-red font-medium">Detailed Breakdown</span>
+                        <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mt-2">Construction Estimate</h2>
+                        <p className="text-brand-blue mt-3 max-w-2xl mx-auto">
                             View the detailed construction estimate for the Edulight Global Academy building project.
                         </p>
                     </div>
@@ -165,11 +165,11 @@ export default function EdulightGlobalAcademyPage() {
             </section>
 
             {/* Gallery Section */}
-            <section className="py-20 bg-[#F1FAEE]">
+            <section className="py-20 bg-brand-cream">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                     <div className="text-center mb-12">
-                        <span className="text-[#E63946] font-medium">Progress Photos</span>
-                        <h2 className="text-3xl lg:text-4xl font-bold text-[#1D3557] mt-2">Project Gallery</h2>
+                        <span className="text-brand-red font-medium">Progress Photos</span>
+                        <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mt-2">Project Gallery</h2>
                     </div>
 
                     {galleryLoading ? (
@@ -236,13 +236,13 @@ export default function EdulightGlobalAcademyPage() {
             {/* CTA Section */}
             <section className="py-20">
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center">
-                    <Heart className="w-12 h-12 text-[#E63946] mx-auto mb-6 fill-[#E63946]" />
-                    <h2 className="text-3xl lg:text-4xl font-bold text-[#1D3557] mb-4">Support This Project</h2>
-                    <p className="text-[#457B9D] max-w-2xl mx-auto mb-8 text-lg">
+                    <Heart className="w-12 h-12 text-brand-red mx-auto mb-6 fill-brand-red" />
+                    <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mb-4">Support This Project</h2>
+                    <p className="text-brand-blue max-w-2xl mx-auto mb-8 text-lg">
                         Your contribution helps build classrooms, provide education, and transform the lives of children in rural India.
                     </p>
                     <Link href="/donate">
-                        <Button className="bg-[#E63946] text-white hover:bg-[#E63946]/90 h-12 px-8 text-base gap-2">
+                        <Button className="bg-brand-red text-white hover:bg-brand-red/90 h-12 px-8 text-base gap-2">
                             Donate Now <ArrowRight className="w-4 h-4" />
                         </Button>
                     </Link>

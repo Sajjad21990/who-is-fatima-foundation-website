@@ -4,11 +4,19 @@ import { adminDb } from '@/lib/firebase-admin';
 import { revalidatePath } from 'next/cache';
 import slugify from 'slugify';
 import { BlogPost, getPostBySlug } from '@/lib/blog';
+import { requireEditor } from '@/lib/auth';
+import { sanitizeBlogHtml } from '@/lib/sanitize';
 
 const COLLECTION = 'posts';
 
+function errorMessage(error: unknown): string {
+    return error instanceof Error ? error.message : 'Something went wrong';
+}
+
 export async function createPost(data: Partial<BlogPost>) {
     try {
+        await requireEditor();
+
         // Generate slug if not provided or valid
         let slug = data.slug;
         if (!slug && data.title) {
@@ -29,6 +37,7 @@ export async function createPost(data: Partial<BlogPost>) {
         const newPost: Partial<BlogPost> = {
             ...data,
             slug,
+            content: sanitizeBlogHtml(data.content),
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
         };
@@ -39,24 +48,31 @@ export async function createPost(data: Partial<BlogPost>) {
         revalidatePath('/admin/posts');
 
         return { success: true, id: docRef.id };
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error creating post:', error);
-        return { success: false, error: error.message };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
 export async function updatePost(id: string, data: Partial<BlogPost>) {
     try {
+        await requireEditor();
+
         // If slug is changing, check uniqueness (simpler to just update for now, maybe warn?)
         // For now let's assume slug handling is careful.
         if (data.slug) {
             data.slug = slugify(data.slug, { lower: true, strict: true });
         }
 
-        const updateData = {
+        const updateData: Partial<BlogPost> = {
             ...data,
             updatedAt: new Date().toISOString()
         };
+
+        // Only re-sanitize when new content is actually supplied.
+        if (data.content !== undefined) {
+            updateData.content = sanitizeBlogHtml(data.content);
+        }
 
         await adminDb.collection(COLLECTION).doc(id).update(updateData);
 
@@ -65,9 +81,9 @@ export async function updatePost(id: string, data: Partial<BlogPost>) {
         revalidatePath('/admin/posts');
 
         return { success: true };
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error updating post:', error);
-        return { success: false, error: error.message };
+        return { success: false, error: errorMessage(error) };
     }
 }
 
@@ -99,12 +115,14 @@ export async function getRecentPosts(limit: number = 3) {
 
 export async function deletePost(id: string) {
     try {
+        await requireEditor();
+
         await adminDb.collection(COLLECTION).doc(id).delete();
         revalidatePath('/blog');
         revalidatePath('/admin/posts');
         return { success: true };
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error deleting post:', error);
-        return { success: false, error: error.message };
+        return { success: false, error: errorMessage(error) };
     }
 }

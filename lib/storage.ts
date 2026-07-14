@@ -1,6 +1,10 @@
 import { storage } from './firebase';
 import { ref, uploadBytes, getDownloadURL, listAll, getMetadata } from 'firebase/storage';
 
+// Re-exported from the framework-agnostic module so both client and server share one implementation.
+export { getOptimizedUrl } from './image';
+export type { ImageTransform } from './image';
+
 /**
  * Uploads a file to Firebase Storage
  * @param file The file object to upload
@@ -22,48 +26,6 @@ export async function uploadImage(file: File, folder: string = 'uploads'): Promi
     } catch (error) {
         console.error("Error uploading image:", error);
         throw error;
-    }
-}
-
-/**
- * Transforms a Firebase Storage URL into an ImageKit Optimized URL
- * Requires NEXT_PUBLIC_IMAGEKIT_URL to be set in environment variables
- * e.g. NEXT_PUBLIC_IMAGEKIT_URL="https://ik.imagekit.io/your_id"
- */
-export function getOptimizedUrl(url: string, transform?: { width?: number; height?: number; quality?: number }): string {
-    const imageKitEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_URL;
-
-    // If no ImageKit configured or not a firebase url, return original
-    if (!imageKitEndpoint || !url.includes('firebasestorage.googleapis.com')) {
-        return url;
-    }
-
-    try {
-        const urlObj = new URL(url);
-        const endpoint = imageKitEndpoint.replace(/\/$/, '');
-
-        // Pass everything after the origin (pathname + search) to ImageKit
-        // ImageKit will proxy this to https://firebasestorage.googleapis.com/...
-        let finalUrl = `${endpoint}${urlObj.pathname}${urlObj.search}`;
-
-        // Build transformations
-        const transforms = [];
-        if (transform?.width) transforms.push(`w-${transform.width}`);
-        if (transform?.height) transforms.push(`h-${transform.height}`);
-        if (transform?.quality) transforms.push(`q-${transform.quality}`);
-
-        if (transforms.length > 0) {
-            // Append transformation query param
-            // Note: ImageKit expects 'tr' query param
-            const separator = finalUrl.includes('?') ? '&' : '?';
-            finalUrl += `${separator}tr=${transforms.join(',')}`;
-        }
-
-        return finalUrl;
-
-    } catch (e) {
-        console.error("Error generating optimized URL:", e);
-        return url;
     }
 }
 

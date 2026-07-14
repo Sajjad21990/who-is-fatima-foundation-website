@@ -28,7 +28,7 @@ export default function SubmissionAnswersDisplay({
     return (
         <div className="space-y-4">
             {/* Score Summary */}
-            <div className="text-center p-4 bg-[#1D3557] rounded-lg text-white mb-6">
+            <div className="text-center p-4 bg-brand-navy rounded-lg text-white mb-6">
                 <p className="text-sm opacity-75 mb-1">Your Score</p>
                 <p className="text-3xl font-bold">{score} / {totalPoints}</p>
             </div>
@@ -72,7 +72,7 @@ export default function SubmissionAnswersDisplay({
                                             {question.points} pts
                                         </span>
                                     </div>
-                                    <p className="font-semibold text-[#1D3557] mb-3">{question.text}</p>
+                                    <p className="font-semibold text-brand-navy mb-3">{question.text}</p>
 
                                     <div className="space-y-2">
                                         <div>
@@ -85,7 +85,7 @@ export default function SubmissionAnswersDisplay({
                                         {!isCorrect && question.type !== 'text' && !question.autoGrade && (
                                             <div className="mt-2 pt-2 border-t border-black/5">
                                                 <span className="text-xs text-gray-400 block mb-0.5">Correct Answer</span>
-                                                <p className="font-medium text-[#1D3557]">
+                                                <p className="font-medium text-brand-navy">
                                                     {correctAnswerText}
                                                 </p>
                                             </div>

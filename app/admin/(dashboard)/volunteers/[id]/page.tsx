@@ -18,14 +18,14 @@ export default async function VolunteerDetailsPage({ params }: { params: Promise
     return (
         <div className="space-y-8">
             <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                <Link href="/admin/volunteers" className="hover:text-[#E63946] flex items-center gap-1 transition-colors">
+                <Link href="/admin/volunteers" className="hover:text-brand-red flex items-center gap-1 transition-colors">
                     <ArrowLeft className="w-4 h-4" /> Back to Volunteers
                 </Link>
             </div>
 
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-[#1D3557] flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-brand-navy flex items-center gap-3">
                         Volunteer Detail
                     </h1>
                     <p className="text-gray-500 mt-1">Review applicant information and manage status</p>
